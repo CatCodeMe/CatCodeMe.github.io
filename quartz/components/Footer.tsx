@@ -8,15 +8,17 @@ interface Options {
 }
 
 export default ((opts?: Options) => {
-    const Footer: QuartzComponent = ({fileData}: QuartzComponentProps) => {
-        const year = new Date().getFullYear()
+    const Footer: QuartzComponent = ({fileData, cfg}: QuartzComponentProps) => {
+        const year = new Date().getFullYear();
+        const noAIBadgePath = `${cfg.baseUrl}/static/Written-By-Human-Not-By-AI-Badge-white.svg`;
         return (
             <footer>
                 {
                     isHomePage(fileData.filePath || "") ? "" :
                         (
                             <div className="note-end">
-                                <a href="https://quartz.jzhao.xyz">🖋 Quartz v{version} ©{year}</a>
+                                {/*<a href="https://quartz.jzhao.xyz">🖋 Quartz v{version} ©{year}</a>*/}
+                                <a href="https://notbyai.fyi" target="_blank"><img src={noAIBadgePath} title="not-by-ai"/></a>
                             </div>
                         )
                 }
