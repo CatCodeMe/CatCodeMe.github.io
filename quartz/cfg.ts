@@ -29,6 +29,15 @@ export type Analytics =
       provider: "clarity"
     }
 
+  | {
+      provider: "posthog"
+      apiKey: string
+      host?: string
+    }
+  | {
+      provider: "tinylytics"
+      siteId: string
+    }
 
 export interface GlobalConfiguration {
   pageTitle: string
