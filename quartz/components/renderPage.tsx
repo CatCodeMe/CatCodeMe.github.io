@@ -14,6 +14,7 @@ interface RenderComponents {
   header: QuartzComponent[]
   beforeBody: QuartzComponent[]
   pageBody: QuartzComponent
+  afterBody: QuartzComponent[]
   left: QuartzComponent[]
   right: QuartzComponent[]
   footer: QuartzComponent
@@ -187,6 +188,7 @@ export function renderPage(
     header,
     beforeBody,
     pageBody: Content,
+    afterBody,
     left,
     right,
     footer: Footer,
@@ -231,23 +233,29 @@ export function renderPage(
               <Header {...componentData}>
                 {header.map((HeaderComponent) => (
                     <HeaderComponent {...componentData} />
-                ))}
-              </Header>
-              <div class="popover-hint">
-                {beforeBody.map((BodyComponent) => (
+                  ))}
+                </Header>
+                <div class="popover-hint">
+                  {beforeBody.map((BodyComponent) => (
                     <BodyComponent {...componentData} />
+                  ))}
+                </div>
+              </div>
+              <Content {...componentData} />
+              <hr />
+              <div class="page-footer">
+                {afterBody.map((BodyComponent) => (
+                  <BodyComponent {...componentData} />
                 ))}
               </div>
             </div>
-            <Content {...componentData} />
-          </div>
-          {RightComponent}
-        </Body>
-        <Footer {...componentData} />
-      </div>
+            {RightComponent}
+          </Body>
+          <Footer {...componentData} />
+        </div>
       </body>
       {pageResources.js
-          .filter((resource) => resource.loadTime === "afterDOMReady")
+        .filter((resource) => resource.loadTime === "afterDOMReady")
         .map((res) => JSResourceToScriptElement(res))}
     </html>
   )
