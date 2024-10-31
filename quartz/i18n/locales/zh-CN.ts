@@ -48,7 +48,7 @@ export default {
     },
     search: {
       title: "搜索",
-      searchBarPlaceholder: "搜索些什么",
+      searchBarPlaceholder: "欢迎来到8cat.life, 我是小花",
     },
     tableOfContents: {
       title: "目录",

@@ -48,7 +48,7 @@ export default {
     },
     search: {
       title: "Search",
-      searchBarPlaceholder: "Search for something",
+      searchBarPlaceholder: "Welcome to 8cat.life, this is 🌹",
     },
     tableOfContents: {
       title: "Table of Contents",
