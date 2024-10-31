@@ -8,12 +8,10 @@ import * as Plugin from "./quartz/plugins"
  */
 const config: QuartzConfig = {
   configuration: {
-    pageTitle: "🪴 CatCodeMe",
+    pageTitle: "🪴 8Cats & Me",
     enableSPA: true,
     enablePopovers: true,
-    analytics: {
-      provider: "clarity",
-    },
+    analytics: null,
     locale: "en-US",
     baseUrl: "catcodeme.github.io",
     ignorePatterns: ["private", "templates", ".obsidian"],

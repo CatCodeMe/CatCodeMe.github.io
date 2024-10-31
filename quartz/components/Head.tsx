@@ -43,7 +43,7 @@ export default (() => {
             <meta name="twitter:title" content={title}/>
             <meta name="twitter:description" content={description}/>
             <meta name="twitter:creator" content="@hulj13"/>
-            <meta name="twitter:site" content="@catcodeme.github.io"/>
+            <meta name="twitter:site" content="@8cat.life"/>
 
             <meta name="description" content={description}/>
             <meta name="generator" content="Quartz"/>
