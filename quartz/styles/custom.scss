@@ -34,10 +34,10 @@
    scrollbar-width: none;
 }
 
-//引用块样式优化
-blockquote.transclude {
-   border-left: 3px dashed;
-}
+////引用块样式优化
+//blockquote.transclude {
+//   border-left: 3px dashed;
+//}
 
 //顶部滚动通知
 .marquee {
@@ -125,34 +125,45 @@ body[data-topbar-has-content="0"] {
 }
 
 .ba-grid:after{
-   background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+   //background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
    background-size: var(--point-gap-width) var(--point-gap-height);
    background-position: calc(var(--point-gap-width) / 2) calc(var(--point-gap-height) / 2);
-}
-
-.inner:before,
-.inner:after{
-   background-image: radial-gradient(var(--dot-color) var(--dot-size), transparent var(--dot-size));
-   background-size: var(--point-gap-width) var(--point-gap-height);
-   background-position: calc(var(--point-gap-width) / 2) calc(var(--point-gap-height) / 2);
-}
-
-.anim:after{
-   animation: 6.4s linear move infinite;
-}
-
-@keyframes move{
-   0%{
-      background-position:calc(var(--point-gap-width) / 2) calc(var(--point-gap-height) / 2);
-   }
-   100%{
-      background-position:calc(var(--point-gap-width) / 2) calc(var(--point-gap-height) / 2 * -1);
-   }
 }
 
 //文章header部分上移
 .page .page-header {
    margin: 4rem auto 0;
+}
+
+//文章主内容区样式
+article:has(p:not(:empty)) {
+   border: dashed 1px var(--dark);
+   padding: 0 1rem 1rem;
+}
+
+//搜索框键盘样式
+.kbd-container {
+   display: flex;
+   gap: 4px;
+}
+
+.retro-key {
+   padding: 4px 8px;
+   font-size: 12px;
+   border: 1px solid var(--secondary);
+   border-radius: 4px;
+   border-bottom: 2px solid var(--secondary);
+   box-shadow:
+           inset 0 -1px 0 1px rgba(45,63,31,.1),
+           inset 0 -3px 0 0 rgba(45,63,31,.1),
+           0 1px 2px rgba(45,63,31,.2);
+   transform: translateY(-1px);
+   transition: all 0.1s ease;
+}
+
+.retro-key:hover {
+   transform: translateY(0);
+   border-bottom-width: 2px;
 }
 
 //搜索区域文字不换行，显示省略号
@@ -259,7 +270,7 @@ a.external {
       bottom: -2px;
       width: 100%;
       height: 2px;
-      background: #4e85cd;
+      background: red;
       transform: scaleX(0);
       transform-origin: right;
       transition: transform 0.3s;
@@ -275,8 +286,6 @@ a.external {
       transform-origin: left;
    }
 }
-
-
 
 //引用样式
 blockquote:not(.callout) {
