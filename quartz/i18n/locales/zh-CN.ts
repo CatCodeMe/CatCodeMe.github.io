@@ -1,4 +1,4 @@
-import { Translation } from "./definition"
+import {Translation} from "./definition"
 
 export default {
   propertyDefaults: {
@@ -23,14 +23,14 @@ export default {
     },
     backlinks: {
       title: "反向链接",
-      noBacklinksFound: "无法找到反向链接",
+      noBacklinksFound: "未发现反向链接",
     },
     themeToggle: {
       lightMode: "亮色模式",
       darkMode: "暗色模式",
     },
     explorer: {
-      title: "探索",
+      title: "📚文章导航",
     },
     footer: {
       createdWith: "Created with",
@@ -39,7 +39,7 @@ export default {
       title: "关系图谱",
     },
     recentNotes: {
-      title: "最近的笔记",
+      title: "最近更新",
       seeRemainingMore: ({ remaining }) => `查看更多${remaining}篇笔记 →`,
     },
     transcludes: {
@@ -48,10 +48,10 @@ export default {
     },
     search: {
       title: "搜索",
-      searchBarPlaceholder: "欢迎来到8cat.life, 我是小花",
+      searchBarPlaceholder: "欢迎来到8cat.life, 我是小花🌹",
     },
     tableOfContents: {
-      title: "目录",
+      title: "📝 本文目录",
     },
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes}分钟阅读`,

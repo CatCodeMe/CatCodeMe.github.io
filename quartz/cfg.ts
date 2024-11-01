@@ -1,8 +1,9 @@
-import { ValidDateType } from "./components/Date"
-import { QuartzComponent } from "./components/types"
-import { ValidLocale } from "./i18n"
-import { PluginTypes } from "./plugins/types"
-import { Theme } from "./util/theme"
+import {ValidDateType} from "./components/Date"
+import {QuartzComponent} from "./components/types"
+import {ValidLocale} from "./i18n"
+import {PluginTypes} from "./plugins/types"
+import {Theme} from "./util/theme"
+import {OutLink} from "./util/outlink";
 
 export type Analytics =
   | null
@@ -69,6 +70,9 @@ export interface GlobalConfiguration {
    * Region Codes: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
    */
   locale: ValidLocale
+
+  //外部链接
+  outLink?: OutLink[]
 }
 
 export interface QuartzConfig {

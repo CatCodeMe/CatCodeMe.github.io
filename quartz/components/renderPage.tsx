@@ -1,13 +1,13 @@
-import { render } from "preact-render-to-string"
-import { QuartzComponent, QuartzComponentProps } from "./types"
+import {render} from "preact-render-to-string"
+import {QuartzComponent, QuartzComponentProps} from "./types"
 import HeaderConstructor from "./Header"
 import BodyConstructor from "./Body"
-import { JSResourceToScriptElement, StaticResources } from "../util/resources"
-import { clone, FullSlug, RelativeURL, joinSegments, normalizeHastElement } from "../util/path"
-import { visit } from "unist-util-visit"
-import { Root, Element, ElementContent } from "hast"
-import { GlobalConfiguration } from "../cfg"
-import { i18n } from "../i18n"
+import {JSResourceToScriptElement, StaticResources} from "../util/resources"
+import {clone, FullSlug, joinSegments, normalizeHastElement, RelativeURL} from "../util/path"
+import {visit} from "unist-util-visit"
+import {Element, ElementContent, Root} from "hast"
+import {GlobalConfiguration} from "../cfg"
+import {i18n} from "../i18n"
 
 interface RenderComponents {
   head: QuartzComponent
@@ -242,7 +242,6 @@ export function renderPage(
                 </div>
               </div>
               <Content {...componentData} />
-              <hr />
               <div class="page-footer">
                 {afterBody.map((BodyComponent) => (
                   <BodyComponent {...componentData} />

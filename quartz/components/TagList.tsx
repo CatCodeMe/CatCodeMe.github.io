@@ -1,6 +1,6 @@
-import { pathToRoot, slugTag } from "../util/path"
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
-import { classNames } from "../util/lang"
+import {pathToRoot, slugTag} from "../util/path"
+import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "./types"
+import {classNames} from "../util/lang"
 
 const TagList: QuartzComponent = ({ fileData, displayClass }: QuartzComponentProps) => {
   const tags = fileData.frontmatter?.tags
@@ -33,7 +33,7 @@ TagList.css = `
   gap: 0.4rem;
   margin: 1rem 0;
   flex-wrap: wrap;
-  justify-self: end;
+  justify-self: start;
 }
 
 .section-li > .section > .tags {

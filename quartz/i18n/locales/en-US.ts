@@ -1,4 +1,4 @@
-import { Translation } from "./definition"
+import {Translation} from "./definition"
 
 export default {
   propertyDefaults: {
@@ -30,7 +30,7 @@ export default {
       darkMode: "Dark mode",
     },
     explorer: {
-      title: "Explorer",
+      title: "📚 Blog",
     },
     footer: {
       createdWith: "Created with",
@@ -51,7 +51,7 @@ export default {
       searchBarPlaceholder: "Welcome to 8cat.life, this is 🌹",
     },
     tableOfContents: {
-      title: "Table of Contents",
+      title: "📝 Contents",
     },
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,

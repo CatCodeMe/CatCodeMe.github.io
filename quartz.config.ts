@@ -1,4 +1,4 @@
-import { QuartzConfig } from "./quartz/cfg"
+import {QuartzConfig} from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
 /**
@@ -12,8 +12,8 @@ const config: QuartzConfig = {
     enableSPA: true,
     enablePopovers: true,
     analytics: null,
-    locale: "en-US",
-    baseUrl: "catcodeme.github.io",
+    locale: "zh-CN",
+    baseUrl: "8cat.life",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
@@ -30,8 +30,8 @@ const config: QuartzConfig = {
           lightgray: "#e5e5e5",
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
-          dark: "#2b2b2b",
-          secondary: "#284b63",
+          dark: "rgb(155,14,14)",
+          secondary: "#59819e",
           tertiary: "#84a59d",
           highlight: "rgba(143, 159, 169, 0.15)",
           textHighlight: "#fff23688",
@@ -49,6 +49,32 @@ const config: QuartzConfig = {
         },
       },
     },
+    outLink: [
+      {
+        name: "Rss",
+        iconifyName: "mdi:rss-box",
+        url: "https://catcodeme.github.io/index.xml",
+        style: "color: #ff8a05;"
+      },
+      {
+        name: "Github",
+        iconifyName: "openmoji:github",
+        url: "https://github.com/CatCodeMe"
+      },
+
+      {
+        iconifyName: "mdi:creative-commons",
+      },
+      {
+        iconifyName: "ri:creative-commons-by-line",
+      },
+      {
+        iconifyName: "tabler:creative-commons-nc",
+      },
+      {
+        iconifyName: "tabler:creative-commons-nd",
+      },
+    ],
   },
   plugins: {
     transformers: [

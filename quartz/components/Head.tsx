@@ -1,8 +1,8 @@
-import { i18n } from "../i18n"
-import { FullSlug, joinSegments, pathToRoot } from "../util/path"
-import { JSResourceToScriptElement } from "../util/resources"
-import { googleFontHref } from "../util/theme"
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import {i18n} from "../i18n"
+import {FullSlug, joinSegments, pathToRoot} from "../util/path"
+import {JSResourceToScriptElement} from "../util/resources"
+import {googleFontHref} from "../util/theme"
+import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "./types"
 
 export default (() => {
   const Head: QuartzComponent = ({ cfg, fileData, externalResources }: QuartzComponentProps) => {
@@ -50,7 +50,7 @@ export default (() => {
             <link rel="icon" href={iconPath}/>
             <link rel="canonical" href={ogUrl}/>
             <link rel="stylesheet"
-                  href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css" spa-preserve/>
+                  href="https://registry.npmmirror.com/lxgw-wenkai-screen-web/latest/files/style.css" spa-preserve/>
             <link rel="stylesheet"
                   href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" spa-preserve/>
             {css.map((href) => (

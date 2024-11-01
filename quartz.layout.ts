@@ -1,4 +1,4 @@
-import { PageLayout, SharedLayout } from "./quartz/cfg"
+import {PageLayout, SharedLayout} from "./quartz/cfg"
 import * as Component from "./quartz/components"
 
 // components shared across all pages
@@ -23,11 +23,14 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.RecentNotes({showTags: false})),
   ],
   right: [
-    Component.Graph(),
     Component.DesktopOnly(Component.TableOfContents()),
+    // Component.Graph(),
     Component.Backlinks(),
+    Component.DesktopOnly(Component.OutLink()),
+
   ],
 }
 
