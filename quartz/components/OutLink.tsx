@@ -43,18 +43,4 @@ const OutLink: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   );
 }
 
-// OutLink.css = `
-// .linkContainer > .flex > a {
-//     flex: 0 0 calc(33.333% - 7px);
-//
-//     &:nth-last-child(-n+4) {
-//        flex: 0 0 calc(25% - 8px);
-//     }
-//
-//     &:nth-last-child(4) {
-//       break-after: avoid;
-//     }
-// }
-// `
-
 export default (() => OutLink) satisfies QuartzComponentConstructor

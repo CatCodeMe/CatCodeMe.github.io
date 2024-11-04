@@ -6,6 +6,7 @@ import {Date, getDate} from "./Date"
 import {GlobalConfiguration} from "../cfg"
 import {i18n} from "../i18n"
 import {classNames} from "../util/lang"
+import {resolveRelative} from "../util/path";
 
 interface Options {
   title?: string
@@ -31,6 +32,9 @@ export default ((userOpts?: Partial<Options>) => {
   }: QuartzComponentProps) => {
     const opts = { ...defaultOptions(cfg), ...userOpts }
     const pages = allFiles.filter((f) => opts.filter && !!f.frontmatter?.pin).sort(opts.sort)
+    if(pages.length <= 0){
+      return null;
+    }
     return (
       <div class={classNames(displayClass, "pin-notes")}>
         <h3>{opts.title ?? i18n(cfg.locale).components.pinNotes.title}</h3>

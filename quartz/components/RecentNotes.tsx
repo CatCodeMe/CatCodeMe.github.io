@@ -3,7 +3,6 @@ import {FullSlug, resolveRelative, SimpleSlug} from "../util/path"
 import {QuartzPluginData} from "../plugins/vfile"
 import {byDateAndAlphabetical} from "./PageList"
 import style from "./styles/recentNotes.scss"
-import {Date, getDate} from "./Date"
 import {GlobalConfiguration} from "../cfg"
 import {i18n} from "../i18n"
 import {classNames} from "../util/lang"
@@ -35,6 +34,7 @@ export default ((userOpts?: Partial<Options>) => {
     const opts = { ...defaultOptions(cfg), ...userOpts }
     const pages = allFiles.filter(opts.filter).sort(opts.sort)
     const remaining = Math.max(0, pages.length - opts.limit)
+    console.log("fileData ", fileData.filePath, !!fileData.frontmatter?.pin);
     return (
       <div class={classNames(displayClass, "recent-notes")}>
         <h3>{opts.title ?? i18n(cfg.locale).components.recentNotes.title}</h3>
@@ -53,11 +53,11 @@ export default ((userOpts?: Partial<Options>) => {
                       </a>
                     </h4>
                   </div>
-                  {page.dates && (
-                    <p class="meta">
-                      <Date date={getDate(cfg, page)!} locale={cfg.locale} />
-                    </p>
-                  )}
+                  {/*{page.dates && (*/}
+                  {/*  <p class="meta">*/}
+                  {/*    <Date date={getDate(cfg, page)!} locale={cfg.locale} />*/}
+                  {/*  </p>*/}
+                  {/*)}*/}
                   {opts.showTags && (
                     <ul class="tags">
                       {tags.map((tag) => (
