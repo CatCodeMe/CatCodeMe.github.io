@@ -14,9 +14,11 @@ const defaultOptions: SearchOptions = {
 }
 
 export default ((userOpts?: Partial<SearchOptions>) => {
-  const Search: QuartzComponent = ({ displayClass, cfg }: QuartzComponentProps) => {
+  const Search: QuartzComponent = ({ displayClass, cfg, allFiles }: QuartzComponentProps) => {
     const opts = { ...defaultOptions, ...userOpts }
-    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder
+    const totalNotes = allFiles.length || 0;
+    const searchPlaceholder = i18n(cfg.locale).components.search.searchBarPlaceholder +
+        i18n(cfg.locale).components.search?.stat({totalNotes: totalNotes})
     return (
       <div class={classNames(displayClass, "search")}>
         <button class="search-button" id="search-button">

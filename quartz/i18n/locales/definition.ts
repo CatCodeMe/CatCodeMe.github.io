@@ -1,4 +1,4 @@
-import { FullSlug } from "../../util/path"
+import {FullSlug} from "../../util/path"
 
 export interface CalloutTranslation {
   note: string
@@ -44,13 +44,17 @@ export interface Translation {
       title: string
       seeRemainingMore: (variables: { remaining: number }) => string
     }
+    pinNotes: {
+      title: string
+    }
     transcludes: {
       transcludeOf: (variables: { targetSlug: FullSlug }) => string
       linkToOriginal: string
     }
     search: {
       title: string
-      searchBarPlaceholder: string
+      searchBarPlaceholder: string,
+      stat?: (variables: {totalNotes: number}) => string
     }
     tableOfContents: {
       title: string

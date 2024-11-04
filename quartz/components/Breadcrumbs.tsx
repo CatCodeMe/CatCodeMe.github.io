@@ -1,8 +1,8 @@
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "./types"
 import breadcrumbsStyle from "./styles/breadcrumbs.scss"
-import { FullSlug, SimpleSlug, joinSegments, resolveRelative } from "../util/path"
-import { QuartzPluginData } from "../plugins/vfile"
-import { classNames } from "../util/lang"
+import {FullSlug, joinSegments, resolveRelative, SimpleSlug} from "../util/path"
+import {QuartzPluginData} from "../plugins/vfile"
+import {classNames} from "../util/lang"
 
 type CrumbData = {
   displayName: string
@@ -34,7 +34,7 @@ interface BreadcrumbOptions {
 
 const defaultOptions: BreadcrumbOptions = {
   spacerSymbol: "/",
-  rootName: "Home",
+  rootName: "~",
   resolveFrontmatterTitle: true,
   hideOnRoot: true,
   showCurrentPage: true,

@@ -22,7 +22,7 @@ export default {
       quote: "引用",
     },
     backlinks: {
-      title: "反向链接",
+      title: "📎 反向链接",
       noBacklinksFound: "未发现反向链接",
     },
     themeToggle: {
@@ -30,7 +30,7 @@ export default {
       darkMode: "暗色模式",
     },
     explorer: {
-      title: "📚文章导航",
+      title: "📚 全部文章",
     },
     footer: {
       createdWith: "Created with",
@@ -42,6 +42,9 @@ export default {
       title: "最近更新",
       seeRemainingMore: ({ remaining }) => `查看更多${remaining}篇笔记 →`,
     },
+    pinNotes: {
+      title: "🎯 置顶",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `包含${targetSlug}`,
       linkToOriginal: "指向原始笔记的链接",
@@ -49,6 +52,7 @@ export default {
     search: {
       title: "搜索",
       searchBarPlaceholder: "欢迎来到8cat.life, 我是小花🌹",
+      stat: ({ totalNotes }) => `, 本站共 ${totalNotes} 篇笔记`
     },
     tableOfContents: {
       title: "📝 本文目录",

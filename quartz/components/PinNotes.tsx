@@ -1,5 +1,4 @@
 import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "./types"
-import {FullSlug, resolveRelative, SimpleSlug} from "../util/path"
 import {QuartzPluginData} from "../plugins/vfile"
 import {byDateAndAlphabetical} from "./PageList"
 import style from "./styles/recentNotes.scss"
@@ -11,7 +10,6 @@ import {classNames} from "../util/lang"
 interface Options {
   title?: string
   limit: number
-  linkToMore: SimpleSlug | false
   showTags: boolean
   filter: (f: QuartzPluginData) => boolean
   sort: (f1: QuartzPluginData, f2: QuartzPluginData) => number
@@ -19,32 +17,28 @@ interface Options {
 
 const defaultOptions = (cfg: GlobalConfiguration): Options => ({
   limit: 3,
-  linkToMore: false,
-  showTags: true,
+  showTags: false,
   filter: () => true,
   sort: byDateAndAlphabetical(cfg),
 })
 
 export default ((userOpts?: Partial<Options>) => {
-  const RecentNotes: QuartzComponent = ({
+  const PinNotes: QuartzComponent = ({
     allFiles,
     fileData,
     displayClass,
     cfg,
   }: QuartzComponentProps) => {
     const opts = { ...defaultOptions(cfg), ...userOpts }
-    const pages = allFiles.filter(opts.filter).sort(opts.sort)
-    const remaining = Math.max(0, pages.length - opts.limit)
+    const pages = allFiles.filter((f) => opts.filter && !!f.frontmatter?.pin).sort(opts.sort)
     return (
-      <div class={classNames(displayClass, "recent-notes")}>
-        <h3>{opts.title ?? i18n(cfg.locale).components.recentNotes.title}</h3>
-        <ul class="recent-ul">
+      <div class={classNames(displayClass, "pin-notes")}>
+        <h3>{opts.title ?? i18n(cfg.locale).components.pinNotes.title}</h3>
+        <ul class="pin-ul">
           {pages.slice(0, opts.limit).map((page) => {
             const title = page.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
-            const tags = page.frontmatter?.tags ?? []
-
             return (
-              <li class="recent-li">
+              <li class="pin-li">
                 <div class="section">
                   <div class="desc">
                     <h4>
@@ -58,36 +52,15 @@ export default ((userOpts?: Partial<Options>) => {
                       <Date date={getDate(cfg, page)!} locale={cfg.locale} />
                     </p>
                   )}
-                  {opts.showTags && (
-                    <ul class="tags">
-                      {tags.map((tag) => (
-                        <li>
-                          <a
-                            class="internal tag-link"
-                            href={resolveRelative(fileData.slug!, `tags/${tag}` as FullSlug)}
-                          >
-                            {tag}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </div>
               </li>
             )
           })}
         </ul>
-        {opts.linkToMore && remaining > 0 && (
-          <p>
-            <a href={resolveRelative(fileData.slug!, opts.linkToMore)}>
-              {i18n(cfg.locale).components.recentNotes.seeRemainingMore({ remaining })}
-            </a>
-          </p>
-        )}
       </div>
     )
   }
 
-  RecentNotes.css = style
-  return RecentNotes
+  PinNotes.css = style
+  return PinNotes
 }) satisfies QuartzComponentConstructor

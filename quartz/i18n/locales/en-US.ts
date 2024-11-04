@@ -22,7 +22,7 @@ export default {
       quote: "Quote",
     },
     backlinks: {
-      title: "Backlinks",
+      title: "📎 Backlinks",
       noBacklinksFound: "No backlinks found",
     },
     themeToggle: {
@@ -42,6 +42,9 @@ export default {
       title: "Recent Notes",
       seeRemainingMore: ({ remaining }) => `See ${remaining} more →`,
     },
+    pinNotes: {
+      title: "🎯 Pin Notes",
+    },
     transcludes: {
       transcludeOf: ({ targetSlug }) => `Transclude of ${targetSlug}`,
       linkToOriginal: "Link to original",
@@ -49,6 +52,7 @@ export default {
     search: {
       title: "Search",
       searchBarPlaceholder: "Welcome to 8cat.life, this is 🌹",
+      stat: ({ totalNotes }) => `, ${totalNotes} notes`
     },
     tableOfContents: {
       title: "📝 Contents",

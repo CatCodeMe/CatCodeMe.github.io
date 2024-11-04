@@ -1,4 +1,4 @@
-import { QuartzComponentConstructor } from "./types"
+import {QuartzComponentConstructor} from "./types"
 
 export default (() => {
   function Footer() {
@@ -13,7 +13,7 @@ export default (() => {
                 data-reactions-enabled="1"
                 data-emit-metadata="0"
                 data-input-position="top"
-                data-theme="noborder_light"
+                data-theme="light_high_contrast"
                 data-lang="en"
                 data-loading="lazy"
                 crossOrigin="anonymous"

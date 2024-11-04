@@ -34,10 +34,6 @@
    scrollbar-width: none;
 }
 
-////引用块样式优化
-//blockquote.transclude {
-//   border-left: 3px dashed;
-//}
 
 //顶部滚动通知
 .marquee {
@@ -137,7 +133,8 @@ body[data-topbar-has-content="0"] {
 
 //文章主内容区样式
 article:has(p:not(:empty)) {
-   border: dashed 1px var(--dark);
+   border: dashed 1px var(--gray);
+   border-radius: 5px;
    padding: 0 1rem 1rem;
 }
 
@@ -145,6 +142,7 @@ article:has(p:not(:empty)) {
 .kbd-container {
    display: flex;
    gap: 4px;
+   margin-left: 3rem;
 }
 
 .retro-key {
@@ -299,4 +297,40 @@ blockquote:not(.callout) {
            4px 4px 0 #ffd43b,
            6px 6px 0 #fcc419;
    position: relative;
+}
+
+//代码块底部说明文字样式
+figcaption {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   //padding: 0.75rem;
+   color: var(--gray);
+   font-size: .8rem;
+   //font-style: italic;
+   gap: 0.5rem;
+}
+
+//最近更新样式
+.recent-notes>ul.recent-ul>li {
+   margin: -.5rem 0;
+}
+//最近更新时间样式
+.recent-notes>ul.recent-ul>li .section>.meta {
+   opacity: .6;
+   margin: -1rem 0;
+}
+
+//置顶文章样式
+.pin-notes>ul.pin-ul {
+   margin-top: 1rem;
+   padding-left: 0;
+   list-style: none;
+}
+.pin-notes>ul.pin-ul>li {
+   margin: -.5rem 0;
+}
+.pin-notes>ul.pin-ul>li .section>.meta {
+   opacity: .6;
+   margin: -1rem 0;
 }

@@ -16,22 +16,24 @@ export const defaultContentPageLayout: PageLayout = {
     Component.ArticleTitle(),
     Component.ContentMeta(),
     Component.TagList(),
-    Component.Comments(),
   ],
   left: [
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
+    // Component.DesktopOnly(Component.RecentNotes({showTags: false})),
+    Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.Explorer()),
-    Component.DesktopOnly(Component.RecentNotes({showTags: false})),
   ],
   right: [
     Component.DesktopOnly(Component.TableOfContents()),
     // Component.Graph(),
     Component.Backlinks(),
     Component.DesktopOnly(Component.OutLink()),
-
   ],
+  afterBody: [
+    Component.Comments(),
+  ]
 }
 
 // components for pages that display lists of pages  (e.g. tags or folders)
@@ -41,7 +43,9 @@ export const defaultListPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
+    Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.Explorer()),
   ],
   right: [],
+  afterBody: [],
 }
