@@ -12,7 +12,7 @@ export default ((opts: CarouselOptions): QuartzComponent => {
     const { images, interval = 5000 } = opts // 设置默认值为 5000ms
     if (!images || images.length === 0) return null
 
-    const baseURL = cfg.baseUrl ?? "";
+    const baseURL = `https://${cfg.baseUrl ?? ''}`;
     return (
         <div class={`carousel ${displayClass ?? ""}`}>
           <div class="carousel-container" data-carousel data-interval={interval}>
