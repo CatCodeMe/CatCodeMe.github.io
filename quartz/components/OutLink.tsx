@@ -20,7 +20,7 @@ const OutLink: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   const noAIBadgePath = `/static/Written-By-Human-Not-By-AI-Badge-white.svg`;
 
   return (
-      <div class="linkContainer" style={styles.linkContainer}>
+      <div class="linkContainer desktop-only" style={styles.linkContainer}>
         <div class="flex" style={styles.flex}>
           {cfg.outLink?.map(({name, iconifyName, url, style}) => (
               <a
@@ -30,8 +30,7 @@ const OutLink: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
                   title={name}
                   style={style}
               >
-                <iconify-icon icon={iconifyName} style="font-size: 18px"
-                              height="2em"></iconify-icon>
+                <iconify-icon icon={iconifyName} height="2em"></iconify-icon>
               </a>
           ))}
         </div>

@@ -1,12 +1,12 @@
 import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "./types"
 import {QuartzPluginData} from "../plugins/vfile"
 import {byDateAndAlphabetical} from "./PageList"
-import style from "./styles/recentNotes.scss"
 import {Date, getDate} from "./Date"
 import {GlobalConfiguration} from "../cfg"
 import {i18n} from "../i18n"
 import {classNames} from "../util/lang"
 import {resolveRelative} from "../util/path";
+import style from "./styles/pinNotes.scss"
 
 interface Options {
   title?: string
@@ -37,7 +37,7 @@ export default ((userOpts?: Partial<Options>) => {
     }
     return (
       <div class={classNames(displayClass, "pin-notes")}>
-        <h3>{opts.title ?? i18n(cfg.locale).components.pinNotes.title}</h3>
+        <h3 id="pin-notes-title">{opts.title ?? i18n(cfg.locale).components.pinNotes.title}</h3>
         <ul class="pin-ul">
           {pages.slice(0, opts.limit).map((page) => {
             const title = page.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
@@ -65,6 +65,6 @@ export default ((userOpts?: Partial<Options>) => {
     )
   }
 
-  PinNotes.css = style
+  PinNotes.css = style;
   return PinNotes
 }) satisfies QuartzComponentConstructor

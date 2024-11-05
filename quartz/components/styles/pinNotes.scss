@@ -1,0 +1,20 @@
+//置顶文章样式
+.pin-notes>ul.pin-ul {
+  margin-top: 1rem;
+  padding-left: 0;
+  list-style: none;
+
+  & > li {
+    margin: -.5rem 0;
+
+    & .section > .meta {
+      opacity: .6;
+      margin: -1rem 0;
+    }
+  }
+}
+
+#pin-notes-title{
+  color: var(--secondary);
+}
+

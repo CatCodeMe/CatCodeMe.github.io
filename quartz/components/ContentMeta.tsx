@@ -63,8 +63,9 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
                 <a
                     href={`https://github.com/CatCodeMe/blog_from_obsidian/commits/main/${fileRelativePath}`}
                     target="_blank"
+                    class="external"
                 >
-                    🗓️ History
+                    🗓 History
                 </a>,
             )
 
