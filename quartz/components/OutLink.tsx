@@ -4,16 +4,12 @@ const OutLink: QuartzComponent = ({ cfg }: QuartzComponentProps) => {
   const styles = {
     linkContainer: {
       width: '90%',
-      // margin: '0 auto',
-      // border: 'solid 1px var(--dark)',
-      // padding: "0.5rem"
     },
     flex: {
       display: 'flex',
       gap: '10px',
       justifyContent: 'flex-start',
       flexWrap: 'wrap',
-      // border: 'hide 1px var(--dark)'
     },
   };
 

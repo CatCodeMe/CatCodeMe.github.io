@@ -22,16 +22,24 @@ export const defaultContentPageLayout: PageLayout = {
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
     // Component.DesktopOnly(Component.RecentNotes({showTags: false})),
-    Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.Explorer()),
+    Component.DesktopOnly(Component.OutLink()),
   ],
   right: [
+    Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.TableOfContents()),
     // Component.Graph(),
     Component.Backlinks(),
-    Component.DesktopOnly(Component.OutLink()),
+    Component.DesktopOnly(Component.Carousel({
+      images: [
+        "/static/img/s1.png",
+        "/static/img/s2.png",
+        "/static/img/s3.png",
+      ],
+      interval: 3000
+    })),
   ],
-  afterBody: [
+    afterBody: [
     Component.Comments(),
   ]
 }

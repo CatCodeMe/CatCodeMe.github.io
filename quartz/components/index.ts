@@ -22,6 +22,7 @@ import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import OutLink from "./OutLink";
 import PinNotes from "./PinNotes";
+import Carousel from "./Carousel";
 
 export {
   ArticleTitle,
@@ -48,4 +49,5 @@ export {
   Comments,
   OutLink,
   PinNotes,
+  Carousel
 }
