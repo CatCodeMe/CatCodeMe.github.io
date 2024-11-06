@@ -9,10 +9,9 @@ interface Options {
 export default ((opts?: Options) => {
     const Footer: QuartzComponent = ({fileData}: QuartzComponentProps) => {
         const year = new Date().getFullYear();
-        const noAIBadgePath = `/static/Written-By-Human-Not-By-AI-Badge-white.svg`;
         return (
             <footer>
-                <p style="text-align:center;opacity:0.7;">───✱*.｡:｡✱*.:｡✧*.｡✰*.: Published By Quartz {version} ©{year} :.✰*｡.*✧｡:.*✱｡:｡.*✱───</p>
+                <p style="text-align:center;opacity:0.7;">Published By Quartz {version} ©{year}</p>
                 <div className="giscus"></div>
             </footer>
         )
