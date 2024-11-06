@@ -24,12 +24,42 @@ export const defaultContentPageLayout: PageLayout = {
     // Component.DesktopOnly(Component.RecentNotes({showTags: false})),
     Component.DesktopOnly(Component.Explorer()),
     Component.DesktopOnly(Component.OutLink()),
+    // Component.Graph(),
+
   ],
   right: [
     Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.TableOfContents()),
     // Component.Graph(),
-    Component.Backlinks(),
+    // Component.Backlinks(),
+    Component.DesktopOnly(Component.Carousel({
+      images: [
+        "/static/img/slogan.png",
+        "/static/img/s1.png",
+        "/static/img/s2.png",
+      ],
+      interval: 3000
+    })),
+  ],
+  afterBody: [
+    Component.Comments(),
+  ],
+}
+
+// components for pages that display lists of pages  (e.g. tags or folders)
+export const defaultListPageLayout: PageLayout = {
+  beforeBody: [
+    Component.Breadcrumbs(),
+    Component.ArticleTitle(),
+    Component.ContentMeta()],
+  left: [
+    Component.PageTitle(),
+    // Component.MobileOnly(Component.Spacer()),
+    Component.Search(),
+    Component.DesktopOnly(Component.Explorer()),
+  ],
+  right: [
+    Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.Carousel({
       images: [
         "/static/img/s1.png",
@@ -39,21 +69,5 @@ export const defaultContentPageLayout: PageLayout = {
       interval: 3000
     })),
   ],
-    afterBody: [
-    Component.Comments(),
-  ]
-}
-
-// components for pages that display lists of pages  (e.g. tags or folders)
-export const defaultListPageLayout: PageLayout = {
-  beforeBody: [Component.Breadcrumbs(), Component.ArticleTitle(), Component.ContentMeta()],
-  left: [
-    Component.PageTitle(),
-    Component.MobileOnly(Component.Spacer()),
-    Component.Search(),
-    Component.DesktopOnly(Component.PinNotes({showTags: false})),
-    Component.DesktopOnly(Component.Explorer()),
-  ],
-  right: [],
   afterBody: [],
 }

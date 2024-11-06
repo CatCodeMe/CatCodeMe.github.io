@@ -1,5 +1,5 @@
-import { FilePath, FullSlug, joinSegments } from "../../util/path"
-import { QuartzEmitterPlugin } from "../types"
+import {FilePath, FullSlug, joinSegments} from "../../util/path"
+import {QuartzEmitterPlugin} from "../types"
 
 // @ts-ignore
 import spaRouterScript from "../../components/scripts/spa.inline"
@@ -7,13 +7,16 @@ import spaRouterScript from "../../components/scripts/spa.inline"
 import popoverScript from "../../components/scripts/popover.inline"
 import styles from "../../styles/custom.scss"
 import popoverStyle from "../../components/styles/popover.scss"
-import { BuildCtx } from "../../util/ctx"
-import { QuartzComponent } from "../../components/types"
-import { googleFontHref, joinStyles } from "../../util/theme"
-import { Features, transform } from "lightningcss"
-import { transform as transpile } from "esbuild"
-import { write } from "./helpers"
+import {BuildCtx} from "../../util/ctx"
+import {QuartzComponent} from "../../components/types"
+import {googleFontHref, joinStyles} from "../../util/theme"
+import {Features, transform} from "lightningcss"
+import {transform as transpile} from "esbuild"
+import {write} from "./helpers"
 import DepGraph from "../../depgraph"
+import sidebarToggleScript from "../../components/scripts/sidebarToggle.inline"
+import sidebarToggleStyle from "../../components/styles/sidebarToggle.scss"
+
 
 type ComponentResources = {
   css: string[]
@@ -75,6 +78,12 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   if (cfg.enablePopovers) {
     componentResources.afterDOMLoaded.push(popoverScript)
     componentResources.css.push(popoverStyle)
+  }
+
+  //toggleSideBar
+  if(cfg.toggleSidebar){
+    componentResources.afterDOMLoaded.push(sidebarToggleScript)
+    componentResources.css.push(sidebarToggleStyle)
   }
 
   if (cfg.analytics?.provider === "google") {

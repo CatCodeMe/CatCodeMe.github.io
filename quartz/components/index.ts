@@ -49,5 +49,5 @@ export {
   Comments,
   OutLink,
   PinNotes,
-  Carousel
+  Carousel,
 }

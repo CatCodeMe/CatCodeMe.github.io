@@ -75,6 +75,7 @@ const config: QuartzConfig = {
         iconifyName: "tabler:creative-commons-nd",
       },
     ],
+    toggleSidebar: true,
   },
   plugins: {
     transformers: [

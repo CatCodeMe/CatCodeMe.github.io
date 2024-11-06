@@ -73,6 +73,9 @@ export interface GlobalConfiguration {
 
   //外部链接
   outLink?: OutLink[]
+
+  //折叠展开侧边栏
+  toggleSidebar?: boolean
 }
 
 export interface QuartzConfig {
@@ -91,5 +94,5 @@ export interface FullPageLayout {
   footer: QuartzComponent
 }
 
-export type PageLayout = Pick<FullPageLayout, "beforeBody" | "left" | "right"| "afterBody" >
+export type PageLayout = Pick<FullPageLayout, "beforeBody" | "left" | "right"| "afterBody">
 export type SharedLayout = Pick<FullPageLayout, "head" | "header" | "footer" | "afterBody">
