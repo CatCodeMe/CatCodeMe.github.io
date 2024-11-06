@@ -1,4 +1,10 @@
+let cleanupFunctions: (() => void)[] = []
+
 function setupCarousel() {
+  // 清理之前的轮播图实例
+  cleanupFunctions.forEach(cleanup => cleanup())
+  cleanupFunctions = []
+
   const carousels = document.querySelectorAll<HTMLElement>('[data-carousel]')
 
   carousels.forEach(carousel => {
@@ -102,11 +108,41 @@ function setupCarousel() {
     updateSlidePosition(false)
     startAutoplay()
 
-    // 清理函数
-    return () => {
+    // 收集清理函数
+    const cleanup = () => {
       stopAutoplay()
+      // 移除所有事件监听器
+      carousel.querySelectorAll<HTMLButtonElement>('[data-carousel-button]')
+          .forEach(button => {
+            button.removeEventListener('click', () => {
+              if (button.dataset.carouselButton === 'next') {
+                nextSlide()
+              } else {
+                prevSlide()
+              }
+            })
+          })
+      track.removeEventListener('transitionend', () => {
+        if (currentIndex === totalSlides - 1) {
+          currentIndex = 0
+          updateSlidePosition(false)
+        }
+      })
+      carousel.removeEventListener('mouseenter', stopAutoplay)
+      carousel.removeEventListener('mouseleave', startAutoplay)
     }
+
+    cleanupFunctions.push(cleanup)
+
+    cleanupFunctions.push(cleanup)
   })
 }
 
+// 监听页面切换事件
+document.addEventListener('nav', () => {
+  // 等待 DOM 更新完成
+  setTimeout(setupCarousel, 0)
+})
+
+// 初始加载
 document.addEventListener('DOMContentLoaded', setupCarousel)
