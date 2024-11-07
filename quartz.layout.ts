@@ -21,17 +21,12 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    // Component.DesktopOnly(Component.RecentNotes({showTags: false})),
     Component.DesktopOnly(Component.Explorer()),
     Component.DesktopOnly(Component.OutLink()),
-    // Component.Graph(),
-
   ],
   right: [
     Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.TableOfContents()),
-    // Component.Graph(),
-    // Component.Backlinks(),
     Component.DesktopOnly(Component.Carousel({
       images: [
         "/static/img/slogan.png",

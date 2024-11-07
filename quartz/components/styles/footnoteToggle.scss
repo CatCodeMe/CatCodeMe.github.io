@@ -1,0 +1,129 @@
+.footnote-toggle-container {
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+}
+
+.footnote-toggle-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0.25rem;
+  border: 1px solid var(--lightgray);
+  border-radius: 4px;
+  background: transparent;
+  color: var(--darkgray);
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: var(--lightgray);
+    color: var(--dark);
+  }
+
+  &.active {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    color: var(--light);
+
+    svg {
+      transform: rotate(45deg);
+    }
+
+    &:hover {
+      background: var(--tertiary);
+      border-color: var(--tertiary);
+    }
+  }
+
+  svg {
+    width: 20px;
+    height: 20px;
+    transition: transform 0.2s ease;
+  }
+}
+
+.side-notes-container {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 320px;
+  height: 100vh;
+  z-index: 1000;
+  pointer-events: none;
+  padding-right: 20px;
+}
+
+.side-note {
+  position: absolute;
+  right: 20px;
+  width: calc(100% - 40px);
+  transform: translateY(-50%) translateX(100%);
+  background-color: var(--light);
+  border-left: 2px solid var(--secondary);
+  padding: 0.75rem 1rem 0.75rem 2rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  pointer-events: auto;
+  opacity: 0;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .note-number {
+    position: absolute;
+    left: 0.5rem;
+    color: var(--secondary);
+    cursor: pointer;
+
+    &:hover {
+      color: var(--tertiary);
+    }
+  }
+
+  .note-content {
+    font-size: 0.875rem;
+    line-height: 1.4;
+
+    p {
+      margin: 0;
+    }
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50%) translateX(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  from {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-50%) translateX(100%);
+  }
+}
+
+.side-note {
+  &.entering {
+    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+
+  &.leaving {
+    animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+}

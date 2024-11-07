@@ -16,6 +16,8 @@ import {write} from "./helpers"
 import DepGraph from "../../depgraph"
 import sidebarToggleScript from "../../components/scripts/sidebarToggle.inline"
 import sidebarToggleStyle from "../../components/styles/sidebarToggle.scss"
+import footnoteToggleScript from "../../components/scripts/footnoteToggle.inline"
+import footnoteToggleStyle from "../../components/styles/footnoteToggle.scss"
 
 
 type ComponentResources = {
@@ -79,6 +81,7 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
     componentResources.afterDOMLoaded.push(popoverScript)
     componentResources.css.push(popoverStyle)
   }
+
 
   //toggleSideBar
   if(cfg.toggleSidebar){
@@ -186,6 +189,10 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       document.dispatchEvent(event)
     `)
   }
+
+  // 添加 footnoteToggle 资源
+  componentResources.css.push(footnoteToggleStyle)
+  componentResources.afterDOMLoaded.push(footnoteToggleScript)
 }
 
 // This emitter should not update the `resources` parameter. If it does, partial
