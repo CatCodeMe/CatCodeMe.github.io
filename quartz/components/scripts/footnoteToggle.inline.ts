@@ -1,23 +1,28 @@
 function setupFootnoteToggle() {
-    // 检查是否有 TOC，没有则不显示按钮
     const rightSidebar = document.querySelector('.right.sidebar') as HTMLElement
     const toc = rightSidebar?.querySelector('.toc') as HTMLElement
     if (!toc) return
 
     const nav = document.querySelector('nav.breadcrumb-container')
-    if (!nav || nav.querySelector('.footnote-toggle-button')) return
+    if (!nav || nav.querySelector('.sidebar-toggle-container')) return
 
     const toggleContainer = document.createElement('div')
-    toggleContainer.className = 'footnote-toggle-container'
+    toggleContainer.className = 'sidebar-toggle-container'
 
     const button = document.createElement('button')
-    button.className = 'footnote-toggle-button'
-    button.setAttribute('title', '切换阅读模式')
-    button.setAttribute('aria-label', '切换阅读模式')
+    button.className = 'sidebar-toggle-button'
+    button.setAttribute('title', '阅读视图')
+    button.setAttribute('aria-label', '阅读视图')
     button.setAttribute('aria-pressed', 'false')
+    // 使用两个图标，默认显示关闭的书本
     button.innerHTML = `
-    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M12 5v14M5 12h14"/>
+    <svg class="book-closed" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+    </svg>
+    <svg class="book-open" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+      <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
     </svg>
   `
 
@@ -123,7 +128,7 @@ function setupFootnoteToggle() {
 
             const center = document.querySelector('.center')
             if (center) {
-                center.addEventListener('scroll', handleScroll, { passive: true, capture: true })
+                // center.addEventListener('scroll', handleScroll, { passive: true, capture: true })
                 center.addEventListener('wheel', handleScroll, { passive: true })
             }
         }
@@ -136,7 +141,12 @@ function setupFootnoteToggle() {
     // 添加 ESC 快捷键支持
     function handleKeyPress(event: KeyboardEvent) {
         if (event.key === 'Escape' && readingMode) {
-            button.click()
+            readingMode = false
+            button.classList.remove('active')
+            button.setAttribute('aria-pressed', 'false')
+            cleanup()
+            toggleReadingMode(false)
+            saveState(false)
         }
     }
 
@@ -205,6 +215,32 @@ function setupFootnoteToggle() {
         }
     }
 
+    // 创建提示框元素
+    let tipElement: HTMLDivElement | null = null
+
+    function createTip() {
+        if (tipElement) return
+
+        tipElement = document.createElement('div')
+        tipElement.className = 'reading-mode-tip'
+        tipElement.innerHTML = '按 Esc 退出阅读模式'
+        document.body.appendChild(tipElement)
+
+        // 延迟添加显示类，触发过渡动画
+        requestAnimationFrame(() => {
+            tipElement?.classList.add('visible')
+        })
+    }
+
+    function removeTip() {
+        if (!tipElement) return
+
+        tipElement.classList.remove('visible')
+        tipElement.addEventListener('transitionend', () => {
+            tipElement?.remove()
+            tipElement = null
+        }, { once: true })
+    }
     function toggleReadingMode(active: boolean) {
         const rightSidebar = document.querySelector('.right.sidebar') as HTMLElement
 
@@ -213,11 +249,13 @@ function setupFootnoteToggle() {
             rightSidebar?.classList.add('collapsed')
             button.classList.add('reading-mode')
             setupEscListener(true)
+            createTip()
         } else {
             rightSidebar?.classList.remove('collapsed')
             button.classList.remove('reading-mode')
             restoreToc()
             setupEscListener(false)
+            removeTip()
         }
     }
 
@@ -233,17 +271,21 @@ function setupFootnoteToggle() {
         if (readingMode) {
             restoreToc()
             setupEscListener(false)
+            removeTip();
         }
+
     }
 
     function initializeFromState() {
         const isReadingMode = localStorage.getItem('reading-mode') === 'true'
 
         if (isReadingMode) {
+            readingMode = true
             button.classList.add('active')
             button.setAttribute('aria-pressed', 'true')
             initialize()
             toggleReadingMode(true)
+            setupEscListener(true)  // 确保在初始化时也设置 ESC 监听
         }
     }
 
@@ -271,7 +313,10 @@ function setupFootnoteToggle() {
         }
     })
 
-    window.addCleanup?.(() => cleanup())
+    window.addCleanup?.(() => {
+        cleanup();
+        setupEscListener(false)  // 确保清理 ESC 监听
+    })
 
     // 初始化状态
     initializeFromState()
@@ -285,3 +330,10 @@ document.addEventListener('nav', () => {
     }
     setupFootnoteToggle()
 })
+
+// 确保在页面加载时也运行初始化
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setupFootnoteToggle)
+} else {
+    setupFootnoteToggle()
+}

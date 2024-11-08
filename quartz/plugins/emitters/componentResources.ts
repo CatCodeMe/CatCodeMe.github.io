@@ -14,8 +14,6 @@ import {Features, transform} from "lightningcss"
 import {transform as transpile} from "esbuild"
 import {write} from "./helpers"
 import DepGraph from "../../depgraph"
-import sidebarToggleScript from "../../components/scripts/sidebarToggle.inline"
-import sidebarToggleStyle from "../../components/styles/sidebarToggle.scss"
 import footnoteToggleScript from "../../components/scripts/footnoteToggle.inline"
 import footnoteToggleStyle from "../../components/styles/footnoteToggle.scss"
 
@@ -80,13 +78,6 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   if (cfg.enablePopovers) {
     componentResources.afterDOMLoaded.push(popoverScript)
     componentResources.css.push(popoverStyle)
-  }
-
-
-  //toggleSideBar
-  if(cfg.toggleSidebar){
-    componentResources.afterDOMLoaded.push(sidebarToggleScript)
-    componentResources.css.push(sidebarToggleStyle)
   }
 
   if (cfg.analytics?.provider === "google") {

@@ -73,9 +73,6 @@ export interface GlobalConfiguration {
 
   //外部链接
   outLink?: OutLink[]
-
-  //折叠展开侧边栏
-  toggleSidebar?: boolean
 }
 
 export interface QuartzConfig {

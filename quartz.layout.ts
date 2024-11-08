@@ -21,11 +21,16 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
+    // Component.DesktopOnly(Component.Graph()),
+
     Component.DesktopOnly(Component.Explorer()),
-    Component.DesktopOnly(Component.OutLink()),
+
+    // Component.DesktopOnly(Component.OutLink()),
+
   ],
   right: [
     Component.DesktopOnly(Component.PinNotes({showTags: false})),
+    // Component.DesktopOnly(Component.Graph()),
     Component.DesktopOnly(Component.TableOfContents()),
     Component.DesktopOnly(Component.Carousel({
       images: [

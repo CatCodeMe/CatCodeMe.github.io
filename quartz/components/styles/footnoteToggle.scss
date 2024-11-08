@@ -1,26 +1,60 @@
-.footnote-toggle-container {
+// 使用原来的 sidebar-toggle 样式结构
+.sidebar-toggle-container {
   display: flex;
+  gap: 0.5rem;
   align-items: center;
-  margin-left: 0.5rem;
+  margin-left: auto;
+  padding: 0 1rem;
+  position: relative; // 修改定位方式
+
+  .breadcrumb-container & {
+    margin-left: auto;
+    padding: 0;
+  }
 }
 
-.footnote-toggle-button {
+.sidebar-toggle-button {
+  background: var(--highlight);
+  border: 1px solid var(--lightgray);
+  border-radius: 4px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
-  padding: 0.25rem;
-  border: 1px solid var(--lightgray);
-  border-radius: 4px;
-  background: transparent;
-  color: var(--darkgray);
   cursor: pointer;
   transition: all 0.2s ease;
+  color: var(--darkgray);
+  padding: 0;
+  position: relative;
 
   &:hover {
     background: var(--lightgray);
     color: var(--dark);
+  }
+
+  // 图标切换样式
+  .book-closed,
+  .book-open {
+    //width: 20px;
+    //height: 20px;
+    //transition: opacity 0.2s ease;
+    //position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.2s ease;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); // 居中图标
+  }
+
+  .book-closed {
+    opacity: 1;
+  }
+
+  .book-open {
+    opacity: 0;
   }
 
   &.active {
@@ -28,20 +62,23 @@
     border-color: var(--secondary);
     color: var(--light);
 
-    svg {
-      transform: rotate(45deg);
-    }
-
     &:hover {
       background: var(--tertiary);
       border-color: var(--tertiary);
+    }
+
+    .book-closed {
+      opacity: 0;
+    }
+
+    .book-open {
+      opacity: 1;
     }
   }
 
   svg {
     width: 20px;
     height: 20px;
-    transition: transform 0.2s ease;
   }
 }
 
@@ -172,5 +209,75 @@
 
   &.leaving {
     animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  }
+}
+
+
+// 添加提示框样式
+.reading-mode-tip {
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  background: var(--secondary);
+  color: var(--light);
+  padding: 8px 12px;
+  border-radius: 4px;
+  font-size: 14px;
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 1000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  pointer-events: none;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  // 添加一个小箭头
+  //&::before {
+  //  content: '';
+  //  position: absolute;
+  //  left: 10px;
+  //  top: -4px;
+  //  width: 8px;
+  //  height: 8px;
+  //  background: var(--secondary);
+  //  transform: rotate(45deg);
+  //}
+}
+
+
+// 侧边栏过渡效果
+.left.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  //width: var(--sidebar-width);
+  transition: transform 0.8s ease;
+  will-change: transform;
+  z-index: 99;
+  //background: var(--highlight);
+
+  &.collapsed {
+    transform: translateX(-150%);
+  }
+}
+
+.right.sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  //width: var(--sidebar-width);
+  transition: transform 0.8s ease;
+  will-change: transform;
+  z-index: 99;
+  //background: var(--highlight);
+
+  &.collapsed {
+    transform: translateX(150%);
   }
 }
