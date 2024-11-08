@@ -1,4 +1,9 @@
 function setupFootnoteToggle() {
+    // 检查是否有 TOC，没有则不显示按钮
+    const rightSidebar = document.querySelector('.right.sidebar') as HTMLElement
+    const toc = rightSidebar?.querySelector('.toc') as HTMLElement
+    if (!toc) return
+
     const nav = document.querySelector('nav.breadcrumb-container')
     if (!nav || nav.querySelector('.footnote-toggle-button')) return
 
@@ -7,8 +12,8 @@ function setupFootnoteToggle() {
 
     const button = document.createElement('button')
     button.className = 'footnote-toggle-button'
-    button.setAttribute('title', '切换侧边脚注')
-    button.setAttribute('aria-label', '切换侧边脚注')
+    button.setAttribute('title', '切换阅读模式')
+    button.setAttribute('aria-label', '切换阅读模式')
     button.setAttribute('aria-pressed', 'false')
     button.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -20,6 +25,9 @@ function setupFootnoteToggle() {
     nav.appendChild(toggleContainer)
 
     let notesContainer: HTMLDivElement | null = null
+    let readingMode = false
+    let originalTocParent: HTMLElement | null = null
+    let originalToc: HTMLElement | null = null
 
     function isInViewport(element: HTMLElement, buffer: number = 100): boolean {
         const elemRect = element.getBoundingClientRect()
@@ -81,34 +89,8 @@ function setupFootnoteToggle() {
         }
     }
 
-    function toggleRightSidebar(show: boolean) {
-        const rightSidebar = document.querySelector('.right.sidebar') as HTMLElement
-        if (!rightSidebar) return
-
-        if (show) {
-            rightSidebar.classList.remove('collapsed')
-            localStorage.removeItem('sidebar-right-collapsed')
-        } else {
-            rightSidebar.classList.add('collapsed')
-            localStorage.setItem('sidebar-right-collapsed', 'true')
-        }
-    }
-
-    function cleanup() {
-        const center = document.querySelector('.center')
-        if (center) {
-            center.removeEventListener('scroll', handleScroll, { capture: true })
-            center.removeEventListener('wheel', handleScroll)
-        }
-        notesContainer?.remove()
-        notesContainer = null
-        toggleRightSidebar(true)
-    }
-
     function initialize() {
         if (!notesContainer) {
-            toggleRightSidebar(false)
-
             notesContainer = document.createElement('div')
             notesContainer.className = 'side-notes-container'
 
@@ -149,29 +131,157 @@ function setupFootnoteToggle() {
         requestAnimationFrame(updateNotePositions)
     }
 
+    let originalTocPosition: { parent: HTMLElement; nextSibling: Node | null } | null = null
+
+    // 添加 ESC 快捷键支持
+    function handleKeyPress(event: KeyboardEvent) {
+        if (event.key === 'Escape' && readingMode) {
+            button.click()
+        }
+    }
+
+    // 注册和清理 ESC 事件监听
+    function setupEscListener(active: boolean) {
+        if (active) {
+            document.addEventListener('keydown', handleKeyPress)
+        } else {
+            document.removeEventListener('keydown', handleKeyPress)
+        }
+    }
+
+    function moveTocToSidebar() {
+        const toc = document.querySelector('.right.sidebar .toc') as HTMLElement
+        const leftSidebar = document.querySelector('.left.sidebar') as HTMLElement
+        const leftSidebarChildren = leftSidebar?.children || []
+
+        if (!toc || !leftSidebar) return
+
+        originalTocPosition = {
+            parent: toc.parentElement as HTMLElement,
+            nextSibling: toc.nextSibling
+        }
+
+        leftSidebar.appendChild(toc)
+        toc.style.display = 'block'
+
+        const tocContent = toc.querySelector('#toc-content ul.overflow') as HTMLElement
+        if (tocContent) {
+            tocContent.style.maxHeight = 'none'
+        }
+
+        requestAnimationFrame(() => {
+            Array.from(leftSidebarChildren).forEach(child => {
+                if (child.classList.contains('toc')) return
+                child.classList.add('hidden')
+            })
+            toc.classList.add('visible')
+        })
+    }
+
+    function restoreToc() {
+        const toc = document.querySelector('.left.sidebar .toc') as HTMLElement
+        const leftSidebar = document.querySelector('.left.sidebar') as HTMLElement
+        const leftSidebarChildren = leftSidebar?.children || []
+
+        if (!toc || !leftSidebar || !originalTocPosition) return
+
+        // 先恢复 TOC 到原始位置，避免延迟
+        if (originalTocPosition.nextSibling) {
+            originalTocPosition.parent.insertBefore(toc, originalTocPosition.nextSibling)
+        } else {
+            originalTocPosition.parent.appendChild(toc)
+        }
+
+        // 立即恢复其他元素显示
+        Array.from(leftSidebarChildren).forEach(child => {
+            child.classList.remove('hidden')
+        })
+
+        // 恢复 TOC 样式
+        toc.classList.remove('visible')
+        const tocContent = toc.querySelector('#toc-content ul.overflow') as HTMLElement
+        if (tocContent) {
+            tocContent.style.removeProperty('max-height')
+        }
+    }
+
+    function toggleReadingMode(active: boolean) {
+        const rightSidebar = document.querySelector('.right.sidebar') as HTMLElement
+
+        if (active) {
+            moveTocToSidebar()
+            rightSidebar?.classList.add('collapsed')
+            button.classList.add('reading-mode')
+            setupEscListener(true)
+        } else {
+            rightSidebar?.classList.remove('collapsed')
+            button.classList.remove('reading-mode')
+            restoreToc()
+            setupEscListener(false)
+        }
+    }
+
+    function cleanup() {
+        const center = document.querySelector('.center')
+        if (center) {
+            center.removeEventListener('scroll', handleScroll, { capture: true })
+            center.removeEventListener('wheel', handleScroll)
+        }
+        notesContainer?.remove()
+        notesContainer = null
+
+        if (readingMode) {
+            restoreToc()
+            setupEscListener(false)
+        }
+    }
+
+    function initializeFromState() {
+        const isReadingMode = localStorage.getItem('reading-mode') === 'true'
+
+        if (isReadingMode) {
+            button.classList.add('active')
+            button.setAttribute('aria-pressed', 'true')
+            initialize()
+            toggleReadingMode(true)
+        }
+    }
+
+    function saveState(isActive: boolean) {
+        if (isActive) {
+            localStorage.setItem('reading-mode', 'true')
+        } else {
+            localStorage.removeItem('reading-mode')
+        }
+    }
+
     button.addEventListener('click', () => {
+        readingMode = !readingMode
         const isActive = button.classList.toggle('active')
         button.setAttribute('aria-pressed', isActive.toString())
+
         if (isActive) {
             initialize()
+            toggleReadingMode(true)
+            saveState(true)
         } else {
             cleanup()
+            toggleReadingMode(false)
+            saveState(false)
         }
     })
 
-    // 页面加载时检查按钮状态
-    const isActive = button.classList.contains('active')
-    if (isActive) {
-        toggleRightSidebar(false)
-    }
-
     window.addCleanup?.(() => cleanup())
+
+    // 初始化状态
+    initializeFromState()
 }
 
-// 确保在页面加载和导航后都运行
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', setupFootnoteToggle)
-} else {
+// 页面加载和导航时初始化
+document.addEventListener('nav', () => {
+    const existingButton = document.querySelector('.footnote-toggle-button')
+    if (existingButton) {
+        existingButton.remove()
+    }
     setupFootnoteToggle()
-}
-document.addEventListener('nav', setupFootnoteToggle)
+})

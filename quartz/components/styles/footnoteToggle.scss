@@ -45,6 +45,53 @@
   }
 }
 
+// 优化左侧边栏过渡效果
+.left.sidebar {
+  > * {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    opacity: 1;
+    transform: translateX(0);
+
+    &.hidden {
+      opacity: 0;
+      transform: translateX(-20px);
+      position: absolute;
+      pointer-events: none;
+    }
+  }
+
+  .toc {
+    opacity: 0;
+    transform: translateX(-20px);
+    transition: opacity 0.8s ease, transform 0.3s ease;
+    margin-top: 2rem;
+
+    &.visible {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    #toc {
+      margin: 0;
+      padding: 0;
+    }
+
+    #toc-content {
+      ul.overflow {
+        max-height: none !important;
+      }
+    }
+  }
+}
+
+.right.sidebar {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+  &.collapsed {
+    transform: translateX(100%);
+  }
+}
+
 .side-notes-container {
   position: fixed;
   top: 0;
