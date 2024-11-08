@@ -1,52 +1,44 @@
-// 使用原来的 sidebar-toggle 样式结构
-.sidebar-toggle-container {
+// 搜索栏布局调整
+.search {
+  min-width: fit-content;
+  max-width: 12rem;
   display: flex;
-  gap: 0.5rem;
   align-items: center;
-  margin-left: auto;
-  padding: 0 1rem;
-  position: relative; // 修改定位方式
+  gap: 0.5rem;
 
-  .breadcrumb-container & {
-    margin-left: auto;
-    padding: 0;
+  & > .search-button {
+    flex: 1;
   }
 }
 
+// 按钮基础样式
 .sidebar-toggle-button {
   background: var(--highlight);
   border: 1px solid var(--lightgray);
   border-radius: 4px;
-  width: 32px;
-  height: 32px;
+  width: 28px;
+  height: 28px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s ease;
   color: var(--darkgray);
   padding: 0;
+  margin-left: 0.5rem;
   position: relative;
 
   &:hover {
     background: var(--lightgray);
-    color: var(--dark);
   }
 
   // 图标切换样式
   .book-closed,
   .book-open {
-    //width: 20px;
-    //height: 20px;
-    //transition: opacity 0.2s ease;
-    //position: absolute;
-    width: 20px;
-    height: 20px;
-    transition: opacity 0.2s ease;
+    width: 16px;
+    height: 16px;
+    transition: opacity 0.3s ease;
     position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%); // 居中图标
   }
 
   .book-closed {
@@ -62,11 +54,6 @@
     border-color: var(--secondary);
     color: var(--light);
 
-    &:hover {
-      background: var(--tertiary);
-      border-color: var(--tertiary);
-    }
-
     .book-closed {
       opacity: 0;
     }
@@ -74,95 +61,116 @@
     .book-open {
       opacity: 1;
     }
-  }
 
-  svg {
-    width: 20px;
-    height: 20px;
-  }
-}
-
-// 优化左侧边栏过渡效果
-.left.sidebar {
-  > * {
-    transition: opacity 0.3s ease, transform 0.3s ease;
-    opacity: 1;
-    transform: translateX(0);
-
-    &.hidden {
-      opacity: 0;
-      transform: translateX(-20px);
-      position: absolute;
-      pointer-events: none;
-    }
-  }
-
-  .toc {
-    opacity: 0;
-    transform: translateX(-20px);
-    transition: opacity 0.8s ease, transform 0.3s ease;
-    margin-top: 2rem;
-
-    &.visible {
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    #toc {
-      margin: 0;
-      padding: 0;
-    }
-
-    #toc-content {
-      ul.overflow {
-        max-height: none !important;
-      }
+    &:hover {
+      background: var(--tertiary);
+      border-color: var(--tertiary);
     }
   }
 }
 
+// 侧边栏过渡效果
+.left.sidebar,
 .right.sidebar {
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.3s ease;
 
   &.collapsed {
-    transform: translateX(100%);
+    transform: translateX(-100%);
+    visibility: hidden;
   }
 }
 
+.right.sidebar.collapsed {
+  transform: translateX(100%);
+}
+
+// TOC 样式调整
+.left.sidebar .toc {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  margin: 1rem;
+  background: var(--light);
+  border-radius: 6px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #toc-content {
+    max-height: none;
+    overflow: visible;
+  }
+}
+
+// 提示文本样式
+.reading-mode-tip {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  color: var(--light);
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 14px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  animation: tipFade 2s ease-in-out forwards;
+}
+
+@keyframes tipFade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  20% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  80% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+}
+
+// 脚注容器
 .side-notes-container {
   position: fixed;
   top: 0;
   right: 0;
-  width: 320px;
+  width: 300px;
   height: 100vh;
-  z-index: 1000;
   pointer-events: none;
-  padding-right: 20px;
 }
 
+// 单个脚注样式
 .side-note {
   position: absolute;
   right: 20px;
-  width: calc(100% - 40px);
-  transform: translateY(-50%) translateX(100%);
-  background-color: var(--light);
-  border-left: 2px solid var(--secondary);
-  padding: 0.75rem 1rem 0.75rem 2rem;
+  width: 300px;
+  background: var(--light);
+  border: 1px solid var(--lightgray);
   border-radius: 4px;
+  padding: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   pointer-events: auto;
+  transform: translateY(-50%);
   opacity: 0;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-
-  &.visible {
-    opacity: 1;
-    transform: translateY(-50%) translateX(0);
-  }
+  transition: opacity 0.2s ease;
 
   .note-number {
-    position: absolute;
-    left: 0.5rem;
+    font-size: 12px;
+    font-weight: 600;
     color: var(--secondary);
+    margin-bottom: 4px;
     cursor: pointer;
 
     &:hover {
@@ -171,12 +179,34 @@
   }
 
   .note-content {
-    font-size: 0.875rem;
-    line-height: 1.4;
+    font-size: 14px;
+    line-height: 1.5;
+    color: var(--darkgray);
 
     p {
       margin: 0;
     }
+
+    a {
+      color: var(--secondary);
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &.visible {
+    opacity: 1;
+  }
+
+  &.entering {
+    animation: slideIn 0.2s ease forwards;
+  }
+
+  &.leaving {
+    animation: slideOut 0.2s ease forwards;
   }
 }
 
@@ -202,82 +232,93 @@
   }
 }
 
-.side-note {
-  &.entering {
-    animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+// 暗色主题适配
+@media (prefers-color-scheme: dark) {
+  .side-note {
+    background: var(--dark);
+
+    .note-content {
+      color: var(--light);
+    }
   }
 
-  &.leaving {
-    animation: slideOut 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  .left.sidebar .toc {
+    background: var(--dark);
   }
 }
 
+// 移动端适配
+@media (max-width: 768px) {
+  .side-notes-container {
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
 
-// 添加提示框样式
-.reading-mode-tip {
+  .side-note {
+    right: 10px;
+    left: 10px;
+    width: calc(100% - 20px);
+  }
+}
+
+// 阅读模式提示
+.reading-mode-hint {
   position: fixed;
   top: 20px;
   left: 20px;
-  background: var(--secondary);
-  color: var(--light);
+  background: var(--light);
+  border-radius: 6px;
   padding: 8px 12px;
-  border-radius: 4px;
-  font-size: 14px;
-  opacity: 0;
-  transform: translateY(-10px);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 1000;
+  display: flex;
+  align-items: center;
+  gap: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  pointer-events: none;
+  z-index: 1000;
+  animation: slideInFromLeft 0.3s ease forwards;
 
-  &.visible {
+  .exit-reading-mode {
+    background: none;
+    border: none;
+    padding: 4px;
+    cursor: pointer;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--highlight);
+      color: var(--tertiary);
+    }
+  }
+
+  .hint-text {
+    font-size: 14px;
+    color: var(--darkgray);
+  }
+}
+
+@keyframes slideInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
     opacity: 1;
-    transform: translateY(0);
-  }
-
-  // 添加一个小箭头
-  //&::before {
-  //  content: '';
-  //  position: absolute;
-  //  left: 10px;
-  //  top: -4px;
-  //  width: 8px;
-  //  height: 8px;
-  //  background: var(--secondary);
-  //  transform: rotate(45deg);
-  //}
-}
-
-
-// 侧边栏过渡效果
-.left.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  //width: var(--sidebar-width);
-  transition: transform 0.8s ease;
-  will-change: transform;
-  z-index: 99;
-  //background: var(--highlight);
-
-  &.collapsed {
-    transform: translateX(-150%);
+    transform: translateX(0);
   }
 }
 
-.right.sidebar {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  //width: var(--sidebar-width);
-  transition: transform 0.8s ease;
-  will-change: transform;
-  z-index: 99;
-  //background: var(--highlight);
+// 暗色主题适配
+@media (prefers-color-scheme: dark) {
+  .reading-mode-hint {
+    background: var(--dark);
 
-  &.collapsed {
-    transform: translateX(150%);
+    .hint-text {
+      color: var(--light);
+    }
   }
 }
