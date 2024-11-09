@@ -1,4 +1,4 @@
-// 搜索栏布局调整
+// 搜索栏和阅读模式按钮
 .search {
   min-width: fit-content;
   max-width: 12rem;
@@ -6,16 +6,14 @@
   align-items: center;
   gap: 0.5rem;
 
-  & > .search-button {
+  > .search-button {
     flex: 1;
   }
 }
 
-// 阅读模式按钮
 .sidebar-toggle-button {
   background: var(--secondary);
-  border-color: var(--secondary);
-  border-bottom: 2px solid var(--secondary);
+  border: none;
   border-radius: 4px;
   width: 28px;
   height: 28px;
@@ -32,48 +30,9 @@
     height: 16px;
     color: var(--light);
   }
-
 }
 
-// 阅读模式提示
-.reading-mode-hint {
-  position: fixed;
-  top: 20px;
-  left: 20px;
-  //background: var(--background-primary);
-  border-radius: 6px;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  border: 1px solid var(--lightgray);
-
-  .exit-reading-mode {
-    background: none;
-    border: none;
-    padding: 4px;
-    cursor: pointer;
-    color: var(--secondary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-
-    &:hover {
-      background: var(--lightgray);
-    }
-  }
-
-  .hint-text {
-    font-size: 14px;
-    color: var(--secondary);
-  }
-}
-
-// 边注容器和内容
+// 边注样式
 .side-notes-container {
   position: fixed;
   pointer-events: none;
@@ -84,32 +43,27 @@
   position: absolute;
   width: 280px;
   right: 2rem !important;
+  background: rgba(var(--background-primary-rgb), 0.98);
   border: 1px solid var(--secondary);
   border-radius: 6px;
   padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   pointer-events: auto;
+  min-height: 3rem;
+  margin: 1rem 0;
   transition: all 0.3s ease;
-  min-height: 3rem; // 添加最小高度
-  margin: 1rem 0; // 添加垂直间距
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000;
+  transform: translate3d(0, 0, 0);
 
-  // 添加一个半透明的背景，让重叠时更容易区分
-  background: rgba(var(--background-primary-rgb), 0.98);
-
-  // 触发硬件加速的方法
-  transform: translate3d(0, 0, 0); // 使用 3D 变换
-  will-change: transform; // 提示浏览器该元素会频繁变化
-  backface-visibility: hidden; // 隐藏背面
-  perspective: 1000; // 设置透视
-
-  // 当两个 side-note 靠得太近时，向下偏移
-  & + .side-note {
-    margin-top: 2rem; // 增加相邻元素之间的间距
+  & + & {
+    margin-top: 2rem;
   }
 
   .note-number {
     position: absolute;
-    left: -0.5rem; // 向左偏移以创造悬浮效果
+    left: -0.5rem;
     top: 0;
     transform: translateY(-50%);
     padding: 0.2rem 0.2rem;
@@ -131,129 +85,30 @@
     &:hover {
       transform: translateY(-50%) translateY(-2px);
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
-      //border-color: var(--secondary);
-      //color: var(--secondary);
     }
   }
 }
 
-// 阅读模式下的布局调整
-// 阅读模式下的布局调整
-.left.sidebar {
-  .toc {
-    padding: 1rem;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--lightgray);
-    max-height: calc(100vh - 40px);
-    overflow-y: auto;
-    transition: all 0.3s ease-in-out;
-  }
-}
-
-// 阅读模式下的样式
-.reading-mode {
-  .page-title {
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .sidebar {
-    &.left {
-      .toc {
-        position: absolute; // 改为 absolute
-        top: 0; // 对齐页面顶部
-        left: 0; // 对齐左侧
-        margin: 0; // 移除所有外边距
-        padding: 1rem;
-        background: var(--background-primary);
-        z-index: 1000;
-        width: 280px;
-        opacity: 1;
-        transform: none;
-
-        // 添加一些视觉区分
-        border: 1px solid var(--lightgray);
-        border-radius: 6px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-      }
-
-      > *:not(.toc) {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-    }
-
-    &.right {
-      transform: translateX(100%);
-    }
-  }
-}
-
-
-// 添加过渡动画相关样式
-.sidebar {
-  transition: all 0.3s ease-in-out;
-
-  &.left {
-    .toc {
-      transition: all 0.3s ease-in-out;
-      opacity: 1;
-      transform: translateX(0);
-    }
-
-    > *:not(.toc) {
-      transition: all 0.3s ease-in-out;
-      opacity: 1;
-    }
-  }
-}
-
-// 阅读模式下的样式
-//.reading-mode {
-//  .sidebar {
-//    &.right {
-//      transform: translateX(100%);
-//    }
-//
-//    &.left {
-//      > *:not(.toc) {
-//        opacity: 0;
-//        transform: translateX(-20px);
-//      }
-//
-//      .toc {
-//        opacity: 1;
-//        transform: translateX(0);
-//
-//        &:not(.visible) {
-//          opacity: 0;
-//          transform: translateX(-20px);
-//        }
-//      }
-//    }
-//  }
-//}
-
-// 阅读模式提示样式优化
-.reading-mode-hint {
+// 阅读模式相关样式
+.reading-mode-hint, .reading-mode-welcome {
   position: fixed;
+  border-radius: 6px;
+  background: var(--secondary);
+  color: var(--light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+.reading-mode-hint {
   top: 20px;
   left: 20px;
-  border-radius: 6px;
   padding: 12px 16px;
   display: flex;
   align-items: center;
   gap: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
   border: 1px solid var(--lightgray);
   animation: slideIn 0.3s ease-out;
-  background: var(--secondary);
-
-  &:hover{
-    cursor: pointer;
-  }
+  cursor: pointer;
 
   .exit-reading-mode {
     background: none;
@@ -269,11 +124,74 @@
 
   .hint-text {
     font-size: 14px;
-    color: var(--light);
   }
 }
 
-// 添加动画关键帧
+.reading-mode-welcome {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  font-size: 14px;
+  animation: tipFade 2s ease-in-out forwards;
+}
+
+// 侧边栏和TOC样式
+.sidebar {
+  transition: all 0.3s ease-in-out;
+
+  &.left .toc {
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--lightgray);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    transition: all 0.3s ease-in-out;
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// 阅读模式下的样式
+.reading-mode {
+  .page-title {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar {
+    &.right {
+      transform: translateX(100%);
+    }
+
+    &.left {
+      .toc {
+        position: absolute;
+        top: 0;
+        left: 0;
+        margin: 0;
+        padding: 1rem;
+        background: var(--background-primary);
+        z-index: 1000;
+        width: 280px;
+        opacity: 1;
+        transform: none;
+        border: 1px solid var(--lightgray);
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      > *:not(.toc) {
+        opacity: 0;
+        transform: translateX(-20px);
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+}
+
+// 动画
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -285,36 +203,13 @@
   }
 }
 
-.reading-mode-welcome {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  background: var(--secondary);
-  color: var(--light);
-  padding: 8px 16px;
-  border-radius: 4px;
-  font-size: 14px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  animation: tipFade 2s ease-in-out forwards;
-}
-
 @keyframes tipFade {
-  0% {
+  0%, 100% {
     opacity: 0;
     transform: translate(-50%, -20px);
   }
-  20% {
+  20%, 80% {
     opacity: 1;
     transform: translate(-50%, 0);
-  }
-  80% {
-    opacity: 1;
-    transform: translate(-50%, 0);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -20px);
   }
 }
