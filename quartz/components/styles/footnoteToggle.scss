@@ -138,30 +138,58 @@
 }
 
 // 阅读模式下的布局调整
-.left.sidebar .toc {
-  padding: 1rem;
-  //background: var(--background-primary);
-  border-radius: 6px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid var(--lightgray);
-  max-height: calc(100vh - 40px);
-  overflow-y: auto;
-  margin-top: 3rem;
-}
-
-// 添加动画效果
-@keyframes ripple {
-  0% {
-    box-shadow: 0 0 0 0 rgba(var(--secondary-rgb), 0.3);
-  }
-  100% {
-    box-shadow: 0 0 0 8px rgba(var(--secondary-rgb), 0);
+// 阅读模式下的布局调整
+.left.sidebar {
+  .toc {
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--lightgray);
+    max-height: calc(100vh - 40px);
+    overflow-y: auto;
+    transition: all 0.3s ease-in-out;
   }
 }
 
-.side-note .note-number:active {
-  animation: ripple 0.6s ease-out;
+// 阅读模式下的样式
+.reading-mode {
+  .page-title {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  .sidebar {
+    &.left {
+      .toc {
+        position: absolute; // 改为 absolute
+        top: 0; // 对齐页面顶部
+        left: 0; // 对齐左侧
+        margin: 0; // 移除所有外边距
+        padding: 1rem;
+        background: var(--background-primary);
+        z-index: 1000;
+        width: 280px;
+        opacity: 1;
+        transform: none;
+
+        // 添加一些视觉区分
+        border: 1px solid var(--lightgray);
+        border-radius: 6px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+
+      > *:not(.toc) {
+        opacity: 0;
+        transform: translateX(-20px);
+      }
+    }
+
+    &.right {
+      transform: translateX(100%);
+    }
+  }
 }
+
 
 // 添加过渡动画相关样式
 .sidebar {
@@ -182,30 +210,30 @@
 }
 
 // 阅读模式下的样式
-.reading-mode {
-  .sidebar {
-    &.right {
-      transform: translateX(100%);
-    }
-
-    &.left {
-      > *:not(.toc) {
-        opacity: 0;
-        transform: translateX(-20px);
-      }
-
-      .toc {
-        opacity: 1;
-        transform: translateX(0);
-
-        &:not(.visible) {
-          opacity: 0;
-          transform: translateX(-20px);
-        }
-      }
-    }
-  }
-}
+//.reading-mode {
+//  .sidebar {
+//    &.right {
+//      transform: translateX(100%);
+//    }
+//
+//    &.left {
+//      > *:not(.toc) {
+//        opacity: 0;
+//        transform: translateX(-20px);
+//      }
+//
+//      .toc {
+//        opacity: 1;
+//        transform: translateX(0);
+//
+//        &:not(.visible) {
+//          opacity: 0;
+//          transform: translateX(-20px);
+//        }
+//      }
+//    }
+//  }
+//}
 
 // 阅读模式提示样式优化
 .reading-mode-hint {

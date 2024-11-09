@@ -370,18 +370,23 @@ function setupFootnoteToggle() {
         if (active) {
             createWelcomeMessage()
 
-            sidebars.forEach(sidebar => {
-                if (sidebar.classList.contains('left')) {
-                    const children = Array.from(sidebar.children)
-                    children.forEach(child => {
-                        if (child !== toc) {
-                            ;(child as HTMLElement).style.display = 'none'
-                        }
-                    })
-                } else {
-                    sidebar.style.display = 'none'
-                }
-            })
+            document.documentElement.classList.add('reading-mode')
+            // 等待过渡动画完成后再隐藏元素
+            setTimeout(() => {
+                sidebars.forEach(sidebar => {
+                    if (sidebar.classList.contains('left')) {
+                        const children = Array.from(sidebar.children)
+                        children.forEach(child => {
+                            if (child !== toc) {
+                                (child as HTMLElement).style.visibility = 'hidden'
+                            }
+                        })
+                    } else {
+                        sidebar.style.visibility = 'hidden'
+                    }
+                })
+            }, 300) // 与 CSS 过渡时间相匹配
+
 
             if (toc) {
                 originalTocPosition = {
@@ -397,6 +402,19 @@ function setupFootnoteToggle() {
             createReadingModeHint()
             initializeSideNotes()
         } else {
+            document.documentElement.classList.remove('reading-mode')
+
+            // 立即恢复可见性，让过渡动画可见
+            sidebars.forEach(sidebar => {
+                sidebar.style.visibility = ''
+                if (sidebar.classList.contains('left')) {
+                    const children = Array.from(sidebar.children)
+                    children.forEach(child => {
+                        (child as HTMLElement).style.visibility = ''
+                    })
+                }
+            })
+
             sidebars.forEach(sidebar => {
                 sidebar.style.display = ''
                 if (sidebar.classList.contains('left')) {
@@ -420,7 +438,7 @@ function setupFootnoteToggle() {
             cleanup()
         }
 
-        document.documentElement.classList.toggle('reading-mode', active)
+        // document.documentElement.classList.toggle('reading-mode', active)
         button.setAttribute('aria-pressed', active.toString())
     }
 
