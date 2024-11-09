@@ -46,20 +46,20 @@
   background: rgba(var(--background-primary-rgb), 0.98);
   border: 1px solid var(--secondary);
   border-radius: 6px;
-  padding: 1rem;
+  padding: 0 .5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   pointer-events: auto;
   min-height: 3rem;
-  margin: 1rem 0;
+  //margin: 1rem 0;
   transition: all 0.3s ease;
   will-change: transform;
   backface-visibility: hidden;
   perspective: 1000;
   transform: translate3d(0, 0, 0);
 
-  & + & {
-    margin-top: 2rem;
-  }
+  //& + & {
+  //  margin-top: 2rem;
+  //}
 
   .note-number {
     position: absolute;

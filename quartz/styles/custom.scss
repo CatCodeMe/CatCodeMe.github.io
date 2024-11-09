@@ -1,4 +1,6 @@
 @use "./base.scss";
+@use "./variables.scss" as *;
+
 
 // put your custom CSS here!
 :root{
@@ -344,3 +346,9 @@ code{
    color: unset;
 }
 
+// 判断宽度，隐藏移动端的 footnoteToggle 按钮
+@media (max-width: $tabletBreakpoint) {
+   .sidebar-toggle-button {
+      display: none;
+   }
+}
