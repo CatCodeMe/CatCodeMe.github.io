@@ -82,50 +82,58 @@
 
 .side-note {
   position: absolute;
-  right: 0;
   width: 280px;
-  background: var(--background-primary);
-  border: 1px solid var(--lightgray);
+  right: 2rem !important;
+  border: 1px solid var(--secondary);
   border-radius: 6px;
-  padding: 12px 12px 12px 36px;
+  padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   pointer-events: auto;
   transition: all 0.3s ease;
+  min-height: 3rem; // 添加最小高度
+  margin: 1rem 0; // 添加垂直间距
+
+  // 添加一个半透明的背景，让重叠时更容易区分
+  background: rgba(var(--background-primary-rgb), 0.98);
+
+  // 触发硬件加速的方法
+  transform: translate3d(0, 0, 0); // 使用 3D 变换
+  will-change: transform; // 提示浏览器该元素会频繁变化
+  backface-visibility: hidden; // 隐藏背面
+  perspective: 1000; // 设置透视
+
+  // 当两个 side-note 靠得太近时，向下偏移
+  & + .side-note {
+    margin-top: 2rem; // 增加相邻元素之间的间距
+  }
 
   .note-number {
     position: absolute;
-    left: 8px;
-    top: 50%;
+    left: -0.5rem; // 向左偏移以创造悬浮效果
+    top: 0;
     transform: translateY(-50%);
-    width: 24px;
-    height: 24px;
-    background: var(--secondary);
-    color: var(--light);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.9rem;
-    font-weight: bold;
+    padding: 0.2rem 0.2rem;
+    background: var(--tertiary);
+    color: var(--secondary);
+    border: 1px solid var(--lightgray);
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: 500;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    max-width: 200px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transform-origin: left center;
 
-    // 添加悬停效果
     &:hover {
-      transform: translateY(-50%) scale(1.2);
-      box-shadow: 0 0 0 4px rgba(var(--secondary-rgb), 0.2);
+      transform: translateY(-50%) translateY(-2px);
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+      //border-color: var(--secondary);
+      //color: var(--secondary);
     }
-
-    &:focus {
-      outline: none;
-      box-shadow: 0 0 0 4px rgba(var(--secondary-rgb), 0.2);
-    }
-  }
-
-  .note-content {
-    font-size: 0.9em;
-    line-height: 1.5;
-    //color: var(--gray);
   }
 }
 

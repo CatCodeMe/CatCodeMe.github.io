@@ -101,27 +101,81 @@ const initializeSideNotes = () => {
         })
     }
 
+    //检测元素是否可见
+    function isInViewport(element: HTMLElement, buffer: number = 100): boolean {
+        const elemRect = element.getBoundingClientRect()
+        const windowHeight = window.innerHeight
+        return (
+            elemRect.top >= buffer &&
+            elemRect.top <= windowHeight + buffer
+        )
+    }
+
     // 更新滚动处理函数
     const updateNotePositions = () => {
         if (!notesContainer || !article) return
         console.log('📍 Updating note positions')
 
+        let lastBottom = -Infinity
+        const minGap = 20 // 基础间距
+
+        // 预先计算所有note的尺寸信息
+        const noteDivs = Array.from(notesContainer.children) as HTMLElement[]
+        const noteHeights = noteDivs.map(div => {
+            const style = getComputedStyle(div)
+            return parseFloat(style.paddingTop)
+                + parseFloat(style.paddingBottom)
+                + parseFloat(style.minHeight || '0')
+        })
+
         refs.forEach((ref, index) => {
             const noteDiv = notesContainer?.children[index] as HTMLElement
             if (!noteDiv) return
 
+            // const refRect = ref.getBoundingClientRect()
+            // console.log(`Note ${index + 1} viewport top:`, refRect.top)
+            //
+            // noteDiv.style.top = `${refRect.top}px`
+
             const refRect = ref.getBoundingClientRect()
-            console.log(`Note ${index + 1} viewport top:`, refRect.top)
+            let newTop = refRect.top
 
-            noteDiv.style.top = `${refRect.top}px`
+            // 使用预计算的高度
+            const totalGap = minGap + noteHeights[index]
 
-            const isVisible = refRect.top >= 0 && refRect.top <= window.innerHeight
+            // 简化重叠检查
+            if (newTop < lastBottom + totalGap) {
+                newTop = lastBottom + totalGap
+            }
+
+            // 使用 transform 代替 top 属性，获得更好的性能
+            noteDiv.style.transform = `translate3d(0, ${newTop}px, 0) translateY(-50%)`
+
+            // 更新 lastBottom
+            lastBottom = newTop + noteHeights[index]
+
+            // 优化可见性检查
+            const isVisible = refRect.top >= -totalGap &&
+                refRect.top <= window.innerHeight + totalGap
+
             noteDiv.style.opacity = isVisible ? '1' : '0'
         })
     }
 
-    handleScroll = () => {
+    handleScroll = debounce(() => {
         requestAnimationFrame(updateNotePositions)
+    }, 10)
+
+    function debounce(func: Function, wait: number) {
+        let timeout: number
+        return function executedFunction(...args: any[]) {
+            const later = () => {
+                clearTimeout(timeout)
+                func(...args)
+            }
+            clearTimeout(timeout)
+            timeout = window.setTimeout(later, wait)
+        }
     }
 
     // 创建边注
@@ -138,9 +192,8 @@ const initializeSideNotes = () => {
             position: absolute;
             top: 0;
             right: 0;
-            transform: translateY(-50%);
             opacity: 0;
-            transition: all 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.2s ease;
         `
 
         const content = note.cloneNode(true) as HTMLElement
@@ -152,23 +205,6 @@ const initializeSideNotes = () => {
             <div class="note-number" role="button" tabindex="0" data-href="${backrefHref}">${refId}</div>
             <div class="note-content">${content.innerHTML}</div>
         `
-        // 修改点击事件，使用与原脚注相同的链接
-        // const numberEl = noteDiv.querySelector('.note-number')
-        // if (numberEl) {
-        //     numberEl.addEventListener('click', (e) => {
-        //         e.preventDefault()
-        //         const href = numberEl.getAttribute('data-href')
-        //         if (href) {
-        //             const targetElement = document.querySelector(href)
-        //             if (targetElement) {
-        //                 scrollToElement(targetElement)
-        //                 history.pushState(null, '', href)
-        //                 updateNotePositions()
-        //             }
-        //         }
-        //     })
-        // }
-
         notesContainer.appendChild(noteDiv)
     })
 
@@ -329,7 +365,6 @@ function setupFootnoteToggle() {
         button.classList.toggle('active', active)
 
         const sidebars = document.querySelectorAll('.sidebar') as NodeListOf<HTMLElement>
-        const center = document.querySelector('.center') as HTMLElement
         const leftSidebar = document.querySelector('.left.sidebar') as HTMLElement
 
         if (active) {
