@@ -41,7 +41,18 @@ const initializeSideNotes = () => {
 
     // 创建容器
     notesContainer = document.createElement('div')
-    // ... 其他容器设置代码 ...
+    notesContainer.className = 'side-notes-container'
+
+    const articleReact = article.getBoundingClientRect()
+    notesContainer.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: ${articleReact.right + 80}px;
+        width: 300px;
+        height: 100vh;
+        pointer-events: none;
+        z-index: 1000;
+    `
 
     // 获取文章内的引用，排除弹出层中的引用
     const refs = Array.from(article.querySelectorAll('a[data-footnote-ref]')).filter(ref =>
@@ -293,7 +304,7 @@ function setupFootnoteToggle() {
         `
         document.body.appendChild(hint)
 
-        hint.querySelector('.exit-reading-mode')?.addEventListener('click', () => {
+        hint.addEventListener('click', () => {
             readingMode = false
             toggleReadingMode(false)
             saveState(false)
@@ -348,12 +359,6 @@ function setupFootnoteToggle() {
                 }
             }
 
-            if (center) {
-                center.style.maxWidth = '800px'
-                center.style.margin = '0 auto'
-                center.style.padding = '0 2rem'
-            }
-
             createReadingModeHint()
             initializeSideNotes()
         } else {
@@ -374,12 +379,6 @@ function setupFootnoteToggle() {
                 )
                 toc.classList.remove('visible')
                 originalTocPosition = null
-            }
-
-            if (center) {
-                center.style.maxWidth = ''
-                center.style.margin = ''
-                center.style.padding = ''
             }
 
             document.querySelector('.reading-mode-hint')?.remove()
