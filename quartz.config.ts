@@ -1,6 +1,8 @@
 import {QuartzConfig} from "./quartz/cfg"
 import * as Plugin from "./quartz/plugins"
 
+// 获取当前环境
+const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('--local')
 /**
  * Quartz 4.0 Configuration
  *
@@ -13,8 +15,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "zh-CN",
-    // baseUrl: "8cat.life",
-    baseUrl: "http://localhost:8080",
+    baseUrl: isDev ? "http://localhost:8080" : "8cat.life",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {

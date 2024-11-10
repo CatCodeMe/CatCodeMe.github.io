@@ -24,9 +24,6 @@ export const defaultContentPageLayout: PageLayout = {
     // Component.DesktopOnly(Component.Graph()),
 
     Component.DesktopOnly(Component.Explorer()),
-
-    Component.DesktopOnly(Component.OutLink()),
-
   ],
   right: [
     Component.DesktopOnly(Component.PinNotes({showTags: false})),
