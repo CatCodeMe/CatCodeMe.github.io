@@ -13,7 +13,8 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "zh-CN",
-    baseUrl: "8cat.life",
+    // baseUrl: "8cat.life",
+    baseUrl: "http://localhost:8080",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
@@ -30,7 +31,7 @@ const config: QuartzConfig = {
           lightgray: "#e5e5e5",
           gray: "#b8b8b8",
           darkgray: "#4e4e4e",
-          dark: "rgb(155,14,14)",
+          dark: "#9B0E0EFF",
           secondary: "#214257",
           tertiary: "#84a59d",
           highlight: "rgba(184,210,184,0.5)",
@@ -49,32 +50,6 @@ const config: QuartzConfig = {
         },
       },
     },
-    outLink: [
-      {
-        name: "Rss",
-        iconifyName: "mdi:rss-box",
-        url: "https://catcodeme.github.io/index.xml",
-        style: "color: #ff8a05;"
-      },
-      {
-        name: "Github",
-        iconifyName: "openmoji:github",
-        url: "https://github.com/CatCodeMe"
-      },
-
-      {
-        iconifyName: "mdi:creative-commons",
-      },
-      {
-        iconifyName: "ri:creative-commons-by-line",
-      },
-      {
-        iconifyName: "tabler:creative-commons-nc",
-      },
-      {
-        iconifyName: "tabler:creative-commons-nd",
-      },
-    ],
   },
   plugins: {
     transformers: [

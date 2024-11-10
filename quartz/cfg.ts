@@ -3,7 +3,6 @@ import {QuartzComponent} from "./components/types"
 import {ValidLocale} from "./i18n"
 import {PluginTypes} from "./plugins/types"
 import {Theme} from "./util/theme"
-import {OutLink} from "./util/outlink";
 
 export type Analytics =
   | null
@@ -71,8 +70,6 @@ export interface GlobalConfiguration {
    */
   locale: ValidLocale
 
-  //外部链接
-  outLink?: OutLink[]
 }
 
 export interface QuartzConfig {

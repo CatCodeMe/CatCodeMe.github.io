@@ -25,7 +25,7 @@
 #explorer-content{
    max-height: 20rem;
    //height: 20rem;
-   overflow-y: scroll;
+   overflow-y: auto;
    scrollbar-width: thin;
 }
 
@@ -36,7 +36,7 @@ button#explorer {
 //本文目录
 #toc-content > ul.overflow{
    max-height: 15rem;
-   overflow-y: scroll;
+   overflow-y: auto;
    scrollbar-width: thin;
 }
 

@@ -20,7 +20,6 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
-import OutLink from "./OutLink";
 import PinNotes from "./PinNotes";
 import Carousel from "./Carousel";
 
@@ -47,7 +46,6 @@ export {
   NotFound,
   Breadcrumbs,
   Comments,
-  OutLink,
   PinNotes,
   Carousel,
 }

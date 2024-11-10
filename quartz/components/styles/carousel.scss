@@ -1,8 +1,8 @@
 .carousel {
   width: 100%;
   position: relative;
-  //margin: 1rem 0;
-
+  
+  // 轮播容器
   .carousel-container {
     position: relative;
     width: 100%;
@@ -10,9 +10,9 @@
     padding-bottom: 56.25%; // 16:9 比例
     overflow: hidden;
     border-radius: 8px;
-    background: var(--bg);
   }
 
+  // 轮播轨道
   .carousel-track {
     position: absolute;
     top: 0;
@@ -20,55 +20,30 @@
     width: 100%;
     height: 100%;
     display: flex;
-    will-change: transform; // 优化性能
   }
 
+  // 轮播项
   .carousel-slide {
     flex: 0 0 100%;
     width: 100%;
     height: 100%;
 
+    // 普通图片样式
     img {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      user-select: none; // 防止拖动图片
-      -webkit-user-drag: none;
-    }
-  }
-
-  .carousel-button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.5);
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s, background-color 0.3s;
-
-    &:hover {
-      background: rgba(0, 0, 0, 0.7);
     }
 
-    &.prev {
-      left: 10px;
+    // SVG 内容样式
+    .svg-content {
+      width: 100%;
+      height: 100%;
+      
+      &.clickable {
+        pointer-events: all;
+        cursor: pointer;
+      }
     }
-
-    &.next {
-      right: 10px;
-    }
-  }
-
-  &:hover .carousel-button {
-    opacity: 1;
   }
 }

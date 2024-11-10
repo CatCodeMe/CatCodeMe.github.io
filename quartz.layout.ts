@@ -25,7 +25,7 @@ export const defaultContentPageLayout: PageLayout = {
 
     Component.DesktopOnly(Component.Explorer()),
 
-    // Component.DesktopOnly(Component.OutLink()),
+    Component.DesktopOnly(Component.OutLink()),
 
   ],
   right: [
@@ -34,9 +34,20 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.TableOfContents()),
     Component.DesktopOnly(Component.Carousel({
       images: [
-        "/static/img/slogan.png",
-        "/static/img/s1.png",
-        "/static/img/s2.png",
+        {
+          src: "/static/img/site.svg",
+          type: "svg",
+          clickable: false  // SVG 中的链接可点击
+        },
+        {
+          src: "/static/img/outlink.svg",
+          type: "svg",
+          clickable: true  // SVG 中的链接可点击
+        },
+        {
+          src: "/static/img/s1.png",
+          type: "image",
+        },
       ],
       interval: 3000
     })),
