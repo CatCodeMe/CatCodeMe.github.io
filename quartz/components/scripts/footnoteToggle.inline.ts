@@ -1,4 +1,3 @@
-console.log('🚀 Script loaded')
 
 let notesContainer: HTMLDivElement | null = null
 let readingMode = false
@@ -29,7 +28,6 @@ const cleanup = () => {
 
 // 初始化边注
 const initializeSideNotes = () => {
-    console.log('🏁 Initializing side notes')
     cleanup()
 
     // 使用更精确的选择器定位脚注区域
@@ -68,7 +66,6 @@ const initializeSideNotes = () => {
             })
     })
 
-    console.log(`📝 Found ${refs.length} references and ${notes.length} notes`)
     if (refs.length === 0 || notes.length === 0) return
 
     // 滚动到指定元素，保持一定距离
@@ -114,7 +111,6 @@ const initializeSideNotes = () => {
     // 更新滚动处理函数
     const updateNotePositions = () => {
         if (!notesContainer || !article) return
-        console.log('📍 Updating note positions')
 
         let lastBottom = -Infinity
         const minGap = 20 // 基础间距
@@ -131,11 +127,6 @@ const initializeSideNotes = () => {
         refs.forEach((ref, index) => {
             const noteDiv = notesContainer?.children[index] as HTMLElement
             if (!noteDiv) return
-
-            // const refRect = ref.getBoundingClientRect()
-            // console.log(`Note ${index + 1} viewport top:`, refRect.top)
-            //
-            // noteDiv.style.top = `${refRect.top}px`
 
             const refRect = ref.getBoundingClientRect()
             let newTop = refRect.top
@@ -212,7 +203,6 @@ const initializeSideNotes = () => {
 
     // 监听所有可能的导航事件
     const handleNavigation = () => {
-        console.log('🔗 Navigation detected')
         setTimeout(updateNotePositions, 10)
         setTimeout(updateNotePositions, 100)
         setTimeout(updateNotePositions, 500)
@@ -263,7 +253,6 @@ const initializeSideNotes = () => {
 
     // 监听内容变化
     observer = new MutationObserver((mutations) => {
-        console.log('📄 Content changed')
         // 检查是否有相关变化
         const hasRelevantChanges = mutations.some(mutation => {
             return mutation.type === 'attributes' &&
@@ -285,7 +274,6 @@ const initializeSideNotes = () => {
     })
 
     // 初始化位置
-    console.log('🎯 Initial position update')
     updateNotePositions()
     // 初始化时处理 URL hash
     if (window.location.hash) {
@@ -299,11 +287,8 @@ const initializeSideNotes = () => {
 }
 
 function setupFootnoteToggle() {
-    console.log('📝 Setting up footnote toggle')
-
     const hasFootnotes = document.querySelector('.footnotes') !== null
     if (!hasFootnotes) {
-        console.log('❌ No footnotes found, skipping setup')
         return
     }
 

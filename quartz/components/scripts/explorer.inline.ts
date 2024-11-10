@@ -1,4 +1,4 @@
-import { FolderState } from "../ExplorerNode"
+import {FolderState} from "../ExplorerNode"
 
 type MaybeHTMLElement = HTMLElement | undefined
 let currentExplorerState: FolderState[]
@@ -100,6 +100,26 @@ function setupExplorer() {
       setFolderState(folderUl, folderState.collapsed)
     }
   })
+
+  // 使用新的选择器
+  const explorerDiv = document.getElementById('explorer-div')
+  const currentSlug = explorerDiv?.getAttribute('data-current-slug')
+
+  if (currentSlug) {
+    // 直接使用 data-for 属性查找
+    const currentLink = document.querySelector(`a[data-for="${currentSlug}"]`)
+
+    if (currentLink) {
+      currentLink.classList.add('current-page')
+      
+      // 确保所有父文件夹都展开
+      let parent = currentLink.closest('.folder-outer')
+      while (parent) {
+        parent.classList.add('open')
+        parent = parent.parentElement?.closest('.folder-outer')
+      }
+    }
+  }
 }
 
 window.addEventListener("resize", setupExplorer)

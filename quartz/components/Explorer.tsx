@@ -84,8 +84,11 @@ export default ((userOpts?: Partial<Options>) => {
       constructFileTree(allFiles)
     }
 
+    // 添加当前页面的标识
+    const currentSlug = fileData?.slug || ''
+
     return (
-        <div class={classNames(displayClass, "explorer")}>
+        <div class={classNames(displayClass, "explorer")} id="explorer-div" data-current-slug={currentSlug}>
           <button
               type="button"
               id="explorer"
