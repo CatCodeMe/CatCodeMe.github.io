@@ -59,7 +59,7 @@ export default (() => {
             {js
                 .filter((resource) => resource.loadTime === "beforeDOMReady")
                 .map((res) => JSResourceToScriptElement(res, true))}
-            <script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>
+            {/*<script src="https://cdn.jsdelivr.net/npm/iconify-icon@2.0.0/dist/iconify-icon.min.js"></script>*/}
         </head>
     )
   }
