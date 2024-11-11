@@ -12,11 +12,10 @@
 }
 
 .sidebar-toggle-button {
-  background: var(--secondary);
   border: none;
-  border-radius: 4px;
-  width: 28px;
-  height: 28px;
+  border-radius: var(--radius-sm);
+  width: 2rem;
+  height: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -24,11 +23,14 @@
   transition: all 0.2s ease;
   padding: 0;
   margin-left: 0.5rem;
+  font-size: 1.1rem;
+  line-height: 1;
+  color: var(--dark);
+  background: var(--lightgray);
 
-  svg {
-    width: 16px;
-    height: 16px;
-    color: var(--light);
+  &:hover {
+    background: var(--hover);
+    transform: none;
   }
 }
 
@@ -57,10 +59,6 @@
   perspective: 1000;
   transform: translate3d(0, 0, 0);
 
-  //& + & {
-  //  margin-top: 2rem;
-  //}
-
   .note-number {
     position: absolute;
     left: -0.5rem;
@@ -68,7 +66,7 @@
     transform: translateY(-50%);
     padding: 0.2rem 0.2rem;
     background: var(--tertiary);
-    color: var(--secondary);
+    color: var(--light);
     border: 1px solid var(--lightgray);
     border-radius: 4px;
     font-size: 0.8rem;
@@ -93,7 +91,7 @@
 .reading-mode-hint, .reading-mode-welcome {
   position: fixed;
   border-radius: 6px;
-  background: var(--secondary);
+  background: var(--tertiary);
   color: var(--light);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   z-index: 1000;
@@ -102,25 +100,13 @@
 .reading-mode-hint {
   top: 20px;
   left: 20px;
-  padding: 12px 16px;
+  padding: 6px 16px;
   display: flex;
   align-items: center;
   gap: 12px;
   border: 1px solid var(--lightgray);
   animation: slideIn 0.3s ease-out;
   cursor: pointer;
-
-  .exit-reading-mode {
-    background: none;
-    border: none;
-    padding: 4px;
-    color: var(--light);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 4px;
-    transition: all 0.2s ease;
-  }
 
   .hint-text {
     font-size: 14px;

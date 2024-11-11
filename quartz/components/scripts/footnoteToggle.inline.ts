@@ -98,16 +98,6 @@ const initializeSideNotes = () => {
         })
     }
 
-    //检测元素是否可见
-    function isInViewport(element: HTMLElement, buffer: number = 100): boolean {
-        const elemRect = element.getBoundingClientRect()
-        const windowHeight = window.innerHeight
-        return (
-            elemRect.top >= buffer &&
-            elemRect.top <= windowHeight + buffer
-        )
-    }
-
     // 更新滚动处理函数
     const updateNotePositions = () => {
         if (!notesContainer || !article) return
@@ -303,24 +293,14 @@ function setupFootnoteToggle() {
     button.setAttribute('title', '阅读模式')
     button.setAttribute('aria-label', '阅读模式')
     button.setAttribute('aria-pressed', 'false')
-    button.innerHTML = `
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-            <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-        </svg>
-    `
+    button.innerHTML = `👓 `
 
     // 创建阅读模式提示
     const createReadingModeHint = () => {
         const hint = document.createElement('div')
         hint.className = 'reading-mode-hint'
         hint.innerHTML = `
-            <button class="exit-reading-mode" title="退出阅读模式">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
-                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
-                </svg>
-            </button>
+            📖
             <span class="hint-text">按 ESC 退出阅读模式</span>
         `
         document.body.appendChild(hint)
