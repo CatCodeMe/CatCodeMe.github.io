@@ -365,3 +365,18 @@ code{
 .graph>.graph-outer{
    background: var(--light);
 }
+
+//callout-content like obsidian
+.callout>.callout-content {
+   overflow-x: auto;
+   padding: 0.5rem;
+   background: #FFFFFFBF;
+   border-radius: 5px;
+   border: 1px solid var(--border);
+   margin: 0 0 1rem;
+
+   :first-child {
+      //调整内容和边框的距离, 看着更舒服
+      margin: .5rem 0 !important;
+   }
+}

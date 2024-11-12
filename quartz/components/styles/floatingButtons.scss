@@ -127,8 +127,7 @@
 }
 
 // 确保在阅读模式和打印模式下都显示
-html.reading-mode,
-html.print {
+html.reading-mode{
   .floating-buttons,
   .floating-buttons .button-group,
   .floating-buttons .floating-button {
@@ -136,20 +135,5 @@ html.print {
     opacity: 1 !important;
     pointer-events: auto !important;
     visibility: visible !important;
-  }
-}
-
-//callout-content like obsidian
-.callout>.callout-content {
-  overflow-x: auto;
-  padding: 0.5rem;
-  background: #FFFFFFBF;
-  border-radius: 5px;
-  border: 1px solid var(--border);   
-  margin: 0 0 1rem; 
-
-  > ol {
-      //调整内容和边框的距离, 看着更舒服
-      margin: .5rem 0 !important;
   }
 }
