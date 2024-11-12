@@ -173,6 +173,9 @@ const initializeSideNotes = () => {
         const note = notes.find(n => n.id === `user-content-fn-${refId}`)
         if (!note) return
 
+        // 获取引用的实际显示数字
+        const refNumber = (index + 1).toString() // 使用从1开始的索引
+        
         const noteDiv = document.createElement('div')
         noteDiv.className = 'side-note'
         noteDiv.dataset.noteId = refId
@@ -191,7 +194,7 @@ const initializeSideNotes = () => {
         backref?.remove()
 
         noteDiv.innerHTML = `
-            <div class="note-number" role="button" tabindex="0" data-href="${backrefHref}">${refId}</div>
+            <div class="note-number" role="button" tabindex="0" data-href="${backrefHref}">${refNumber}</div>
             <div class="note-content">${content.innerHTML}</div>
         `
         notesContainer.appendChild(noteDiv)

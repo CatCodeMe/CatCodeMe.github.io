@@ -16,7 +16,9 @@ export default ((opts: CarouselOptions): QuartzComponent => {
   function Carousel({ displayClass, cfg }: QuartzComponentProps) {
     const { images, interval = 5000 } = opts
     if (!images || images.length === 0) return null
+    const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('--local')
 
+    const fullBaseUrl = isDev ? `http://${cfg.baseUrl}` : `https://${cfg.baseUrl}`
     return (
       <div class={`carousel ${displayClass ?? ""}`}>
         <div class="carousel-container" data-carousel data-interval={interval}>
@@ -28,14 +30,14 @@ export default ((opts: CarouselOptions): QuartzComponent => {
                   <object
                     class={`svg-content ${image.clickable ? 'clickable' : ''}`}
                     type="image/svg+xml"
-                    data={cfg.baseUrl + image.src}
+                    data={fullBaseUrl + image.src}
                   >
-                    <img src={cfg.baseUrl + image.src} alt={`Slide ${index + 1}`} />
+                    <img src={fullBaseUrl + image.src} alt={`Slide ${index + 1}`} />
                   </object>
                 ) : (
                   <img
                     class={image.clickable ? 'clickable' : ''}
-                    src={cfg.baseUrl + image.src}
+                    src={fullBaseUrl + image.src}
                     alt={`Slide ${index + 1}`}
                     loading="lazy"
                   />

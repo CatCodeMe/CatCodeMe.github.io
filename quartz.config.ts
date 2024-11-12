@@ -15,7 +15,7 @@ const config: QuartzConfig = {
     enablePopovers: true,
     analytics: null,
     locale: "zh-CN",
-    baseUrl: isDev ? "http://localhost:8080" : "8cat.life",
+    baseUrl: isDev ? "localhost:8080" : "8cat.life",
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {

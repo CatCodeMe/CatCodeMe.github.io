@@ -25,11 +25,20 @@ function setupFloatingButtons() {
     const centerHeight = center.scrollHeight
     const centerTop = center.getBoundingClientRect().top
     const maxScroll = centerHeight - windowHeight
+
+    // 如果内容高度小于视窗高度，不显示按钮组
+    if (centerHeight <= windowHeight) {
+      document.querySelector('.floating-buttons')?.classList.add('hidden')
+      return
+    } else {
+      document.querySelector('.floating-buttons')?.classList.remove('hidden')
+    }
     
     // 修正滚动位置计算
     const scrolled = Math.max(0, -centerTop)
-    let scrollPercent = Math.min(100, Math.round((scrolled / maxScroll) * 100))
-    
+    // 确保百分比在0-100之间
+    let scrollPercent = Math.max(0, Math.min(100, Math.round((scrolled / maxScroll) * 100)))
+
     // 特殊处理顶部和底部的情况
     if (Math.abs(centerTop) <= 100) { // 顶部，允许1px误差
       scrollPercent = 0
