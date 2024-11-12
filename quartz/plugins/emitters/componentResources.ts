@@ -181,9 +181,9 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
     `)
   }
 
-  // 添加 footnoteToggle 资源
-  componentResources.css.push(footnoteToggleStyle)
-  componentResources.afterDOMLoaded.push(footnoteToggleScript)
+  // 确保 footnoteToggle 最先加载
+  componentResources.css.unshift(footnoteToggleStyle)
+  componentResources.afterDOMLoaded.unshift(footnoteToggleScript)
 }
 
 // This emitter should not update the `resources` parameter. If it does, partial

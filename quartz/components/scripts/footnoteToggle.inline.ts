@@ -1,3 +1,11 @@
+// 在文件开头添加类型声明
+declare global {
+  interface Window {
+    readingMode: boolean
+    toggleReadingMode: (active: boolean) => void
+    saveState: (state: boolean) => void
+  }
+}
 
 let notesContainer: HTMLDivElement | null = null
 let readingMode = false
@@ -435,6 +443,11 @@ function setupFootnoteToggle() {
 
     search.appendChild(button)
     initializeFromState()
+
+    // 暴露到全局
+    window.readingMode = readingMode
+    window.toggleReadingMode = toggleReadingMode
+    window.saveState = saveState
 }
 
 // 页面加载和导航时初始化
