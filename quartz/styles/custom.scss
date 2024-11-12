@@ -311,10 +311,10 @@ blockquote:not(.callout) {
    margin-bottom: 10px;
    border: 1px solid #ffe066;
    border-radius: 4px;
-   box-shadow:
-           2px 2px 0 #ffe066,
-           4px 4px 0 #ffd43b,
-           6px 6px 0 #fcc419;
+   //box-shadow:
+   //        2px 2px 0 #ffe066,
+   //        4px 4px 0 #ffd43b,
+   //        6px 6px 0 #fcc419;
    position: relative;
 }
 
@@ -350,4 +350,18 @@ code{
    .sidebar-toggle-button {
       display: none;
    }
+
+   //滚动顶部、底部按钮区域显示
+   .floating-buttons {
+      display: none;
+   }
+}
+
+//关系图谱
+.graph>#global-graph-outer>#global-graph-container{
+   width: 70vw;
+}
+
+.graph>.graph-outer{
+   background: var(--light);
 }

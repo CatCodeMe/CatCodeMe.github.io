@@ -21,9 +21,16 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    // Component.DesktopOnly(Component.Graph()),
 
     Component.DesktopOnly(Component.Explorer()),
+    Component.FloatingButtons({
+      position: 'right',
+      buttons: [
+        { icon: '⬆️', title: 'Scroll to Top', action: 'scrollTop' },
+        { icon: '⬇️', title: 'Scroll to Bottom', action: 'scrollBottom' },
+      ]
+    }),
+    Component.DesktopOnly(Component.Graph()),
   ],
   right: [
     Component.DesktopOnly(Component.PinNotes({showTags: false})),

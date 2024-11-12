@@ -22,6 +22,7 @@ import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import PinNotes from "./PinNotes";
 import Carousel from "./Carousel";
+import FloatingButtons from "./FloatingButtons";
 
 export {
   ArticleTitle,
@@ -48,4 +49,5 @@ export {
   Comments,
   PinNotes,
   Carousel,
+  FloatingButtons,
 }
