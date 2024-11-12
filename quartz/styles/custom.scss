@@ -375,7 +375,7 @@ code{
    border: 1px solid var(--border);
    margin: 0 0 1rem;
 
-   :first-child {
+   >:first-child {
       //调整内容和边框的距离, 看着更舒服
       margin: .5rem 0 !important;
    }
