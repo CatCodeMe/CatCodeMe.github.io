@@ -21,12 +21,6 @@
    --custom-highlight: #f9e196
 }
 
-//全部文章目录滚动条
-#explorer-content{
-   max-height: 20rem;
-   overflow-y: auto;
-   scrollbar-width: thin;
-}
 
 button#explorer {
    color: var(--secondary);
@@ -145,15 +139,15 @@ body[data-topbar-has-content="0"] {
    background-position: calc(var(--point-gap-width) / 2) calc(var(--point-gap-height) / 2);
 }
 
-//文章header部分上移
+//文章header部分上移, banner也上移
 .page .page-header {
-   margin: 4rem auto 0;
+   margin: 2rem auto 0;
 }
 
 //文章主内容区样式
 article:has(p:not(:empty)) {
    border: dashed 1px var(--gray);
-   border-radius: 5px;
+   border-radius: 4px;
    padding: 0 1rem 1rem;
 }
 
@@ -183,12 +177,12 @@ article:has(p:not(:empty)) {
    border-bottom-width: 2px;
 }
 
-//搜索区域文字不换行，显示省略号
-ul.content>li {
-   white-space: nowrap; /* 不换行 */
-   overflow: hidden; /* 溢出部分隐藏 */
-   text-overflow: ellipsis; /* 溢出显示为省略号 */
-}
+// //搜索区域文字不换行，显示省略号
+// ul.content>li {
+//    white-space: nowrap; /* 不换行 */
+//    overflow: hidden; /* 溢出部分隐藏 */
+//    text-overflow: ellipsis; /* 溢出显示为省略号 */
+// }
 
 //表格样式
 .table-container {
@@ -379,4 +373,38 @@ code{
       //调整内容和边框的距离, 看着更舒服
       margin: .5rem 0 !important;
    }
+}
+
+.banner-separator {
+  position: relative;
+  margin: 2rem 0;
+  height: 1px;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    var(--lightgray) 15%, 
+    var(--lightgray) 85%, 
+    transparent 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .banner-reading-trigger {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: var(--light);
+    padding: 0.25rem 0.5rem;
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    color: var(--dark);
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: var(--highlight);
+    }
+  }
 }

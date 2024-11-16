@@ -20,9 +20,10 @@ import MobileOnly from "./MobileOnly"
 import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
-import PinNotes from "./PinNotes";
-import Carousel from "./Carousel";
-import FloatingButtons from "./FloatingButtons";
+import PinNotes from "./PinNotes"
+import Carousel from "./Carousel"
+import FloatingButtons from "./FloatingButtons"
+import Banner from "./Banner"
 
 export {
   ArticleTitle,
@@ -50,4 +51,5 @@ export {
   PinNotes,
   Carousel,
   FloatingButtons,
+  Banner,
 }
