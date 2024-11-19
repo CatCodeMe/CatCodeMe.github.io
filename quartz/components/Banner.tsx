@@ -144,28 +144,6 @@ export default (() => {
             </div>
           </div>
         </div>
-        <div className="banner-separator">
-          <button 
-            className="banner-reading-trigger" 
-            title="阅读模式"
-            aria-label="阅读模式"
-            onClick={() => {
-              // 等待 toggleReadingMode 加载完成
-              if (typeof window !== 'undefined') {
-                const waitForToggle = () => {
-                  if (window.toggleReadingMode) {
-                    window.toggleReadingMode(!window.readingMode)
-                  } else {
-                    setTimeout(waitForToggle, 100)
-                  }
-                }
-                waitForToggle()
-              }
-            }}
-          >
-            👓
-          </button>
-        </div>
       </>
     )
   }

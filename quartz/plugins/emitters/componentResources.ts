@@ -14,8 +14,6 @@ import {Features, transform} from "lightningcss"
 import {transform as transpile} from "esbuild"
 import {write} from "./helpers"
 import DepGraph from "../../depgraph"
-import footnoteToggleScript from "../../components/scripts/footnoteToggle.inline"
-import footnoteToggleStyle from "../../components/styles/footnoteToggle.scss"
 
 
 type ComponentResources = {
@@ -182,8 +180,8 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   }
 
   // 确保 footnoteToggle 最先加载
-  componentResources.css.unshift(footnoteToggleStyle)
-  componentResources.afterDOMLoaded.unshift(footnoteToggleScript)
+  // componentResources.css.unshift(footnoteToggleStyle)
+  // componentResources.afterDOMLoaded.unshift(footnoteToggleScript)
 }
 
 // This emitter should not update the `resources` parameter. If it does, partial

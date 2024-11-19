@@ -45,25 +45,29 @@ export const defaultContentPageLayout: PageLayout = {
         { icon: '⬇️', title: 'Scroll to Bottom', action: 'scrollBottom' },
       ]
     }),
-    Component.DesktopOnly(Component.Graph()),
+    Component.DesktopOnly(Component.PinNotes({showTags: false})),
+
+    // Component.DesktopOnly(Component.Carousel({
+    //   images: [
+    //     {
+    //       src: "/static/img/site.svg",
+    //       type: "svg",
+    //       clickable: false  // SVG 中的链接可点击
+    //     },
+    //     {
+    //       src: "/static/img/outlink.svg",
+    //       type: "svg",
+    //       clickable: true  // SVG 中的链接可点击
+    //     },
+    //   ]
+    // })),
   ],
   right: [
-    Component.DesktopOnly(Component.PinNotes({showTags: false})),
+    Component.DesktopOnly(Component.ReadingModeToggle()),
+    Component.DesktopOnly(Component.Graph()),
+    // Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.TableOfContents()),
-    Component.DesktopOnly(Component.Carousel({
-      images: [
-        {
-          src: "/static/img/site.svg",
-          type: "svg",
-          clickable: false  // SVG 中的链接可点击
-        },
-        {
-          src: "/static/img/outlink.svg",
-          type: "svg",
-          clickable: true  // SVG 中的链接可点击
-        },
-      ]
-    })),
+    
   ],
   afterBody: [
     Component.Comments(),
@@ -92,6 +96,7 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Graph()),
   ],
   right: [
+    Component.ReadingModeToggle(),
     Component.DesktopOnly(Component.TableOfContents()),
   ],
 }

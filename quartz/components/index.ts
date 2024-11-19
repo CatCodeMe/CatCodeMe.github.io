@@ -24,6 +24,8 @@ import PinNotes from "./PinNotes"
 import Carousel from "./Carousel"
 import FloatingButtons from "./FloatingButtons"
 import Banner from "./Banner"
+import ReadingModeToggle from "./ReadingModeToggle"
+
 
 export {
   ArticleTitle,
@@ -52,4 +54,5 @@ export {
   Carousel,
   FloatingButtons,
   Banner,
+  ReadingModeToggle,
 }
