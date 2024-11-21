@@ -177,23 +177,10 @@ article:has(p:not(:empty)) {
    border-bottom-width: 2px;
 }
 
-// //搜索区域文字不换行，显示省略号
-// ul.content>li {
-//    white-space: nowrap; /* 不换行 */
-//    overflow: hidden; /* 溢出部分隐藏 */
-//    text-overflow: ellipsis; /* 溢出显示为省略号 */
-// }
-
 //表格样式
 .table-container {
    & table {
-      //width: min(45vw, 100%);
-      //border-collapse: collapse;
-      //overflow: hidden;
-      //box-shadow: 0 0 20px rgba(0,0,0,0.1);
-      //margin: auto;
-      //border-bottom: solid var(--lightgray);
-      min-width: min(45vw,90%);
+      min-width: min(50vw,100%);
       border-collapse: collapse;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
@@ -201,13 +188,13 @@ article:has(p:not(:empty)) {
       border-bottom: solid var(--lightgray);
    }
 
-   & th, td {
-      padding: 15px;
-   }
-
-   & tr:last-child {
-      border-bottom: 5px solid var(--secondary);
-   }
+   //& th, td {
+   //   padding: 15px;
+   //}
+   //
+   //& tr:last-child {
+   //   border-bottom: 5px solid var(--secondary);
+   //}
 
    & thead {
       th {
@@ -231,7 +218,7 @@ article:has(p:not(:empty)) {
             right: 0;
             top: -9999px;
             bottom: -9999px;
-            background-color: var(--highlight);
+            background-color: var(--lightgray);
             z-index: -1;
          }
       }
