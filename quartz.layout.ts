@@ -87,7 +87,7 @@ export const defaultListPageLayout: PageLayout = {
     }),
   ],
   right: [
-    Component.ReadingModeToggle(),
+    Component.DesktopOnly(Component.ReadingModeToggle()),
     Component.DesktopOnly(Component.TableOfContents()),
   ],
   afterBody: [
