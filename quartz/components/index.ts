@@ -25,7 +25,7 @@ import Carousel from "./Carousel"
 import FloatingButtons from "./FloatingButtons"
 import Banner from "./Banner"
 import ReadingModeToggle from "./ReadingModeToggle"
-
+import PageNavigation from "./PageNavigation"
 
 export {
   ArticleTitle,
@@ -55,4 +55,5 @@ export {
   FloatingButtons,
   Banner,
   ReadingModeToggle,
+  PageNavigation,
 }

@@ -1,12 +1,11 @@
-import { QuartzComponent, QuartzComponentConstructor, QuartzComponentProps } from "../types"
+import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "../types"
 import path from "path"
 
 import style from "../styles/listPage.scss"
-import { PageList, SortFn } from "../PageList"
-import { stripSlashes, simplifySlug } from "../../util/path"
-import { Root } from "hast"
-import { htmlToJsx } from "../../util/jsx"
-import { i18n } from "../../i18n"
+import {PageList, SortFn} from "../PageList"
+import {simplifySlug, stripSlashes} from "../../util/path"
+import {Root} from "hast"
+import {htmlToJsx} from "../../util/jsx"
 
 interface FolderContentOptions {
   /**
@@ -50,7 +49,7 @@ export default ((opts?: Partial<FolderContentOptions>) => {
     return (
       <div class={classes}>
         <article>{content}</article>
-        <div class="page-listing">
+        {/* <div class="page-listing">
           {options.showFolderCount && (
             <p>
               {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
@@ -61,7 +60,7 @@ export default ((opts?: Partial<FolderContentOptions>) => {
           <div>
             <PageList {...listProps} />
           </div>
-        </div>
+        </div> */}
       </div>
     )
   }
