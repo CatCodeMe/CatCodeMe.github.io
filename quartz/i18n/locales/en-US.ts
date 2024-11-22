@@ -39,7 +39,7 @@ export default {
       title: "🕸️ Graph View",
     },
     recentNotes: {
-      title: "Recent Notes",
+      title: "📝 Recent Notes",
       seeRemainingMore: ({ remaining }) => `See ${remaining} more →`,
     },
     pinNotes: {
@@ -55,7 +55,7 @@ export default {
       stat: ({ totalNotes }) => `, ${totalNotes} notes`
     },
     tableOfContents: {
-      title: "📝 Contents",
+      title: "📋  Contents",
     },
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes} min read`,

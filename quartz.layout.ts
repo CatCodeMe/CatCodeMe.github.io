@@ -37,7 +37,7 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
-    Component.DesktopOnly(Component.Explorer()),
+    // Component.DesktopOnly(Component.Explorer()),
     Component.FloatingButtons({
       position: 'right',
       buttons: [
@@ -46,30 +46,29 @@ export const defaultContentPageLayout: PageLayout = {
       ]
     }),
     Component.DesktopOnly(Component.PinNotes({showTags: false})),
-
+    Component.DesktopOnly(Component.RecentNotes({showTags: false, linkToMore: "/roadmap"})),
+  ],
+  right: [
+    Component.DesktopOnly(Component.ReadingModeToggle()),
+    Component.DesktopOnly(Component.TableOfContents()),
     // Component.DesktopOnly(Component.Carousel({
     //   images: [
     //     {
-    //       src: "/static/img/site.svg",
+    //       src: "/static/img/site.png",
     //       type: "svg",
     //       clickable: false  // SVG 中的链接可点击
     //     },
     //     {
-    //       src: "/static/img/outlink.svg",
+    //       src: "/static/img/s1.png",
     //       type: "svg",
-    //       clickable: true  // SVG 中的链接可点击
+    //       clickable: false  // SVG 中的链接可点击
     //     },
     //   ]
     // })),
   ],
-  right: [
-    Component.DesktopOnly(Component.ReadingModeToggle()),
-    Component.DesktopOnly(Component.Graph()),
-    // Component.DesktopOnly(Component.PinNotes({showTags: false})),
-    Component.DesktopOnly(Component.TableOfContents()),
-    
-  ],
   afterBody: [
+    Component.DesktopOnly(Component.Graph({showTags: false})),
+    // Component.DesktopOnly(Component.Backlinks()),
     Component.Comments(),
   ],
 }
@@ -85,7 +84,7 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.Search(),
-    Component.DesktopOnly(Component.Explorer()),
+    // Component.DesktopOnly(Component.Explorer()),
     Component.FloatingButtons({
       position: 'right',
       buttons: [
@@ -93,10 +92,13 @@ export const defaultListPageLayout: PageLayout = {
         { icon: '⬇️', title: 'Scroll to Bottom', action: 'scrollBottom' },
       ]
     }),
-    Component.DesktopOnly(Component.Graph()),
   ],
   right: [
     Component.ReadingModeToggle(),
     Component.DesktopOnly(Component.TableOfContents()),
+  ],
+  afterBody: [
+    // Component.DesktopOnly(Component.Graph()),
+      Component.Comments()
   ],
 }

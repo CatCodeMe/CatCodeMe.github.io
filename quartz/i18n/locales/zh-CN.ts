@@ -39,8 +39,8 @@ export default {
       title: "🕸️ 关系图谱",
     },
     recentNotes: {
-      title: "最近更新",
-      seeRemainingMore: ({ remaining }) => `查看更多${remaining}篇笔记 →`,
+      title: "📝 最近更新",
+      seeRemainingMore: ({ remaining }) => `查看其他${remaining}篇笔记 →`,
     },
     pinNotes: {
       title: "🎯 置顶",
@@ -55,7 +55,7 @@ export default {
       stat: ({ totalNotes }) => `, 本站共 ${totalNotes} 篇笔记`
     },
     tableOfContents: {
-      title: "📝 本文目录",
+      title: "📋 本文目录",
     },
     contentMeta: {
       readingTime: ({ minutes }) => `${minutes}分钟阅读`,
