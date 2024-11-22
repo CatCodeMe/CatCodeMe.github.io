@@ -82,7 +82,7 @@ export default ((userOpts?: Partial<Options>) => {
           {prevPage && (
             <a href={resolveRelative(fileData.slug!, prevPage.slug!)} class="prev">
               <span class="prev-label">← {i18n(cfg.locale).components.pageNavigation?.prevPage ?? "Previous"}</span>
-              {opts.showTitle && <span class="page-title">{getPageIcon(prevPage)} {prevPage.frontmatter?.title}</span>}
+              {opts.showTitle && <span class="nav-page-title">{getPageIcon(prevPage)} {prevPage.frontmatter?.title}</span>}
             </a>
           )}
           {(nextPage || (isLastPage && indexPage)) && (
@@ -97,7 +97,7 @@ export default ((userOpts?: Partial<Options>) => {
                 }
               </span>
               {opts.showTitle && (
-                <span class="page-title">
+                <span class="nav-page-title">
                   {getPageIcon(nextPage || indexPage!)} {(nextPage || indexPage)!.frontmatter?.title}
                 </span>
               )}
