@@ -40,9 +40,9 @@ export const defaultContentPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Explorer({
       folderClickBehavior: 'link',
     })),
-    Component.FloatingButtons({
+    Component.DesktopOnly(Component.FloatingButtons({
       position: 'right',
-    }),
+    })),
     // Component.DesktopOnly(Component.RecentNotes({
     //   showTags: false,
     //   linkToMore: "/roadmap",
@@ -82,9 +82,9 @@ export const defaultListPageLayout: PageLayout = {
     Component.DesktopOnly(Component.Explorer({
       folderClickBehavior: 'link',
     })),
-    Component.FloatingButtons({
+    Component.DesktopOnly(Component.FloatingButtons({
       position: 'right'
-    }),
+    })),
   ],
   right: [
     Component.DesktopOnly(Component.ReadingModeToggle()),
