@@ -149,6 +149,7 @@ article:has(p:not(:empty)) {
    border: dashed 1px var(--gray);
    border-radius: 4px;
    padding: 0 1rem 1rem;
+   //background-color: var(--light);
 }
 
 //搜索框键盘样式
@@ -187,14 +188,6 @@ article:has(p:not(:empty)) {
       margin: auto;
       border-bottom: solid var(--lightgray);
    }
-
-   //& th, td {
-   //   padding: 15px;
-   //}
-   //
-   //& tr:last-child {
-   //   border-bottom: 5px solid var(--secondary);
-   //}
 
    & thead {
       th {
@@ -394,4 +387,28 @@ code{
       background: var(--highlight);
     }
   }
+}
+
+// 优化代码块样式
+pre {
+   background-color: var(--lightgray) !important;
+   padding: .2rem !important;
+   margin: 1rem 0;
+}
+
+// 优化行内代码样式
+:not(pre) > code {
+   background-color: var(--lightgray);
+   border-radius: 0.25rem;
+   padding: 0.2rem 0.4rem;
+   margin: .2rem;
+}
+
+// 优化标题样式
+.center {
+   h1, h2, h3, h4, h5, h6 {
+      color: var(--dark);
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+   }
 }

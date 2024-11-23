@@ -74,9 +74,8 @@ button#explorer {
   & ul {
     list-style: none;
     margin: 0.08rem 0;
-    padding: 0;
-    padding-left: 1rem;
-    
+    padding: 0 0 0 1rem;
+
     & li > a {
       color: var(--dark);
       opacity: 0.75;
@@ -184,7 +183,7 @@ li:has(> .folder-outer:not(.open)) > .folder-container > svg {
 
 .explorer {
   position: relative;
-  padding-left: 12px;
+  //padding-left: 12px;
   
   &::before {
     content: '';

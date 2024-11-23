@@ -37,11 +37,13 @@ export const defaultContentPageLayout: PageLayout = {
     Component.PageTitle(),
     Component.MobileOnly(Component.Spacer()),
     Component.Search(),
+    Component.DesktopOnly(Component.ReadingModeToggle()),
+    // Component.Darkmode(),
     Component.DesktopOnly(Component.Explorer({
-      folderClickBehavior: 'link',
+      folderClickBehavior: 'collapse',
     })),
     Component.DesktopOnly(Component.FloatingButtons({
-      position: 'right',
+      position: 'left',
     })),
     // Component.DesktopOnly(Component.RecentNotes({
     //   showTags: false,
@@ -52,18 +54,17 @@ export const defaultContentPageLayout: PageLayout = {
     // })),
   ],
   right: [
-    Component.DesktopOnly(Component.ReadingModeToggle()),
-    Component.DesktopOnly(Component.PinNotes({showTags: false})),
-    Component.DesktopOnly(Component.TableOfContents()),
-  ],
-  afterBody: [
-    Component.PageNavigation(),
+    // Component.DesktopOnly(Component.PinNotes({showTags: false})),
     Component.DesktopOnly(Component.Graph({
       localGraph: {
         showTags: false
       },
       globalGraph: {}
     })),
+    Component.DesktopOnly(Component.TableOfContents()),
+  ],
+  afterBody: [
+    Component.PageNavigation(),
     Component.Comments(),
   ],
 }
