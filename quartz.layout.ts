@@ -59,7 +59,9 @@ export const defaultContentPageLayout: PageLayout = {
       localGraph: {
         showTags: false
       },
-      globalGraph: {}
+      globalGraph: {
+        showTags: false
+      }
     })),
     Component.DesktopOnly(Component.TableOfContents()),
   ],
@@ -80,15 +82,15 @@ export const defaultListPageLayout: PageLayout = {
   left: [
     Component.PageTitle(),
     Component.Search(),
+    Component.DesktopOnly(Component.ReadingModeToggle()),
     Component.DesktopOnly(Component.Explorer({
-      folderClickBehavior: 'link',
+      folderClickBehavior: 'collapse',
     })),
     Component.DesktopOnly(Component.FloatingButtons({
-      position: 'right'
+      position: 'left'
     })),
   ],
   right: [
-    Component.DesktopOnly(Component.ReadingModeToggle()),
     Component.DesktopOnly(Component.TableOfContents()),
   ],
   afterBody: [

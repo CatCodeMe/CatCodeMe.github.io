@@ -218,6 +218,24 @@ article:has(p:not(:empty)) {
    }
 }
 
+// 表格内的链接 popover 样式
+table {
+  position: relative;
+  
+  td {
+    position: static;  // 让 popover 相对于表格定位
+  }
+
+  .internal {
+    position: relative;
+    
+    .popover {
+      position: fixed;  // 改用固定定位
+      z-index: 999;    // 确保显示在最上层
+    }
+  }
+}
+
 //加粗字体样式
 strong {
    font-weight: 600;
@@ -320,8 +338,9 @@ code{
 }
 
 // 判断宽度，隐藏移动端的 footnoteToggle 按钮
-@media (max-width: $tabletBreakpoint) {
-   .sidebar-toggle-button {
+@media (max-width: $mobileBreakpoint) {
+   //阅读模式按钮
+   .reading-mode-toggle {
       display: none;
    }
 
