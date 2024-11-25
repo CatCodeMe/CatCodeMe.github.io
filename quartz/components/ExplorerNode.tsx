@@ -1,13 +1,6 @@
 // @ts-ignore
-import { QuartzPluginData } from "../plugins/vfile"
-import {
-  joinSegments,
-  resolveRelative,
-  clone,
-  simplifySlug,
-  SimpleSlug,
-  FilePath,
-} from "../util/path"
+import {QuartzPluginData} from "../plugins/vfile"
+import {clone, FilePath, joinSegments, resolveRelative, SimpleSlug, simplifySlug,} from "../util/path"
 
 type OrderEntries = "sort" | "filter" | "map"
 
@@ -170,6 +163,26 @@ export function ExplorerNode({ node, opts, fullPath, fileData }: ExplorerNodePro
   // Calculate current folderPath
   const folderPath = node.name !== "" ? joinSegments(fullPath ?? "", node.name) : ""
   const href = resolveRelative(fileData.slug!, folderPath as SimpleSlug) + "/"
+
+  // Check if it's a hidden folder
+  const isHiddenFolder = node.name === "1100_blog_content"
+
+  // If it's a hidden folder, render its children directly
+  if (isHiddenFolder) {
+    return (
+      <>
+        {node.children.map((childNode, i) => (
+          <ExplorerNode
+            node={childNode}
+            key={i}
+            opts={opts}
+            fullPath={folderPath}
+            fileData={fileData}
+          />
+        ))}
+      </>
+    )
+  }
 
   return (
     <>
