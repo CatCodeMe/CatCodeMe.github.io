@@ -58,10 +58,6 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - name: Install rename script dependencies
-        run: npm install glob
-      - name: Rename assets and update references
-        run: node scripts/rename-assets.js
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
