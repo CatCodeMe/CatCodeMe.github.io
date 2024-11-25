@@ -45,7 +45,7 @@ jobs:
       - name: Build Quartz
         run: npx quartz build
       - name: Rename assets and update references
-        run: node scripts/rename-assets.js
+        run: node ./scripts/rename-assets.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
