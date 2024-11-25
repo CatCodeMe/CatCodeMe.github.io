@@ -2,17 +2,15 @@ function setupFloatingButtons() {
   const buttonGroups = document.querySelectorAll<HTMLElement>('.button-group')
   
   // 防抖函数
-  function debounce<T extends (...args: any[]) => any>(
-    func: T,
-    wait: number
-  ): (...args: Parameters<T>) => void {
-    let timeout: number | undefined
-    
-    return (...args: Parameters<T>) => {
-      clearTimeout(timeout)
-      timeout = window.setTimeout(() => {
+  function debounce(func: Function, wait: number) {
+    let timeout: number
+    return function executedFunction(...args: any[]) {
+      const later = () => {
+        clearTimeout(timeout)
         func(...args)
-      }, wait)
+      }
+      clearTimeout(timeout)
+      timeout = window.setTimeout(later, wait)
     }
   }
   

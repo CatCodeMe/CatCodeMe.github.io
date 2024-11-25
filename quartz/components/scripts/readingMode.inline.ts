@@ -56,11 +56,20 @@ const removeHint = () => {
 const scrollToElement = (element: Element) => {
     const offset = 80
     const elementRect = element.getBoundingClientRect()
-    const absoluteElementTop = elementRect.top + window.pageYOffset
-    window.scrollTo({
+    const absoluteElementTop = elementRect.top + window.scrollY
+    
+    // 使用新的 ScrollToOptions 类型
+    const scrollOptions: ScrollToOptions = {
         top: absoluteElementTop - offset,
         behavior: 'smooth'
-    })
+    }
+    
+    try {
+        window.scrollTo(scrollOptions)
+    } catch (e) {
+        // 兼容不支持平滑滚动的浏览器
+        window.scrollTo(0, absoluteElementTop - offset)
+    }
 }
 
 // 修改锚点链接行为
@@ -258,23 +267,34 @@ const createReadingModeHint = () => {
 
     const hint = document.createElement('div')
     hint.className = 'reading-mode-hint'
-    hint.textContent = '按 ESC 退出阅读模式'
+    hint.textContent = '点击或按 ESC 退出阅读模式'
+    hint.style.cursor = 'pointer'
     document.body.appendChild(hint)
+
+    // 处理点击事件
+    const exitReadingMode = (e: Event) => {
+        e.preventDefault()
+        window.toggleReadingMode(false)
+        // 移除按钮的焦点
+        const button = document.querySelector('.reading-mode-toggle')
+        if (button instanceof HTMLElement) {
+            button.blur()
+        }
+    }
 
     // 处理 ESC 按键
     const handleEsc = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
             e.preventDefault()
-            window.toggleReadingMode(false)
-            // 移除按钮的焦点
-            const button = document.querySelector('.reading-mode-toggle')
-            if (button instanceof HTMLElement) {
-                button.blur()
-            }
+            exitReadingMode(e)
         }
     }
 
+    hint.addEventListener('click', exitReadingMode)
     document.addEventListener('keydown', handleEsc)
+    
+    // 保存引用以便后续清理
+    readingModeHint = hint
 }
 
 // 创建欢迎提示

@@ -21,7 +21,6 @@ import RecentNotes from "./RecentNotes"
 import Breadcrumbs from "./Breadcrumbs"
 import Comments from "./Comments"
 import PinNotes from "./PinNotes"
-import Carousel from "./Carousel"
 import FloatingButtons from "./FloatingButtons"
 import Banner from "./Banner"
 import ReadingModeToggle from "./ReadingModeToggle"
@@ -51,7 +50,6 @@ export {
   Breadcrumbs,
   Comments,
   PinNotes,
-  Carousel,
   FloatingButtons,
   Banner,
   ReadingModeToggle,

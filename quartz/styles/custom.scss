@@ -337,10 +337,10 @@ code{
    color: unset;
 }
 
-// 判断宽度，隐藏移动端的 footnoteToggle 按钮
-@media (max-width: $mobileBreakpoint) {
+// 判断宽度，隐藏移动端的 阅读模式 按钮
+@media (max-width: $tabletBreakpoint) {
    //阅读模式按钮
-   .reading-mode-toggle {
+   button.reading-mode-toggle {
       display: none;
    }
 
@@ -359,7 +359,7 @@ code{
    background: var(--light);
 }
 
-//callout-content like obsidian
+//callout-content like obsidian, 内容背景和边距
 .callout>.callout-content {
    overflow-x: auto;
    padding: 0.5rem;
