@@ -28,15 +28,15 @@ const config: QuartzConfig = {
       },
       colors: {
         lightMode: {
-          light: "#faf8f8",
-          lightgray: "#e5e5e5",
-          gray: "#b8b8b8",
-          darkgray: "#4e4e4e",
-          dark: "#9B0E0EFF",
-          secondary: "#214257",
-          tertiary: "#84a59d",
-          highlight: "rgba(184,210,184,0.5)",
-          textHighlight: "#fff23688",
+          light: "#f9f4ee",        // 温暖的米色背景
+          lightgray: "#ebe6e0",    // 调整为更温暖的浅灰色
+          gray: "#c0b8b0",         // 中性偏暖的灰色
+          darkgray: "#5a534d",     // 深灰带一点褐色调
+          dark: "#8b2e2e",         // 稍微柔和的深红色
+          secondary: "#2c5875",     // 更柔和的蓝色
+          tertiary: "#8fb5ac",     // 略微提亮的青绿色
+          highlight: "#C4D7C472", // 更柔和的高亮色
+          textHighlight: "#ffdb4d88", // 温暖的黄色高亮
         },
         darkMode: {
           light: "#161618",

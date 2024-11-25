@@ -29,16 +29,6 @@ export const GitHubFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>> =
             rehypeAutolinkHeadings,
             {
               behavior: "append",
-              group: () => ({
-                type: "element",
-                tagName: "span",
-                properties: {
-                  className: ["heading-badge"],
-                  ariaHidden: false,
-                  "data-no-popover": false,
-                },
-                children: []
-              }),
               content: (node: any) => ({
                 type: "element",
                 tagName: "span",
