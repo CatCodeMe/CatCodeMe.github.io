@@ -87,6 +87,7 @@ export const CrawlLinks: QuartzTransformerPlugin<Partial<Options>> = (userOpts) 
                     domain.includes("hackernews.com") ||
                     domain.includes("obsidian.md") ||
                     domain.includes("wikipedia.org") ||
+                    domain.includes("quartz") ||
                     /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(domain) // email address
                   )
                   

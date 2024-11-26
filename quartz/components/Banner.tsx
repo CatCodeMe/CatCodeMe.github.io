@@ -67,7 +67,7 @@ export default (() => {
           className="meta-item history-link"
           title="View history on GitHub"
         >
-          🗓 Git-Blame ↗
+          Git-Blame
         </a>
       )
     }

@@ -65,7 +65,7 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
                     target="_blank"
                     class="external"
                 >
-                    🗓 Git-Blame ↗
+                    Git-Blame
                 </a>,
             )
 
