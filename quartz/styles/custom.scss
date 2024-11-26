@@ -1,6 +1,6 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
-
+@use "./external-links.scss";
 
 // put your custom CSS here!
 :root{
@@ -273,7 +273,7 @@ a.external {
    padding: 0 4px;
    transition: color 0.3s;
 
-   &::after {
+   &::before {
       content: '';
       position: absolute;
       left: 0;
@@ -289,11 +289,11 @@ a.external {
 
    &:hover {
       color: var(--secondary);
-   }
-
-   &:hover::after {
-      transform: scaleX(1);
-      transform-origin: left;
+      
+      &::before {
+         transform: scaleX(1);
+         transform-origin: left;
+      }
    }
 }
 

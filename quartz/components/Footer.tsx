@@ -9,11 +9,12 @@ interface Options {
 export default ((opts?: Options) => {
     const cc = "https://creativecommons.org/licenses/by-nc-sa/4.0/";
     const quartz = "https://github.com/jackyzha0/quartz";
+    const ob = "https://obsidian.md";
     const Footer: QuartzComponent = ({fileData}: QuartzComponentProps) => {
         const year = new Date().getFullYear();
         return (
             <footer>
-                <p style="text-align:center;opacity:0.7;">Published By <a href={quartz} class="external">Quartz {version}</a> ©{year} / Obsidian | <a href={cc} class="external">CC BY-NC-SA 4.0</a></p>
+                <p style="text-align:center;opacity:0.7;">Published By <a href={quartz} class="external">Quartz {version}</a> ©{year} / <a href={ob} class="external">Obsidian</a> | <a href={cc} class="external">CC BY-NC-SA 4.0</a></p>
                 <div className="giscus"></div>
             </footer>
         )
