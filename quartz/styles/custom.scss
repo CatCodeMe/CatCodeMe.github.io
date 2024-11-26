@@ -1,6 +1,7 @@
 @use "./base.scss";
 @use "./variables.scss" as *;
 @use "./external-links.scss";
+@use "./code-block.scss";
 
 // put your custom CSS here!
 :root{
@@ -18,7 +19,15 @@
    //无通知栏
    --body-height-max: 100vh;
    //加粗字体、代码块高亮色
-   --custom-highlight: #f9e196
+   --custom-highlight: #f9e196;
+   // Code block
+   --code-bg: #ffffff;
+   --code-shadow: 0 2px 8px rgba(0,0,0,0.12);
+   --code-title-bg: #f6f8fa;
+   --code-title-text: #24292e;
+   --code-border: #e1e4e7;
+   --code-language-bg: #e3e8ef;
+   --code-language-text: #3b4c68;
 }
 
 
@@ -435,4 +444,16 @@ pre {
 //内部链接样式
 a.internal{
    padding: 0 .3rem;
+}
+
+[saved-theme="dark"] {
+  // Code block
+  --code-bg: #0d1117;
+  --code-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  --code-title-bg: #161b22;
+  --code-title-text: #c9d1d9;
+  --code-border: #30363d;
+  // Code block title
+  --code-language-bg: #2d333b;
+  --code-language-text: #adbac7;
 }
