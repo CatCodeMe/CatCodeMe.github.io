@@ -21,7 +21,7 @@ export function getDate(cfg: GlobalConfiguration, data: QuartzPluginData): Date 
 
 export function formatDate(d: Date, locale: ValidLocale = "en-US",
                            opt: Intl.DateTimeFormatOptions = {
-                            year: "numeric",
+                            year: "2-digit",
                             month: "long",
                             day: "numeric",}): string {
   return d.toLocaleDateString(locale, opt);

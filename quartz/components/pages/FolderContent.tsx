@@ -6,6 +6,7 @@ import {PageList, SortFn} from "../PageList"
 import {simplifySlug, stripSlashes} from "../../util/path"
 import {Root} from "hast"
 import {htmlToJsx} from "../../util/jsx"
+import {i18n} from "../../i18n";
 
 interface FolderContentOptions {
   /**
@@ -49,7 +50,7 @@ export default ((opts?: Partial<FolderContentOptions>) => {
     return (
       <div class={classes}>
         <article>{content}</article>
-        {/* <div class="page-listing">
+        <div class="page-listing">
           {options.showFolderCount && (
             <p>
               {i18n(cfg.locale).pages.folderContent.itemsUnderFolder({
@@ -60,7 +61,7 @@ export default ((opts?: Partial<FolderContentOptions>) => {
           <div>
             <PageList {...listProps} />
           </div>
-        </div> */}
+        </div>
       </div>
     )
   }
