@@ -126,7 +126,7 @@ body[data-topbar-has-content="0"] {
 
 .ba-grid:before{
    background-image:
-           linear-gradient(var(--line-color), transparent 1px),
+           linear-gradient(var(--line-color) 0%, transparent 1px),
            linear-gradient(to right, var(--line-color), transparent 1px);
    background-size:
            100% var(--gird-height),
@@ -366,7 +366,6 @@ code{
    padding: 0.5rem;
    background: #FFFFFFBF;
    border-radius: 5px;
-   border: 1px solid var(--border);
    margin: 0 0 1rem;
 
    >:first-child {
