@@ -187,6 +187,7 @@ article:has(p:not(:empty)) {
       box-shadow: 0 0 20px rgba(0,0,0,0.1);
       margin: auto;
       border-bottom: solid var(--lightgray);
+      background: #ffffffbf;
    }
 
    & thead {
@@ -221,7 +222,6 @@ article:has(p:not(:empty)) {
 // 表格内的链接 popover 样式
 table {
   position: relative;
-  
   td {
     position: static;  // 让 popover 相对于表格定位
   }
