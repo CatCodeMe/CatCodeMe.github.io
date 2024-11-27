@@ -31,7 +31,7 @@ const config: QuartzConfig = {
           light: "#f9f4ee",        // 温暖的米色背景
           lightgray: "#ebe6e0",    // 调整为更温暖的浅灰色
           gray: "#c0b8b0",         // 中性偏暖的灰色
-          darkgray: "#5a534d",     // 深灰带一点褐色调
+          darkgray: "#5a534d",     // 深灰带一点褐调
           dark: "#8b2e2e",         // 稍微柔和的深红色
           secondary: "#2c5875",     // 更柔和的蓝色
           tertiary: "#8fb5ac",     // 略微提亮的青绿色
@@ -58,14 +58,8 @@ const config: QuartzConfig = {
       Plugin.CreatedModifiedDate({
         priority: ["frontmatter", "filesystem"],
       }),
-      Plugin.SyntaxHighlighting({
-        theme: {
-          light: "github-light",
-          dark: "github-dark",
-        },
-        keepBackground: true,
-      }),
-      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false }),
+      Plugin.SyntaxHighlighting(),
+      Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false, mermaid: true }),
       Plugin.GitHubFlavoredMarkdown(),
       Plugin.TableOfContents({maxDepth: 3}),
       Plugin.CrawlLinks({ markdownLinkResolution: "shortest", openLinksInNewTab: true }),

@@ -1,31 +1,65 @@
-import { QuartzTransformerPlugin } from "../types"
-import rehypePrettyCode, { Options as CodeOptions, Theme as CodeTheme } from "rehype-pretty-code"
+import {QuartzTransformerPlugin} from "../types"
+import rehypeExpressiveCode, {
+    ExpressiveCodePlugin,
+    PluginFramesOptions,
+    RehypeExpressiveCodeOptions,
+    ThemeObjectOrShikiThemeName
+} from "rehype-expressive-code"
+import {pluginLineNumbers} from '@expressive-code/plugin-line-numbers'
+import {pluginCollapsibleSections} from '@expressive-code/plugin-collapsible-sections'
 
-interface Theme extends Record<string, CodeTheme> {
-  light: CodeTheme
-  dark: CodeTheme
-}
-
-interface Options {
-  theme?: Theme
-  keepBackground?: boolean
+interface Options extends Partial<RehypeExpressiveCodeOptions> {
+    themes?: ThemeObjectOrShikiThemeName[]
+    plugins?: ExpressiveCodePlugin[]
+    styleOverrides?: {
+    }
+    frames?: boolean | PluginFramesOptions
+    textMarkers?: boolean
+    minSyntaxHighlightingColorContrast?: number
+    useThemedScrollbars?: boolean
+    useThemedSelectionColors?: boolean
+    useDarkModeMediaQuery?: boolean
 }
 
 const defaultOptions: Options = {
-  theme: {
-    light: "github-light",
-    dark: "github-dark",
-  },
-  keepBackground: false,
+    themes: [
+      "github-light", 
+      "tokyo-night",
+    ],
+    plugins: [
+        pluginLineNumbers(),
+        pluginCollapsibleSections(),
+    ],
+    styleOverrides: {
+        collapsibleSections: {
+            collapsePreserveIndent: true,
+            closedPaddingBlock: '0',
+            closedLineHeight: '3rem',
+            closedFontFamily: 'inherit',
+            closedTextColor: 'inherit',
+        },
+        // codePaddingInline: "1rem"
+    },
+    tabWidth: 2,
+    textMarkers: true,
+    minSyntaxHighlightingColorContrast: 5.5,
+    useThemedScrollbars: true,
+    useThemedSelectionColors: false,
+    useDarkModeMediaQuery: true,
 }
 
 export const SyntaxHighlighting: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
-  const opts: CodeOptions = { ...defaultOptions, ...userOpts }
+    const opts = {
+        ...defaultOptions,
+        ...userOpts,
+    }
 
-  return {
-    name: "SyntaxHighlighting",
-    htmlPlugins() {
-      return [[rehypePrettyCode, opts]]
-    },
-  }
+    return {
+        name: "SyntaxHighlighting",
+        htmlPlugins() {
+            return [
+                [rehypeExpressiveCode, opts],
+            ]
+        },
+    }
 }
