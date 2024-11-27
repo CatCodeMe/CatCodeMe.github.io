@@ -23,7 +23,8 @@ interface Options extends Partial<RehypeExpressiveCodeOptions> {
 
 const defaultOptions: Options = {
     themes: [
-      "github-light", 
+      // "github-light",
+      "rose-pine-dawn",
       "tokyo-night",
     ],
     plugins: [
@@ -37,6 +38,7 @@ const defaultOptions: Options = {
             closedLineHeight: '3rem',
             closedFontFamily: 'inherit',
             closedTextColor: 'inherit',
+            closedBackgroundColor: 'var(--lightgray)'
         },
         // codePaddingInline: "1rem"
     },
