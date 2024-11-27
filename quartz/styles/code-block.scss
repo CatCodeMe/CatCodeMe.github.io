@@ -10,6 +10,22 @@
     overflow: hidden;
   }
 
+  figure.frame {
+    pre[data-language] {
+      &::before {
+        content: attr(data-language);
+        position: absolute;
+        top: 0.5em;
+        right: 2em;
+        text-transform: capitalize;
+        z-index: 10;
+        color: var(--secondary);
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
   // 代码区域
   pre {
     margin: 0 !important;

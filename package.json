@@ -44,7 +44,6 @@
     "@expressive-code/plugin-line-numbers": "^0.38.3",
     "@expressive-code/plugin-text-markers": "^0.38.3",
     "@floating-ui/dom": "^1.6.12",
-    "@fujocoded/expressive-code-caption": "^0.0.3",
     "@myriaddreamin/rehype-typst": "^0.5.0-rc7",
     "@napi-rs/simple-git": "0.1.19",
     "@tweenjs/tween.js": "^25.0.0",
