@@ -5,14 +5,14 @@
 @use "./mermaid.scss";
 
 // put your custom CSS here!
-:root{
-   --gird-width:30px;
-   --gird-height:30px;
+:root {
+   --gird-width: 30px;
+   --gird-height: 30px;
    --line-color: #e5e3e3;
-   --dot-color:#ccc;
-   --dot-size:2px;
-   --point-gap-width:calc(var(--gird-width) * 4);
-   --point-gap-height:calc(var(--gird-height) * 4);
+   --dot-color: #ccc;
+   --dot-size: 2px;
+   --point-gap-width: calc(var(--gird-width) * 4);
+   --point-gap-height: calc(var(--gird-height) * 4);
    // 顶部滚动通知高度
    --top-scroll-height: 30px;
    //有通知栏
@@ -23,7 +23,7 @@
    --custom-highlight: #f9e196;
    // Code block
    --code-bg: #ffffff;
-   --code-shadow: 0 2px 8px rgba(0,0,0,0.12);
+   --code-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
    --code-title-bg: #f6f8fa;
    --code-title-text: #24292e;
    --code-border: #e1e4e7;
@@ -37,7 +37,7 @@ button#explorer {
 }
 
 //本文目录
-#toc-content > ul.overflow{
+#toc-content>ul.overflow {
    max-height: 30vh;
    overflow-y: auto;
    scrollbar-width: thin;
@@ -68,8 +68,10 @@ button#toc {
    height: var(--top-scroll-height);
 
    display: flex;
-   justify-content: center; /* 水平居中 */
-   align-items: center; /* 垂直居中 */
+   justify-content: center;
+   /* 水平居中 */
+   align-items: center;
+   /* 垂直居中 */
 }
 
 .marquee p {
@@ -80,7 +82,8 @@ button#toc {
    text-align: center;
 
    position: absolute;
-   left: 0; /* 初始位置左侧 */
+   left: 0;
+   /* 初始位置左侧 */
 }
 
 @keyframes loopText {
@@ -117,33 +120,33 @@ body[data-topbar-has-content="0"] {
    }
 }
 
-.ba-grid{
+.ba-grid {
    z-index: 1;
 }
 
 .ba-grid:before,
 .ba-grid:after,
 .inner:before,
-.inner:after{
-   content:'';
+.inner:after {
+   content: '';
    position: absolute;
    z-index: -1;
-   top:0;
-   bottom:0;
-   left:0;
-   right:0;
+   top: 0;
+   bottom: 0;
+   left: 0;
+   right: 0;
 }
 
-.ba-grid:before{
+.ba-grid:before {
    background-image:
-           linear-gradient(var(--line-color) 0%, transparent 1px),
-           linear-gradient(to right, var(--line-color), transparent 1px);
+      linear-gradient(var(--line-color) 0%, transparent 1px),
+      linear-gradient(to right, var(--line-color), transparent 1px);
    background-size:
-           100% var(--gird-height),
-           var(--gird-width) 100%;
+      100% var(--gird-height),
+      var(--gird-width) 100%;
 }
 
-.ba-grid:after{
+.ba-grid:after {
    //background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
    background-size: var(--point-gap-width) var(--point-gap-height);
    background-position: calc(var(--point-gap-width) / 2) calc(var(--point-gap-height) / 2);
@@ -176,9 +179,9 @@ article:has(p:not(:empty)) {
    border-radius: 4px;
    border-bottom: 2px solid var(--secondary);
    box-shadow:
-           inset 0 -1px 0 1px rgba(45,63,31,.1),
-           inset 0 -3px 0 0 rgba(45,63,31,.1),
-           0 1px 2px rgba(45,63,31,.2);
+      inset 0 -1px 0 1px rgba(45, 63, 31, .1),
+      inset 0 -3px 0 0 rgba(45, 63, 31, .1),
+      0 1px 2px rgba(45, 63, 31, .2);
    transform: translateY(-1px);
    transition: all 0.1s ease;
 }
@@ -191,10 +194,10 @@ article:has(p:not(:empty)) {
 //表格样式
 .table-container {
    & table {
-      min-width: min(50vw,100%);
+      min-width: min(50vw, 100%);
       border-collapse: collapse;
       overflow: hidden;
-      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
       margin: auto;
       border-bottom: solid var(--lightgray);
       background: #ffffffbf;
@@ -213,8 +216,10 @@ article:has(p:not(:empty)) {
             background-color: var(--highlight);
          }
       }
+
       td {
          position: relative;
+
          &:hover::before {
             content: "";
             position: absolute;
@@ -231,19 +236,20 @@ article:has(p:not(:empty)) {
 
 // 表格内的链接 popover 样式
 table {
-  position: relative;
-  td {
-    position: static;  // 让 popover 相对于表格定位
-  }
+   position: relative;
 
-  .internal {
-    position: relative;
-    
-    .popover {
-      position: fixed;  // 改用固定定位
-      z-index: 999;    // 确保显示在最上层
-    }
-  }
+   td {
+      position: static; // 让 popover 相对于表格定位
+   }
+
+   .internal {
+      position: relative;
+
+      .popover {
+         position: fixed; // 改用固定定位
+         z-index: 999; // 确保显示在最上层
+      }
+   }
 }
 
 //加粗字体样式
@@ -299,7 +305,7 @@ a.external {
 
    &:hover {
       color: var(--secondary);
-      
+
       &::before {
          transform: scaleX(1);
          transform-origin: left;
@@ -337,6 +343,7 @@ figcaption {
 .recent-notes>ul.recent-ul>li {
    margin: -.5rem 0;
 }
+
 //最近更新时间样式
 .recent-notes>ul.recent-ul>li .section>.meta {
    opacity: .6;
@@ -344,12 +351,13 @@ figcaption {
 }
 
 //`引用代码块`
-code{
+code {
    color: unset;
 }
 
 // 判断宽度，隐藏移动端的 阅读模式 按钮
 @media (max-width: $tabletBreakpoint) {
+
    //阅读模式按钮
    button.reading-mode-toggle {
       display: none;
@@ -362,11 +370,12 @@ code{
 }
 
 //关系图谱
-.graph>#global-graph-outer>#global-graph-container{
+.graph>#global-graph-outer>#global-graph-container {
    width: 70vw;
+   z-index: 1000;
 }
 
-.graph>.graph-outer{
+.graph>.graph-outer {
    background: var(--light);
 }
 
@@ -385,37 +394,36 @@ code{
 }
 
 .banner-separator {
-  position: relative;
-  margin: 2rem 0;
-  height: 1px;
-  background: linear-gradient(90deg, 
-    transparent 0%, 
-    var(--lightgray) 15%, 
-    var(--lightgray) 85%, 
-    transparent 100%
-  );
-  display: flex;
-  align-items: center;
-  justify-content: center;
+   position: relative;
+   margin: 2rem 0;
+   height: 1px;
+   background: linear-gradient(90deg,
+         transparent 0%,
+         var(--lightgray) 15%,
+         var(--lightgray) 85%,
+         transparent 100%);
+   display: flex;
+   align-items: center;
+   justify-content: center;
 
-  .banner-reading-trigger {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background: var(--light);
-    padding: 0.25rem 0.5rem;
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1.2rem;
-    line-height: 1;
-    cursor: pointer;
-    color: var(--dark);
-    transition: all 0.2s ease;
+   .banner-reading-trigger {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: var(--light);
+      padding: 0.25rem 0.5rem;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-size: 1.2rem;
+      line-height: 1;
+      cursor: pointer;
+      color: var(--dark);
+      transition: all 0.2s ease;
 
-    &:hover {
-      background: var(--highlight);
-    }
-  }
+      &:hover {
+         background: var(--highlight);
+      }
+   }
 }
 
 // 优化代码块样式
@@ -426,7 +434,7 @@ pre {
 }
 
 // 优化行内代码样式
-:not(pre) > code {
+:not(pre)>code {
    background-color: var(--lightgray);
    border-radius: 0.25rem;
    padding: 0.2rem 0.4rem;
@@ -435,7 +443,13 @@ pre {
 
 // 优化标题样式
 .center {
-   h1, h2, h3, h4, h5, h6 {
+
+   h1,
+   h2,
+   h3,
+   h4,
+   h5,
+   h6 {
       color: var(--dark);
       //margin-top: 2rem;
       margin-bottom: 1rem;
@@ -443,18 +457,18 @@ pre {
 }
 
 //内部链接样式
-a.internal{
+a.internal {
    padding: 0 .3rem;
 }
 
 [saved-theme="dark"] {
-  // Code block
-  --code-bg: #0d1117;
-  --code-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  --code-title-bg: #161b22;
-  --code-title-text: #c9d1d9;
-  --code-border: #30363d;
-  // Code block title
-  --code-language-bg: #2d333b;
-  --code-language-text: #adbac7;
+   // Code block
+   --code-bg: #0d1117;
+   --code-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+   --code-title-bg: #161b22;
+   --code-title-text: #c9d1d9;
+   --code-border: #30363d;
+   // Code block title
+   --code-language-bg: #2d333b;
+   --code-language-text: #adbac7;
 }

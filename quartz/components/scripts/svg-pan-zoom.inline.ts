@@ -15,7 +15,7 @@ function createExpandButton(): HTMLButtonElement {
 function createModal(content: SVGElement): HTMLDivElement {
   const modal = document.createElement('div')
   modal.className = 'svg-modal'
-  
+
   const modalContent = document.createElement('div')
   modalContent.className = 'svg-modal-content'
 
@@ -30,10 +30,10 @@ function createModal(content: SVGElement): HTMLDivElement {
     }
     modal.remove()
     document.removeEventListener('keydown', handleEsc, true)
-    
+
     // 重置焦点到 body
     document.body.focus()
-    
+
     // 如果在阅读模式下，手动触发一个新的 keydown 事件
     if (document.body.classList.contains('reading-mode')) {
       setTimeout(() => {
@@ -46,9 +46,9 @@ function createModal(content: SVGElement): HTMLDivElement {
       }, 0)
     }
   }
-  
+
   closeBtn.onclick = closeModal
-  
+
   // 处理ESC键，使用捕获阶段
   const handleEsc = (e: KeyboardEvent) => {
     if (e.key === 'Escape') {
@@ -61,17 +61,17 @@ function createModal(content: SVGElement): HTMLDivElement {
       }
     }
   }
-  
+
   // 在捕获阶段处理ESC事件
   document.addEventListener('keydown', handleEsc, true)
-  
+
   const svgContainer = document.createElement('div')
   svgContainer.style.cssText = `
     width: 100%;
     height: 100%;
     position: relative;
   `
-  
+
   // 深度克隆 SVG，但排除控制按钮
   const clonedSvg = content.cloneNode(true) as SVGElement
   // 移除已存在的控制按钮
@@ -79,11 +79,11 @@ function createModal(content: SVGElement): HTMLDivElement {
   if (existingControls) {
     existingControls.remove()
   }
-  
+
   clonedSvg.setAttribute('width', '100%')
   clonedSvg.setAttribute('height', '100%')
   clonedSvg.classList.add('mermaid-svg')
-  
+
   svgContainer.appendChild(clonedSvg)
   modalContent.appendChild(closeBtn)
   modalContent.appendChild(svgContainer)
@@ -103,17 +103,17 @@ function createModal(content: SVGElement): HTMLDivElement {
       minZoom: 0.5,
       maxZoom: 10,
       fit: true,
-      center: true
+      center: true,
     })
   }, 0)
-  
+
   // 点击模态框背景时关闭
   modal.addEventListener('click', (e) => {
     if (e.target === modal) {
       closeModal()
     }
   })
-  
+
   return modal
 }
 
@@ -132,33 +132,33 @@ function createCopyButton(): HTMLButtonElement {
   const tooltip = document.createElement('div')
   tooltip.className = 'copy-tooltip'
   tooltip.textContent = '已复制!'
-  
+
   return copyBtn
 }
 
 function enableSvgPanZoom() {
   const mermaidSvgs = document.querySelectorAll('svg.mermaid-svg')
-  
+
   mermaidSvgs.forEach((svg) => {
-    if(svg instanceof SVGElement) {
+    if (svg instanceof SVGElement) {
       try {
         // 读取配置
         const configStr = svg.getAttribute('data-svg-pan-zoom')
         const config = configStr ? JSON.parse(configStr) : {}
-        
+
         if (svg.parentElement?.classList.contains('svg-pan-zoom-container')) {
           return
         }
 
         svg.setAttribute('width', '100%')
         svg.setAttribute('height', '100%')
-        
+
         const wrapper = document.createElement('div')
         wrapper.className = 'svg-pan-zoom-container'
         wrapper.style.position = 'relative'
         svg.parentNode?.insertBefore(wrapper, svg)
         wrapper.appendChild(svg)
-        
+
         // 添加放大按钮
         const expandBtn = createExpandButton()
         expandBtn.onclick = () => {
@@ -189,7 +189,7 @@ function enableSvgPanZoom() {
           }
           wrapper.appendChild(copyBtn)
         }
-        
+
         svgPanZoom(svg, {
           panEnabled: true,
           controlIconsEnabled: true,
@@ -219,10 +219,10 @@ if (document.readyState === 'loading') {
 
 document.addEventListener('nav', enableSvgPanZoom)
 
-let resizeTimer: ReturnType<typeof setTimeout>
-window.addEventListener('resize', () => {
-  clearTimeout(resizeTimer)
-  resizeTimer = setTimeout(enableSvgPanZoom, 100)
-})
+// let resizeTimer: ReturnType<typeof setTimeout>
+// window.addEventListener('resize', () => {
+//   clearTimeout(resizeTimer)
+//   resizeTimer = setTimeout(enableSvgPanZoom, 100)
+// })
 
 export default enableSvgPanZoom 

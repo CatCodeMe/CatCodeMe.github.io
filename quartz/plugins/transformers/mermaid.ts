@@ -1,8 +1,8 @@
-import {QuartzTransformerPlugin} from "../types"
+import { QuartzTransformerPlugin } from "../types"
 import rehypeMermaid from "rehype-mermaid"
-import {visit} from "unist-util-visit"
-import {Element} from "hast"
-import {JSResource} from "../../util/resources"
+import { visit } from "unist-util-visit"
+import { Element } from "hast"
+import { JSResource } from "../../util/resources"
 import svgPanZoomScript from "../../components/scripts/svg-pan-zoom.inline"
 
 interface Options {
@@ -68,21 +68,15 @@ export const Mermaid: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
     markdownPlugins() {
       return [
         () => (tree, file) => {
-          console.log('Running markdown plugin for file:', file.path)
           let index = 0
           visit(tree, 'code', (node: any) => {
             if (node.lang === 'mermaid') {
-              console.log('Found mermaid code block:', {
-                value: node.value,
-                lang: node.lang
-              })
               // 使用文件路径和索引创建唯一ID
               const id = `${file.path}-${index++}`
               mermaidCodeMap.set(id, node.value)
               // 存储ID以便后续匹配
               node.data = node.data || {}
               node.data.mermaidId = id
-              console.log('Stored mermaid code with ID:', id)
             }
           })
         }
@@ -104,32 +98,27 @@ export const Mermaid: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
       return [
         [rehypeMermaid, opts],
         () => (tree, file) => {
-          console.log('Running HTML plugin for file:', file.path)
           let index = 0
           visit(tree, 'element', (node: Element) => {
             if (
-              node.tagName === 'svg' && 
+              node.tagName === 'svg' &&
               typeof node.properties?.id === 'string' &&
               node.properties.id.startsWith('mermaid-')
             ) {
-              const classes = Array.isArray(node.properties.className) 
-                ? node.properties.className 
-                : node.properties.className 
-                  ? [node.properties.className] 
+              const classes = Array.isArray(node.properties.className)
+                ? node.properties.className
+                : node.properties.className
+                  ? [node.properties.className]
                   : []
-              
+
               node.properties.className = [...classes, 'mermaid-svg'] as string[]
 
               // 使用相同的文件路径和索引获取代码
               const id = `${file.path}-${index++}`
               const mermaidCode = mermaidCodeMap.get(id)
-              console.log('Looking for mermaid code with ID:', id)
-              
+
               if (mermaidCode) {
-                console.log('Found mermaid code:', mermaidCode)
                 node.properties['data-mermaid-code'] = mermaidCode
-              } else {
-                console.log('Could not find mermaid code for ID:', id)
               }
 
               const svgPanZoomConfig = { ...opts.svgPanZoom }
