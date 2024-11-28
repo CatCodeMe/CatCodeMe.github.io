@@ -45,9 +45,11 @@ const defaultOptions: Options = {
     tabWidth: 2,
     textMarkers: true,
     minSyntaxHighlightingColorContrast: 5.5,
-    useThemedScrollbars: true,
+    useThemedScrollbars: false,
     useThemedSelectionColors: false,
     useDarkModeMediaQuery: true,
+    frames: {
+    }
 }
 
 export const SyntaxHighlighting: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => {
