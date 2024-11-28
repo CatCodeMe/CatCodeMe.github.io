@@ -117,12 +117,35 @@ function createModal(content: SVGElement): HTMLDivElement {
   return modal
 }
 
+function createCopyButton(): HTMLButtonElement {
+  const copyBtn = document.createElement('button')
+  copyBtn.className = 'svg-copy-btn'
+  copyBtn.title = '复制 Mermaid 代码'
+  copyBtn.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+      <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+    </svg>
+  `
+
+  // 创建提示框
+  const tooltip = document.createElement('div')
+  tooltip.className = 'copy-tooltip'
+  tooltip.textContent = '已复制!'
+  
+  return copyBtn
+}
+
 function enableSvgPanZoom() {
   const mermaidSvgs = document.querySelectorAll('svg.mermaid-svg')
   
   mermaidSvgs.forEach((svg) => {
     if(svg instanceof SVGElement) {
       try {
+        // 读取配置
+        const configStr = svg.getAttribute('data-svg-pan-zoom')
+        const config = configStr ? JSON.parse(configStr) : {}
+        
         if (svg.parentElement?.classList.contains('svg-pan-zoom-container')) {
           return
         }
@@ -143,6 +166,29 @@ function enableSvgPanZoom() {
           document.body.appendChild(modal)
         }
         wrapper.appendChild(expandBtn)
+
+        // 添加复制代码按钮
+        const code = svg.getAttribute('data-mermaid-code')
+        if (code) {
+          const copyBtn = createCopyButton()
+          const tooltip = document.createElement('div')
+          tooltip.className = 'copy-tooltip'
+          tooltip.textContent = '已复制!'
+          wrapper.appendChild(tooltip)
+
+          copyBtn.onclick = async () => {
+            try {
+              await navigator.clipboard.writeText(code)
+              tooltip.classList.add('show')
+              setTimeout(() => {
+                tooltip.classList.remove('show')
+              }, 2000)
+            } catch (err) {
+              console.error('复制失败:', err)
+            }
+          }
+          wrapper.appendChild(copyBtn)
+        }
         
         svgPanZoom(svg, {
           panEnabled: true,
@@ -155,7 +201,8 @@ function enableSvgPanZoom() {
           minZoom: 0.5,
           maxZoom: 10,
           fit: true,
-          center: true
+          center: true,
+          ...config
         })
       } catch (error) {
         console.error('svg-pan-zoom 初始化失败:', error)
