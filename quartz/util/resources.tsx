@@ -1,5 +1,5 @@
-import { randomUUID } from "crypto"
-import { JSX } from "preact/jsx-runtime"
+import {randomUUID} from "crypto"
+import {JSX} from "preact/jsx-runtime"
 
 export type JSResource = {
   loadTime: "beforeDOMReady" | "afterDOMReady"
@@ -15,6 +15,12 @@ export type JSResource = {
       contentType: "inline"
     }
 )
+
+export type CSSResource = {
+  content: string
+  inline?: boolean
+  spaPreserve?: boolean
+}
 
 export function JSResourceToScriptElement(resource: JSResource, preserve?: boolean): JSX.Element {
   const scriptType = resource.moduleType ?? "application/javascript"
@@ -36,7 +42,24 @@ export function JSResourceToScriptElement(resource: JSResource, preserve?: boole
   }
 }
 
+export function CSSResourceToStyleElement(resource: CSSResource, preserve?: boolean): JSX.Element {
+  const spaPreserve = preserve ?? resource.spaPreserve
+  if (resource.inline ?? false) {
+    return <style>{resource.content}</style>
+  } else {
+    return (
+      <link
+        key={resource.content}
+        href={resource.content}
+        rel="stylesheet"
+        type="text/css"
+        spa-preserve={spaPreserve}
+      />
+    )
+  }
+}
+
 export interface StaticResources {
-  css: string[]
+  css: CSSResource[]
   js: JSResource[]
 }

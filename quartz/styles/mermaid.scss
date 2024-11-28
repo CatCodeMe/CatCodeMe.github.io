@@ -1,0 +1,53 @@
+
+
+div.svg-pan-zoom-container {
+      width: 100%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 1rem 0;
+      padding: 0 !important;
+      //background: transparent !important;
+      height: 300px;
+
+      > svg {
+            width: 100%;
+      }
+}
+
+.mermaid-svg {
+      position: absolute !important;
+      inset: 0 !important;
+      //width: 100% !important;
+      //height: 100% !important;
+      //border: 1px solid var(--line-color);
+      background: var(--code-bg);
+      margin: 0 !important;
+      padding: 0 !important;
+      max-width: unset !important;
+}
+
+.svg-pan-zoom-control {
+      cursor: pointer;
+      opacity: 0.8;
+      transition: opacity 0.3s;
+
+      &:hover {
+            opacity: 1;
+      }
+
+      rect {
+            fill: var(--light);
+            stroke: var(--dark);
+            stroke-width: 1px;
+      }
+
+      path {
+            fill: var(--dark);
+      }
+
+      &:hover rect {
+            fill: var(--highlight);
+      }
+}
