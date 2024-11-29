@@ -72,7 +72,7 @@ const config: QuartzConfig = {
       }),
       Plugin.Mermaid({
         label: {
-          text: 'Mermaid',  // 自定义标签文本
+          text: '@Mermaid',  // 自定义标签文本
           enabled: true  // 是否显示标签
         }
       }),
