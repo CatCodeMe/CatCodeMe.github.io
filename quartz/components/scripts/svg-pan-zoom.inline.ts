@@ -6,7 +6,8 @@ function createExpandButton(): HTMLButtonElement {
   button.title = '放大查看'
   button.innerHTML = `
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M15 3h6v6M14 10l7-7M9 21H3v-6M10 14l-7 7"/>
+      <path d="M3 3h6M3 3v6M21 3h-6M21 3v6"/>
+      <path d="M3 21h6M3 21v-6M21 21h-6M21 21v-6"/>
     </svg>
   `
   return button

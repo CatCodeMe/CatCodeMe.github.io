@@ -7,6 +7,8 @@ div.svg-pan-zoom-container {
       margin: 1rem 0;
       padding: 0 !important;
       height: 300px;
+      border: 3px solid var(--code-border);
+      border-radius: 4px;
 
       cursor: move;
 
@@ -59,7 +61,7 @@ div.svg-pan-zoom-container {
 .mermaid-svg {
       position: absolute !important;
       inset: 0 !important;
-      background: var(--code-bg);
+      background: var(--ec-frm-trmBg);
       margin: 0 !important;
       padding: 0 !important;
       max-width: unset !important;
