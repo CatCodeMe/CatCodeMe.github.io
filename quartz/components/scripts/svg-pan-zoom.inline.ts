@@ -65,16 +65,12 @@ function createModal(content: SVGElement): HTMLDivElement {
   // 在捕获阶段处理ESC事件
   document.addEventListener('keydown', handleEsc, true)
 
-  const svgContainer = document.createElement('div')
-  svgContainer.style.cssText = `
-    width: 100%;
-    height: 100%;
-    position: relative;
-  `
+  const innerContainer = document.createElement('div')
+  innerContainer.className = 'svg-pan-zoom-container'
+  innerContainer.style.position = 'relative'
+  innerContainer.setAttribute('data-svg-src', content.getAttribute('data-svg-src') || '')
 
-  // 深度克隆 SVG，但排除控制按钮
   const clonedSvg = content.cloneNode(true) as SVGElement
-  // 移除已存在的控制按钮
   const existingControls = clonedSvg.querySelector('#svg-pan-zoom-controls')
   if (existingControls) {
     existingControls.remove()
@@ -84,12 +80,11 @@ function createModal(content: SVGElement): HTMLDivElement {
   clonedSvg.setAttribute('height', '100%')
   clonedSvg.classList.add('mermaid-svg')
 
-  svgContainer.appendChild(clonedSvg)
+  innerContainer.appendChild(clonedSvg)
   modalContent.appendChild(closeBtn)
-  modalContent.appendChild(svgContainer)
+  modalContent.appendChild(innerContainer)
   modal.appendChild(modalContent)
 
-  // 等待 DOM 更新后初始化 SVG Pan Zoom
   let modalPanZoom: any = null
   setTimeout(() => {
     modalPanZoom = svgPanZoom(clonedSvg, {
@@ -128,10 +123,9 @@ function createCopyButton(): HTMLButtonElement {
     </svg>
   `
 
-  // 创建提示框
   const tooltip = document.createElement('div')
   tooltip.className = 'copy-tooltip'
-  tooltip.textContent = '已复制!'
+  tooltip.textContent = 'Copied!'
 
   return copyBtn
 }
@@ -142,7 +136,6 @@ function enableSvgPanZoom() {
   mermaidSvgs.forEach((svg) => {
     if (svg instanceof SVGElement) {
       try {
-        // 读取配置
         const configStr = svg.getAttribute('data-svg-pan-zoom')
         const config = configStr ? JSON.parse(configStr) : {}
 
@@ -156,10 +149,10 @@ function enableSvgPanZoom() {
         const wrapper = document.createElement('div')
         wrapper.className = 'svg-pan-zoom-container'
         wrapper.style.position = 'relative'
+        wrapper.setAttribute('data-svg-src', svg.getAttribute('data-svg-src') || '')
         svg.parentNode?.insertBefore(wrapper, svg)
         wrapper.appendChild(svg)
 
-        // 添加放大按钮
         const expandBtn = createExpandButton()
         expandBtn.onclick = () => {
           const modal = createModal(svg)
@@ -167,13 +160,12 @@ function enableSvgPanZoom() {
         }
         wrapper.appendChild(expandBtn)
 
-        // 添加复制代码按钮
         const code = svg.getAttribute('data-mermaid-code')
         if (code) {
           const copyBtn = createCopyButton()
           const tooltip = document.createElement('div')
           tooltip.className = 'copy-tooltip'
-          tooltip.textContent = '已复制!'
+          tooltip.textContent = 'Copied!'
           wrapper.appendChild(tooltip)
 
           copyBtn.onclick = async () => {

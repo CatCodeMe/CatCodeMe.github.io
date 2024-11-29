@@ -23,6 +23,10 @@ interface Options {
     mouseWheelZoomEnabled?: boolean
     preventMouseEventsDefault?: boolean
   }
+  label?: {
+    text?: string
+    enabled?: boolean
+  }
 }
 
 const defaultOptions: Options = {
@@ -46,6 +50,10 @@ const defaultOptions: Options = {
     dblClickZoomEnabled: true,
     mouseWheelZoomEnabled: true,
     preventMouseEventsDefault: true
+  },
+  label: {
+    text: '@mermaid',
+    enabled: true
   }
 }
 
@@ -115,6 +123,10 @@ export const Mermaid: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
 
               if (mermaidCode) {
                 node.properties['data-mermaid-code'] = mermaidCode
+                // 使用配置的标签文本
+                if (opts.label?.enabled !== false) {
+                  node.properties['data-svg-src'] = opts.label?.text || 'mermaid'
+                }
               }
 
               const svgPanZoomConfig = { ...opts.svgPanZoom }

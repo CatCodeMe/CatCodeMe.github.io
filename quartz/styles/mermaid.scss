@@ -37,7 +37,7 @@ div.svg-pan-zoom-container {
 
       // 添加 mermaid 提示标签
       &::after {
-            content: '@mermaid';
+            content: attr(data-svg-src);
             position: absolute;
             left: 10px;
             bottom: 10px;
@@ -46,7 +46,7 @@ div.svg-pan-zoom-container {
             color: var(--secondary);
             font-size: 12px;
             border-radius: 4px;
-            pointer-events: none;  // 确保不影响鼠标事件
+            pointer-events: none;
             z-index: 1;
       }
 
@@ -165,19 +165,26 @@ div.svg-pan-zoom-container {
                   z-index: 1001 !important;
             }
 
-            // 修改模态框中的 mermaid 提示标签样式
-            &::after {
-                  content: '@mermaid';
-                  position: absolute;
-                  left: 30px;
-                  bottom: 30px;
-                  padding: 4px 8px;
-                  background: var(--lightgray);
-                  color: var(--secondary);
-                  font-size: 24px;
-                  border-radius: 4px;
-                  pointer-events: none;
-                  z-index: 1;
+            // 内部容器样式
+            .svg-pan-zoom-container {
+                  width: 100%;
+                  height: 100%;
+                  margin: 0;
+                  
+                  // 使用与正文相同的提示标签样式
+                  &::after {
+                        content: attr(data-svg-src);
+                        position: absolute;
+                        left: 30px;
+                        bottom: 30px;
+                        padding: 4px 8px;
+                        background: var(--lightgray);
+                        color: var(--secondary);
+                        font-size: 24px;
+                        border-radius: 4px;
+                        pointer-events: none;
+                        z-index: 1;
+                  }
             }
       }
 

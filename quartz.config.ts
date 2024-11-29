@@ -31,7 +31,7 @@ const config: QuartzConfig = {
           light: "#f9f4ee",        // 温暖的米色背景
           lightgray: "#ebe6e0",    // 调整为更温暖的浅灰色
           gray: "#c0b8b0",         // 中性偏暖的灰色
-          darkgray: "#5a534d",     // 深灰带一点褐调
+          darkgray: "#5a534d",     // 深灰带一点褐
           dark: "#8b2e2e",         // 稍微柔和的深红色
           secondary: "#2c5875",     // 更柔和的蓝色
           tertiary: "#8fb5ac",     // 略微提亮的青绿色
@@ -58,7 +58,24 @@ const config: QuartzConfig = {
       Plugin.CreatedModifiedDate({
         priority: ["frontmatter", "filesystem"],
       }),
-      Plugin.Mermaid(), //must be before at SyntaxHighlighting !
+      Plugin.InlineSVG({
+        maxImageSize: 10000000,    // 10MB
+        maxTotalSize: 100000000,   // 100MB
+        label: {
+          text: 'SVG',
+          enabled: true,
+          excalidraw: {
+            text: '@Excalidraw',  // 自定义 excalidraw 标签文本
+            enabled: true        // 是否显示 excalidraw 标签
+          }
+        }
+      }),
+      Plugin.Mermaid({
+        label: {
+          text: 'Mermaid',  // 自定义标签文本
+          enabled: true  // 是否显示标签
+        }
+      }),
       Plugin.SyntaxHighlighting(),
       Plugin.ObsidianFlavoredMarkdown({ enableInHtmlEmbed: false, mermaid: false }),
       Plugin.GitHubFlavoredMarkdown(),
