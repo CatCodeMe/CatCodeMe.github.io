@@ -1,16 +1,16 @@
-import { QuartzTransformerPlugin } from "../types"
+import {QuartzTransformerPlugin} from "../types"
 import rehypeMermaid from "rehype-mermaid"
-import { visit } from "unist-util-visit"
-import { Element } from "hast"
-import { JSResource } from "../../util/resources"
-import svgPanZoomScript from "../../components/scripts/svg-pan-zoom.inline"
+import {visit} from "unist-util-visit"
+import {Element} from "hast"
+import {JSResource} from "../../util/resources"
+//@ts-ignore
+import svgPanZoomScript from "../../components/scripts/svg-pan-zoom.inline.ts"
 
 interface Options {
   strategy?: 'img-png' | 'img-svg' | 'inline-svg' | 'pre-mermaid'
   dark?: boolean
   mermaidConfig?: object
   svgPanZoom?: {
-    enabled?: boolean
     zoomEnabled?: boolean
     controlIconsEnabled?: boolean
     fit?: boolean
@@ -35,7 +35,6 @@ const defaultOptions: Options = {
     }
   },
   svgPanZoom: {
-    enabled: true,
     zoomEnabled: true,
     controlIconsEnabled: true,
     fit: true,
@@ -84,14 +83,11 @@ export const Mermaid: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
     },
     externalResources() {
       const js: JSResource[] = []
-      if (opts.svgPanZoom?.enabled) {
-        js.push({
-          script: svgPanZoomScript,
-          loadTime: "afterDOMReady",
-          moduleType: "module",
-          contentType: "inline",
-        })
-      }
+      js.push({
+        script: svgPanZoomScript,
+        loadTime: "afterDOMReady",
+        contentType: "inline",
+      })
       return { js }
     },
     htmlPlugins() {
@@ -122,7 +118,6 @@ export const Mermaid: QuartzTransformerPlugin<Partial<Options>> = (userOpts) => 
               }
 
               const svgPanZoomConfig = { ...opts.svgPanZoom }
-              delete svgPanZoomConfig.enabled
               node.properties['data-svg-pan-zoom'] = JSON.stringify(svgPanZoomConfig)
             }
           })

@@ -217,12 +217,4 @@ if (document.readyState === 'loading') {
   enableSvgPanZoom()
 }
 
-document.addEventListener('nav', enableSvgPanZoom)
-
-// let resizeTimer: ReturnType<typeof setTimeout>
-// window.addEventListener('resize', () => {
-//   clearTimeout(resizeTimer)
-//   resizeTimer = setTimeout(enableSvgPanZoom, 100)
-// })
-
-export default enableSvgPanZoom 
+document.addEventListener('nav', enableSvgPanZoom);
