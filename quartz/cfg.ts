@@ -26,10 +26,6 @@ export type Analytics =
       scriptSrc?: string
     }
   | {
-      provider: "clarity"
-    }
-
-  | {
       provider: "posthog"
       apiKey: string
       host?: string
@@ -41,6 +37,10 @@ export type Analytics =
   | {
       provider: "cabin"
       host?: string
+    }
+  | {
+      provider: "clarity"
+      projectId?: string
     }
 
 export interface GlobalConfiguration {
@@ -63,13 +63,12 @@ export interface GlobalConfiguration {
   /**
    * Allow to translate the date in the language of your choice.
    * Also used for UI translation (default: en-US)
-   * Need to be formated following BCP 47: https://en.wikipedia.org/wiki/IETF_language_tag
+   * Need to be formatted following BCP 47: https://en.wikipedia.org/wiki/IETF_language_tag
    * The first part is the language (en) and the second part is the script/region (US)
    * Language Codes: https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes
    * Region Codes: https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
    */
   locale: ValidLocale
-
 }
 
 export interface QuartzConfig {

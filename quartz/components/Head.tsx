@@ -1,14 +1,35 @@
 import {i18n} from "../i18n"
 import {FullSlug, joinSegments, pathToRoot} from "../util/path"
-import {JSResourceToScriptElement} from "../util/resources"
+import {CSSResourceToStyleElement, JSResourceToScriptElement} from "../util/resources"
 import {googleFontHref} from "../util/theme"
 import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from "./types"
+import {unescapeHTML} from "../util/escape";
 
 export default (() => {
-  const Head: QuartzComponent = ({ cfg, fileData, externalResources }: QuartzComponentProps) => {
-    const title = fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title
-    const description =
-      fileData.frontmatter?.description?.trim() ?? i18n(cfg.locale).propertyDefaults.description
+  const Head: QuartzComponent = ({
+    cfg,
+    fileData,
+    externalResources,
+    ctx,
+  }: QuartzComponentProps) => {
+
+    // Get file description (priority: frontmatter > fileData > default)
+    const fdDescription =
+      fileData.description?.trim() ?? i18n(cfg.locale).propertyDefaults.description
+    const title =
+      (fileData.frontmatter?.title ?? i18n(cfg.locale).propertyDefaults.title);
+    let description = ""
+    if (fdDescription) {
+      description = unescapeHTML(fdDescription)
+    }
+
+    if (fileData.frontmatter?.socialDescription) {
+      description = fileData.frontmatter?.socialDescription as string
+    } else if (fileData.frontmatter?.description) {
+      description = fileData.frontmatter?.description
+    }
+
+
     const { css, js } = externalResources
 
     const url = new URL(`https://${cfg.baseUrl ?? "example.com"}`)
@@ -53,9 +74,7 @@ export default (() => {
                   href="https://registry.npmmirror.com/lxgw-wenkai-screen-web/latest/files/style.css" spa-preserve/>
             <link rel="stylesheet"
                   href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" spa-preserve/>
-            {css.map((href) => (
-                <link key={href} href={href} rel="stylesheet" type="text/css" spa-preserve/>
-            ))}
+            {css.map((resource) => CSSResourceToStyleElement(resource, true))}
             {js
                 .filter((resource) => resource.loadTime === "beforeDOMReady")
                 .map((res) => JSResourceToScriptElement(res, true))}

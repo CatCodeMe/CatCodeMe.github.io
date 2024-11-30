@@ -1,24 +1,16 @@
-import { QuartzEmitterPlugin } from "../types"
-import { QuartzComponentProps } from "../../components/types"
+import {QuartzEmitterPlugin} from "../types"
+import {QuartzComponentProps} from "../../components/types"
 import HeaderConstructor from "../../components/Header"
 import BodyConstructor from "../../components/Body"
-import { pageResources, renderPage } from "../../components/renderPage"
-import { ProcessedContent, QuartzPluginData, defaultProcessedContent } from "../vfile"
-import { FullPageLayout } from "../../cfg"
+import {pageResources, renderPage} from "../../components/renderPage"
+import {defaultProcessedContent, ProcessedContent, QuartzPluginData} from "../vfile"
+import {FullPageLayout} from "../../cfg"
 import path from "path"
-import {
-  FilePath,
-  FullSlug,
-  SimpleSlug,
-  stripSlashes,
-  joinSegments,
-  pathToRoot,
-  simplifySlug,
-} from "../../util/path"
-import { defaultListPageLayout, sharedPageComponents } from "../../../quartz.layout"
-import { FolderContent } from "../../components"
-import { write } from "./helpers"
-import { i18n } from "../../i18n"
+import {FilePath, FullSlug, joinSegments, pathToRoot, SimpleSlug, simplifySlug, stripSlashes,} from "../../util/path"
+import {defaultListPageLayout, sharedPageComponents} from "../../../quartz.layout"
+import {FolderContent} from "../../components"
+import {write} from "./helpers"
+import {i18n} from "../../i18n"
 import DepGraph from "../../depgraph"
 
 interface FolderPageOptions extends FullPageLayout {
@@ -76,12 +68,11 @@ export const FolderPage: QuartzEmitterPlugin<Partial<FolderPageOptions>> = (user
 
       const folders: Set<SimpleSlug> = new Set(
         allFiles.flatMap((data) => {
-          const slug = data.slug
-          const folderName = path.dirname(slug ?? "") as SimpleSlug
-          if (slug && folderName !== "." && folderName !== "tags") {
-            return [folderName]
-          }
-          return []
+          return data.slug
+            ? _getFolders(data.slug).filter(
+                (folderName) => folderName !== "." && folderName !== "tags",
+              )
+            : []
         }),
       )
 
@@ -132,4 +123,15 @@ export const FolderPage: QuartzEmitterPlugin<Partial<FolderPageOptions>> = (user
       return fps
     },
   }
+}
+
+function _getFolders(slug: FullSlug): SimpleSlug[] {
+  var folderName = path.dirname(slug ?? "") as SimpleSlug
+  const parentFolderNames = [folderName]
+
+  while (folderName !== ".") {
+    folderName = path.dirname(folderName ?? "") as SimpleSlug
+    parentFolderNames.push(folderName)
+  }
+  return parentFolderNames
 }

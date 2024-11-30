@@ -1,5 +1,5 @@
-import { slug as slugAnchor } from "github-slugger"
-import type { Element as HastElement } from "hast"
+import {slug as slugAnchor} from "github-slugger"
+import type {Element as HastElement} from "hast"
 import rfdc from "rfdc"
 
 export const clone = rfdc()
@@ -292,8 +292,4 @@ function _addRelativeToStart(s: string): string {
   }
 
   return s
-}
-
-export function isHomePage(s: string): boolean {
-  return s === "content/index.md";
 }

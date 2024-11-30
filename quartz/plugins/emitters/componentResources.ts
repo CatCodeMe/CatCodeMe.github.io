@@ -15,7 +15,6 @@ import {transform as transpile} from "esbuild"
 import {write} from "./helpers"
 import DepGraph from "../../depgraph"
 
-
 type ComponentResources = {
   css: string[]
   beforeDOMLoaded: string[]
@@ -130,19 +129,6 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
         "https://${cfg.analytics.websiteId}.${cfg.analytics.host ?? "goatcounter.com"}/count")
       document.head.appendChild(goatcounterScript)
     `)
-  } else if(cfg.analytics?.provider === "clarity") {
-    componentResources.afterDOMLoaded.push(`
-      (function (c, l, a, r, i, t, y) {
-          c[a] = c[a] || function () {
-              (c[a].q = c[a].q || []).push(arguments)
-          };
-          t = l.createElement(r);
-          t.async = 1;
-          t.src = "https://www.clarity.ms/tag/" + i;
-          y = l.getElementsByTagName(r)[0];
-          y.parentNode.insertBefore(t, y);
-      })(window, document, "clarity", "script", "kta9201skr");
-    `)
   } else if (cfg.analytics?.provider === "posthog") {
     componentResources.afterDOMLoaded.push(`
       const posthogScript = document.createElement("script")
@@ -161,10 +147,19 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
   } else if (cfg.analytics?.provider === "cabin") {
     componentResources.afterDOMLoaded.push(`
       const cabinScript = document.createElement("script")
-      cabinScript.src = "${cfg.analytics.host ?? "https://scripts.cabin.dev"}/cabin.js"
+      cabinScript.src = "${cfg.analytics.host ?? "https://scripts.withcabin.com"}/hello.js"
       cabinScript.defer = true
       cabinScript.async = true
       document.head.appendChild(cabinScript)
+    `)
+  } else if (cfg.analytics?.provider === "clarity") {
+    componentResources.afterDOMLoaded.push(`
+      const clarityScript = document.createElement("script")
+      clarityScript.innerHTML= \`(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+      t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+      y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+      })(window, document, "clarity", "script", "${cfg.analytics.projectId}");\`
+      document.head.appendChild(clarityScript)
     `)
   }
 
@@ -178,7 +173,6 @@ function addGlobalPageResources(ctx: BuildCtx, componentResources: ComponentReso
       document.dispatchEvent(event)
     `)
   }
-
 }
 
 // This emitter should not update the `resources` parameter. If it does, partial

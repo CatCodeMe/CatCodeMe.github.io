@@ -1,22 +1,21 @@
-import { QuartzTransformerPlugin } from "../types"
-import { Root, Html, BlockContent, DefinitionContent, Paragraph, Code } from "mdast"
-import { Element, Literal, Root as HtmlRoot } from "hast"
-import { ReplaceFunction, findAndReplace as mdastFindReplace } from "mdast-util-find-and-replace"
+import {QuartzTransformerPlugin} from "../types"
+import {BlockContent, Code, DefinitionContent, Html, Paragraph, Root} from "mdast"
+import {Element, Literal, Root as HtmlRoot} from "hast"
+import {findAndReplace as mdastFindReplace, ReplaceFunction} from "mdast-util-find-and-replace"
 import rehypeRaw from "rehype-raw"
-import { SKIP, visit } from "unist-util-visit"
+import {SKIP, visit} from "unist-util-visit"
 import path from "path"
-import { splitAnchor } from "../../util/path"
-import { JSResource } from "../../util/resources"
+import {FilePath, pathToRoot, slugifyFilePath, slugTag, splitAnchor} from "../../util/path"
+import {JSResource} from "../../util/resources"
 // @ts-ignore
 import calloutScript from "../../components/scripts/callout.inline.ts"
 // @ts-ignore
 import checkboxScript from "../../components/scripts/checkbox.inline.ts"
-import { FilePath, pathToRoot, slugTag, slugifyFilePath } from "../../util/path"
-import { toHast } from "mdast-util-to-hast"
-import { toHtml } from "hast-util-to-html"
-import { PhrasingContent } from "mdast-util-find-and-replace/lib"
-import { capitalize } from "../../util/lang"
-import { PluggableList } from "unified"
+import {toHast} from "mdast-util-to-hast"
+import {toHtml} from "hast-util-to-html"
+import {PhrasingContent} from "mdast-util-find-and-replace/lib"
+import {capitalize} from "../../util/lang"
+import {PluggableList} from "unified"
 
 export interface Options {
   comments: boolean
@@ -114,12 +113,12 @@ export const wikilinkRegex = new RegExp(
 export const tableRegex = new RegExp(/^\|([^\n])+\|\n(\|)( ?:?-{3,}:? ?\|)+\n(\|([^\n])+\|\n?)+/gm)
 
 // matches any wikilink, only used for escaping wikilinks inside tables
-export const tableWikilinkRegex = new RegExp(/(!?\[\[[^\]]*?\]\])/g)
+export const tableWikilinkRegex = new RegExp(/(!?\[\[[^\]]*?\]\]|\[\^[^\]]*?\])/g)
 
 const highlightRegex = new RegExp(/==([^=]+)==/g)
 const commentRegex = new RegExp(/%%[\s\S]*?%%/g)
 // from https://github.com/escwxyz/remark-obsidian-callout/blob/main/src/index.ts
-const calloutRegex = new RegExp(/^\[\!(\w+)\|?(.+?)?\]([+-]?)/)
+const calloutRegex = new RegExp(/^\[\!([\w-]+)\|?(.+?)?\]([+-]?)/)
 const calloutLineRegex = new RegExp(/^> *\[\!\w+\|?.*?\][+-]?.*$/gm)
 // (?:^| )              -> non-capturing group, tag should start be separated by a space or be the start of the line
 // #(...)               -> capturing group, tag itself must start with #
@@ -279,6 +278,7 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
 
                 // internal link
                 const url = fp + anchor
+
                 return {
                   type: "link",
                   url,
@@ -324,8 +324,8 @@ export const ObsidianFlavoredMarkdown: QuartzTransformerPlugin<Partial<Options>>
             replacements.push([
               tagRegex,
               (_value: string, tag: string) => {
-                // Check if the tag only includes numbers
-                if (/^\d+$/.test(tag)) {
+                // Check if the tag only includes numbers and slashes
+                if (/^[\/\d]+$/.test(tag)) {
                   return false
                 }
 

@@ -20,7 +20,7 @@
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "sync": "npx quartz sync",
     "update": "npx quartz update",
-    "build_local": "NODE_ENV=development npx quartz build --serve --fastRebuild"
+    "build_local": "NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild --bundleInfo"
   },
   "engines": {
     "npm": ">=9.3.1",
@@ -103,6 +103,7 @@
     "shiki": "^1.23.1",
     "source-map-support": "^0.5.21",
     "svg-pan-zoom": "^3.6.1",
+    "svgo": "^3.3.2",
     "to-vfile": "^8.0.0",
     "toml": "^3.0.0",
     "unified": "^11.0.5",
