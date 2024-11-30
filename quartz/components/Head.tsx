@@ -71,7 +71,7 @@ export default (() => {
             <link rel="icon" href={iconPath}/>
             <link rel="canonical" href={ogUrl}/>
             <link rel="stylesheet"
-                  href="https://registry.npmmirror.com/lxgw-wenkai-screen-web/latest/files/style.css" spa-preserve/>
+                  href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css" spa-preserve/>
             <link rel="stylesheet"
                   href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" spa-preserve/>
             {css.map((resource) => CSSResourceToStyleElement(resource, true))}

@@ -20,7 +20,7 @@
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "sync": "npx quartz sync",
     "update": "npx quartz update",
-    "build_local": "NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild --bundleInfo"
+    "build_local": "NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild"
   },
   "engines": {
     "npm": ">=9.3.1",
