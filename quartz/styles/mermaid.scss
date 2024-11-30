@@ -1,3 +1,7 @@
+:root{
+    --mermaid-background: #fffaf3;
+}
+
 div.svg-pan-zoom-container {
       width: 100%;
       position: relative;
@@ -61,7 +65,7 @@ div.svg-pan-zoom-container {
 .mermaid-svg {
       position: absolute !important;
       inset: 0 !important;
-      background: var(--ec-frm-trmBg);
+      background: var(--mermaid-background);
       margin: 0 !important;
       padding: 0 !important;
       max-width: unset !important;
@@ -155,7 +159,7 @@ div.svg-pan-zoom-container {
             padding: 20px;
             border-radius: 8px;
             overflow: hidden;
-            background: var(--ec-frm-trmBg);
+            background: var(--mermaid-background);
 
             cursor: move;
 
