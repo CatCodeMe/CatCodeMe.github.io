@@ -1,5 +1,5 @@
-import { computePosition, flip, inline, shift } from "@floating-ui/dom"
-import { normalizeRelativeURLs } from "../../util/path"
+import {computePosition, flip, inline, shift} from "@floating-ui/dom"
+import {normalizeRelativeURLs} from "../../util/path"
 
 const p = new DOMParser()
 async function mouseEnterHandler(
@@ -91,10 +91,16 @@ async function mouseEnterHandler(
   link.appendChild(popoverElement)
 
   if (hash !== "") {
-    const heading = popoverInner.querySelector(hash) as HTMLElement | null
-    if (heading) {
-      // leave ~12px of buffer when scrolling to a heading
-      popoverInner.scroll({ top: heading.offsetTop - 12, behavior: "instant" })
+    try {
+      // 尝试使用 CSS.escape 来处理特殊字符
+      const escapedHash = CSS.escape(hash)
+      const heading = popoverInner.querySelector(escapedHash) as HTMLElement | null
+      if (heading) {
+        // leave ~12px of buffer when scrolling to a heading
+        popoverInner.scroll({ top: heading.offsetTop - 12, behavior: "instant" })
+      }
+    } catch (e) {
+      console.warn(`Failed to process hash: ${hash}`, e)
     }
   }
 }
