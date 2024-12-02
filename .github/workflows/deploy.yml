@@ -48,6 +48,8 @@ jobs:
         run: npx quartz build
       - name: Rename assets and update references
         run: node ./scripts/rename-assets.js
+      - name: check broken inner link
+        run: node ./scripts/check-broken-links.js
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

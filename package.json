@@ -20,7 +20,9 @@
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "sync": "npx quartz sync",
     "update": "npx quartz update",
-    "build_local": "NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild"
+    "build_local": "NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild",
+    "check-links": "node scripts/check-broken-links.js",
+    "build": "npx quartz build"
   },
   "engines": {
     "npm": ">=9.3.1",
@@ -123,6 +125,7 @@
     "@types/source-map-support": "^0.5.10",
     "@types/ws": "^8.5.13",
     "@types/yargs": "^17.0.33",
+    "cheerio": "^1.0.0",
     "esbuild": "^0.24.0",
     "prettier": "^3.3.3",
     "tsx": "^4.19.2",

@@ -7,7 +7,7 @@ async function mouseEnterHandler(
   { clientX, clientY }: { clientX: number; clientY: number },
 ) {
   const link = this
-  if (link.dataset.noPopover === "true") {
+  if (link.dataset.noPopover === "true" || link.classList.contains('broken-link')) {
     return
   }
 
@@ -106,7 +106,9 @@ async function mouseEnterHandler(
 }
 
 document.addEventListener("nav", () => {
-  const links = [...document.getElementsByClassName("internal")] as HTMLAnchorElement[]
+  const links = [...document.getElementsByClassName("internal")].filter(
+    link => !link.classList.contains('broken-link')
+  ) as HTMLAnchorElement[]
   for (const link of links) {
     link.addEventListener("mouseenter", mouseEnterHandler)
     window.addCleanup(() => link.removeEventListener("mouseenter", mouseEnterHandler))

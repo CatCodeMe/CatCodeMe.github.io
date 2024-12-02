@@ -21,6 +21,8 @@
    --body-height-max: 100vh;
    //加粗字体、代码块高亮色
    --custom-highlight: #f9e196;
+   // 损坏链接的颜色
+   --broken-link-color: #DA5959;
    // Code block
    --code-bg: #ffffff;
    --code-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
@@ -469,4 +471,32 @@ a.internal {
    // Code block title
    --code-language-bg: #2d333b;
    --code-language-text: #adbac7;
+}
+
+// 损坏的内部链接样式
+a.internal.broken-link {
+   border-bottom: 2px dashed var(--broken-link-color);
+   background-color: rgba(218, 89, 89, 0.08);
+   position: relative;
+   padding-right: 1.2em;
+   
+   &::after {
+      content: "⊘";  // 圆圈加叉号
+      display: inline-block;
+      position: absolute;
+      right: 0;
+      font-size: 1em;
+      transform: translateY(-50%);
+      top: 50%;
+   }
+   
+   &:hover {
+      text-decoration: line-through;
+      background-color: rgba(218, 89, 89, 0.15);
+   }
+
+   // 禁用 popover
+   .popover {
+      display: none !important;
+   }
 }
