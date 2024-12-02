@@ -9,24 +9,25 @@
   --history-hover-bg: rgba(255, 255, 255, 0.25);
   --border-radius: 4px;
   --banner-height: 300px;
-  
+
+
   width: 100%;
   position: relative;
   margin-bottom: 2rem;
-  
+
   .banner-container {
     width: 100%;
     height: var(--banner-height);
     overflow: hidden;
     border-radius: var(--border-radius);
     position: relative;
-    
+
     &::before {
       content: '';
       display: block;
       padding-top: 33.33%; // 3:1 aspect ratio
     }
-    
+
     .banner-image {
       position: absolute;
       top: 0;
@@ -37,7 +38,7 @@
       background-position: center;
       background-repeat: no-repeat;
       transition: transform 0.3s ease;
-      
+
       &:hover {
         transform: scale(1.05);
       }
@@ -51,12 +52,10 @@
     width: 100%;
     height: 100%;
     border-radius: var(--border-radius);
-    background: linear-gradient(
-      to bottom,
-      rgba(33, 66, 87, 0.3) 0%,
-      rgba(33, 66, 87, 0.5) 50%,
-      rgba(33, 66, 87, 0.7) 100%
-    );
+    background: linear-gradient(to bottom,
+        rgba(33, 66, 87, 0.3) 0%,
+        rgba(33, 66, 87, 0.5) 50%,
+        rgba(33, 66, 87, 0.7) 100%);
   }
 
   .breadcrumb-container {
@@ -70,12 +69,12 @@
     gap: 0.5rem;
     margin: 0;
     padding: 0;
-    
+
     .breadcrumb-element {
       display: flex;
       flex-direction: row;
       align-items: center;
-      
+
       a {
         color: var(--breadcrumb-color);
         text-decoration: none;
@@ -84,13 +83,13 @@
         padding: 0.2em 0.5em;
         border-radius: var(--border-radius);
         line-height: 1;
-        
+
         &:hover {
           color: var(--breadcrumb-hover);
           background: var(--meta-hover-bg);
         }
       }
-      
+
       p {
         margin: 0 0 0 0.5rem;
         padding: 0;
@@ -147,7 +146,7 @@
         position: relative;
         padding: 0.4em 1em;
         transition: all 0.2s ease;
-        
+
         &::before {
           content: '';
           position: absolute;
@@ -161,7 +160,7 @@
           transition: transform 0.3s;
           border-radius: 50%;
         }
-        
+
         &:hover {
           background: var(--secondary);
           color: var(--breadcrumb-hover);
@@ -211,16 +210,14 @@
     --meta-hover-bg: rgba(0, 0, 0, 0.3);
     --history-bg: rgba(255, 255, 255, 0.12);
     --history-hover-bg: rgba(255, 255, 255, 0.2);
-    
+
     box-shadow: 0 4px 12px rgba(123, 151, 170, 0.1);
 
     .banner-overlay {
-      background: linear-gradient(
-        to bottom,
-        rgba(123, 151, 170, 0.3) 0%,
-        rgba(123, 151, 170, 0.5) 50%,
-        rgba(123, 151, 170, 0.7) 100%
-      );
+      background: linear-gradient(to bottom,
+          rgba(123, 151, 170, 0.3) 0%,
+          rgba(123, 151, 170, 0.5) 50%,
+          rgba(123, 151, 170, 0.7) 100%);
     }
 
     .banner-title {
@@ -228,4 +225,3 @@
     }
   }
 }
-
