@@ -13,10 +13,6 @@ const config: QuartzConfig = {
     pageTitle: "🪴 8Cats & Me",
     enableSPA: true,
     enablePopovers: true,
-    analytics: {
-      provider: "clarity",
-      projectId: "kta9201skr"
-    },
     locale: "zh-CN",
     baseUrl: isDev ? "localhost:8080" : "8cat.life",
     ignorePatterns: ["private", "templates", ".obsidian"],

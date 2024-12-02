@@ -64,6 +64,7 @@ export default (() => {
         <a
           href={`https://github.com/CatCodeMe/blog_from_obsidian/commits/main/${fileRelativePath}`}
           target="_blank"
+          rel="noreferrer noopener nofollow"
           className="meta-item history-link"
           title="View history on GitHub"
         >

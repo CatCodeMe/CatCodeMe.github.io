@@ -63,6 +63,7 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
                 <a
                     href={`https://github.com/CatCodeMe/blog_from_obsidian/commits/main/${fileRelativePath}`}
                     target="_blank"
+                    rel="noreferrer noopener nofollow"
                     class="external"
                 >
                     Git-Blame

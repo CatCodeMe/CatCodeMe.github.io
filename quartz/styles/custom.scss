@@ -211,24 +211,22 @@ article:has(p:not(:empty)) {
    }
 
    & tbody {
-      tr {
-         &:hover {
-            background-color: var(--highlight);
-         }
-      }
-
       td {
          position: relative;
 
-         &:hover::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: -9999px;
-            bottom: -9999px;
-            background-color: var(--lightgray);
-            z-index: -1;
+         &:hover{
+            background-color: var(--highlight);
+
+            &::before {
+               content: "";
+               position: absolute;
+               left: 0;
+               right: 0;
+               top: -9999px;
+               bottom: -9999px;
+               background-color: var(--lightgray);
+               z-index: -1;
+            }
          }
       }
    }
