@@ -275,6 +275,8 @@ const createReadingModeHint = () => {
     const exitReadingMode = (e: Event) => {
         e.preventDefault()
         window.toggleReadingMode(false)
+        readingMode = false
+        window.saveState(false)
         // 移除按钮的焦点
         const button = document.querySelector('.reading-mode-toggle')
         if (button instanceof HTMLElement) {

@@ -6,6 +6,7 @@ import style from "./styles/recentNotes.scss"
 import {GlobalConfiguration} from "../cfg"
 import {i18n} from "../i18n"
 import {classNames} from "../util/lang"
+import {Date, getDate} from "./Date"
 
 interface Options {
   title?: string
@@ -52,6 +53,11 @@ export default ((userOpts?: Partial<Options>) => {
                       </a>
                     </h4>
                   </div>
+                  {page.dates && (
+                      <p class="meta">
+                        <Date date={getDate(cfg, page)!} locale={cfg.locale} />
+                      </p>
+                  )}
                   {/*{page.dates && (*/}
                   {/*  <p class="meta">*/}
                   {/*    <Date date={getDate(cfg, page)!} locale={cfg.locale} />*/}
@@ -77,7 +83,7 @@ export default ((userOpts?: Partial<Options>) => {
           })}
         </ul>
         {opts.linkToMore && remaining > 0 && (
-          <p>
+          <p class="more-link">
             <a href={resolveRelative(fileData.slug!, opts.linkToMore)}>
               {i18n(cfg.locale).components.recentNotes.seeRemainingMore({ remaining })}
             </a>

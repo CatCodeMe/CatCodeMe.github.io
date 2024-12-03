@@ -39,19 +39,19 @@ export const defaultContentPageLayout: PageLayout = {
         Component.Search(),
         Component.DesktopOnly(Component.ReadingModeToggle()),
         // Component.Darkmode(),
-        Component.DesktopOnly(Component.Explorer({
-            folderClickBehavior: 'collapse',
+        Component.DesktopOnly(Component.RecentNotes({
+            showTags: false,
+            linkToMore: "/archive",
+            limit: 5,
+            filter: (f) => !f.filePath?.includes("/Archive")
         })),
+        // Component.DesktopOnly(Component.Explorer({
+        //     folderClickBehavior: 'collapse',
+        // })),
         Component.DesktopOnly(Component.FloatingButtons({
             position: 'left',
         })),
-        // Component.DesktopOnly(Component.RecentNotes({
-        //   showTags: false,
-        //   linkToMore: "/roadmap",
-        //   sort: f => {
-        //     return f.frontmatter?.pin
-        //   }
-        // })),
+        
     ],
     right: [
         // Component.DesktopOnly(Component.PinNotes({showTags: false})),
@@ -85,9 +85,9 @@ export const defaultListPageLayout: PageLayout = {
         Component.MobileOnly(Component.Spacer()),
         Component.Search(),
         Component.DesktopOnly(Component.ReadingModeToggle()),
-        Component.DesktopOnly(Component.Explorer({
-            folderClickBehavior: 'collapse',
-        })),
+        // Component.DesktopOnly(Component.Explorer({
+        //     folderClickBehavior: 'collapse',
+        // })),
         Component.DesktopOnly(Component.FloatingButtons({
             position: 'left'
         })),
