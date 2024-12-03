@@ -4,13 +4,8 @@ import readingModeStyle from "./styles/readingModeToggle.scss"
 
 export default (() => {
   function SidebarNav(props: QuartzComponentProps) {
-    // 更准确地检测Mac系统
-    const isMac = typeof navigator !== 'undefined' && 
-      (/macintosh|macintel/i.test(navigator.userAgent) || 
-       /Mac|iPod|iPhone|iPad/.test(navigator.platform))
-    
     // Mac系统统一显示⌘符号
-    const modifierKey = isMac ? '⌘' : 'Ctrl'
+    const modifierKey = '⌘'
 
     return (
       <div class="sidebar-nav">
@@ -19,7 +14,7 @@ export default (() => {
             <i class="nav-icon">🏠</i>
             <span class="nav-text">首页</span>
           </a>
-          <a href="/archive" class="nav-button" data-tooltip="归档">
+          <a href="/Archive" class="nav-button" data-tooltip="归档">
             <i class="nav-icon">📚</i>
             <span class="nav-text">归档</span>
           </a>
@@ -27,10 +22,10 @@ export default (() => {
             <i class="nav-icon">🏷️</i>
             <span class="nav-text">标签</span>
           </a>
-          <a href="/about" class="nav-button" data-tooltip="关于">
-            <i class="nav-icon">ℹ️</i>
-            <span class="nav-text">关于</span>
-          </a>
+          {/*<a href="/about" class="nav-button" data-tooltip="关于">*/}
+          {/*  <i class="nav-icon">ℹ️</i>*/}
+          {/*  <span class="nav-text">关于</span>*/}
+          {/*</a>*/}
           <button 
             class="nav-button reading-mode-button reading-mode-toggle" 
             data-tooltip="阅读模式"

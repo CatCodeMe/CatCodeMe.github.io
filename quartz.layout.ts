@@ -40,7 +40,7 @@ export const defaultContentPageLayout: PageLayout = {
         Component.DesktopOnly(Component.SidebarNav()),
         Component.DesktopOnly(Component.RecentNotes({
             showTags: false,
-            linkToMore: "/archive",
+            linkToMore: "/Archive",
             limit: 5,
             filter: (f) => !f.filePath?.includes("/Archive")
         })),
