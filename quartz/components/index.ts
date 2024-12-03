@@ -23,8 +23,8 @@ import Comments from "./Comments"
 import PinNotes from "./PinNotes"
 import FloatingButtons from "./FloatingButtons"
 import Banner from "./Banner"
-import ReadingModeToggle from "./ReadingModeToggle"
 import PageNavigation from "./PageNavigation"
+import SidebarNav from "./SidebarNav"
 
 export {
   ArticleTitle,
@@ -52,6 +52,6 @@ export {
   PinNotes,
   FloatingButtons,
   Banner,
-  ReadingModeToggle,
   PageNavigation,
+  SidebarNav,
 }

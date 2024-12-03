@@ -430,38 +430,61 @@ const saveState = (state: boolean) => {
     localStorage.setItem('readingMode', state.toString())
 }
 
-// 设置阅读模式
-const setupReadingMode = () => {
-    const button = document.querySelector('.reading-mode-toggle')
-    if (!button) return
-
-    const savedState = localStorage.getItem('readingMode') === 'true'
-    if (savedState) {
-        readingMode = true
-        toggleReadingMode(true)
-    }
-
-    const handleClick = () => {
+// 添加快捷键处理
+const setupShortcuts = () => {
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    // 更准确地检测Mac系统
+    const isMac = /macintosh|macintel/i.test(navigator.userAgent) || 
+                 /Mac|iPod|iPhone|iPad/.test(navigator.platform)
+    
+    const modifierKey = isMac ? e.metaKey : e.ctrlKey
+    
+    if (modifierKey && e.key.toLowerCase() === 'e') {
+      e.preventDefault()
+      const button = document.querySelector('.reading-mode-toggle')
+      if (button) {
         readingMode = !readingMode
         toggleReadingMode(readingMode)
         saveState(readingMode)
+      }
     }
-    button.addEventListener('click', handleClick)
-    window.addCleanup(() => button.removeEventListener('click', handleClick))
+  })
+}
 
-    const handleKeydown = (e: KeyboardEvent) => {
-        if (e.key === 'Escape' && readingMode) {
-            readingMode = false
-            toggleReadingMode(false)
-            saveState(false)
-        }
+// 修改setupReadingMode函数
+const setupReadingMode = () => {
+  const button = document.querySelector('.reading-mode-toggle')
+  if (!button) return
+
+  const savedState = localStorage.getItem('readingMode') === 'true'
+  if (savedState) {
+    readingMode = true
+    toggleReadingMode(true)
+  }
+
+  const handleClick = () => {
+    readingMode = !readingMode
+    toggleReadingMode(readingMode)
+    saveState(readingMode)
+  }
+  button.addEventListener('click', handleClick)
+  window.addCleanup(() => button.removeEventListener('click', handleClick))
+
+  // 添加快捷键支持
+  setupShortcuts()
+
+  // 添加ESC退出支持
+  document.addEventListener('keydown', (e: KeyboardEvent) => {
+    if (e.key === 'Escape' && readingMode) {
+      readingMode = false
+      toggleReadingMode(false)
+      saveState(false)
     }
-    document.addEventListener('keydown', handleKeydown)
-    window.addCleanup(() => document.removeEventListener('keydown', handleKeydown))
+  })
 
-    window.readingMode = readingMode
-    window.toggleReadingMode = toggleReadingMode
-    window.saveState = saveState
+  window.readingMode = readingMode
+  window.toggleReadingMode = toggleReadingMode
+  window.saveState = saveState
 }
 
 document.addEventListener('nav', () => {

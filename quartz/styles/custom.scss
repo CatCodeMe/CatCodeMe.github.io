@@ -3,6 +3,7 @@
 @use "./external-links.scss";
 @use "./code-block.scss";
 @use "./mermaid.scss";
+@use "./keyboard.scss";
 
 // put your custom CSS here!
 :root {
@@ -169,31 +170,6 @@ article:has(p:not(:empty)) {
    //background-color: var(--light);
 }
 
-//搜索框键盘样式
-.kbd-container {
-   display: flex;
-   gap: 4px;
-   margin-left: 3rem;
-}
-
-.retro-key {
-   padding: 4px 8px;
-   font-size: 12px;
-   border: 1px solid var(--secondary);
-   border-radius: var(--border-radius);
-   border-bottom: 2px solid var(--secondary);
-   box-shadow:
-      inset 0 -1px 0 1px rgba(45, 63, 31, .1),
-      inset 0 -3px 0 0 rgba(45, 63, 31, .1),
-      0 1px 2px rgba(45, 63, 31, .2);
-   transform: translateY(-1px);
-   transition: all 0.1s ease;
-}
-
-.retro-key:hover {
-   transform: translateY(0);
-   border-bottom-width: 2px;
-}
 
 //表格样式
 .table-container {
@@ -380,7 +356,7 @@ code {
    background: var(--light);
 }
 
-//callout-content like obsidian, 容背景和边距
+//callout-content like obsidian, 
 .callout>.callout-content {
    overflow-x: auto;
    padding: 0.5rem;
@@ -501,4 +477,96 @@ a.internal.broken-link {
    .popover {
       display: none !important;
    }
+}
+
+// 左侧边栏组件布局
+.left.sidebar {
+  gap: 0 !important;
+
+  > * {
+    margin-bottom: 1rem;
+    padding: 0;
+  }
+}
+
+// 导航按钮特定样式
+.nav-button {
+  .kbd-container {
+    margin-left: auto;
+  }
+}
+
+// 导航组件样式
+.sidebar-nav {
+  margin: 1rem 0;
+
+  .nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    width: 100%;
+
+    // 所有导航按钮的基础样式
+    .nav-button {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.8rem;
+      border-radius: 6px;
+      color: var(--dark);
+      text-decoration: none;
+      transition: transform 0.2s ease;
+      background: var(--light);
+      border: 1px solid var(--lightgray);
+      position: relative;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-style: normal;
+      font-family: var(--bodyFont);
+      width: 100%;
+      box-sizing: border-box;
+
+      // 图标样式
+      .nav-icon {
+        font-size: 1.1rem;
+        flex-shrink: 0;
+        font-style: normal;
+        width: 1.5rem;  // 固定图标宽度
+        text-align: center;  // 图标居中
+      }
+
+      // 文字样式
+      .nav-text {
+        font-weight: 500;
+        transition: color 0.2s ease;
+        font-style: normal;
+        flex: 1;
+        text-align: left;
+        color: var(--secondary);
+      }
+
+      // hover效果
+      &:hover {
+        transform: none;
+        background: var(--lightgray);
+        border-color: var(--gray);
+
+        .nav-text {
+          color: var(--dark);
+        }
+      }
+
+      // 阅读模式按钮特殊样式
+      &.reading-mode-toggle {
+        .nav-text {
+          text-align: left;
+          color: var(--secondary);
+
+          &:hover {
+            color: var(--dark);
+          }
+        }
+      }
+    }
+  }
 }

@@ -37,8 +37,7 @@ export const defaultContentPageLayout: PageLayout = {
         Component.PageTitle(),
         Component.MobileOnly(Component.Spacer()),
         Component.Search(),
-        Component.DesktopOnly(Component.ReadingModeToggle()),
-        // Component.Darkmode(),
+        Component.DesktopOnly(Component.SidebarNav()),
         Component.DesktopOnly(Component.RecentNotes({
             showTags: false,
             linkToMore: "/archive",
@@ -84,10 +83,16 @@ export const defaultListPageLayout: PageLayout = {
         Component.PageTitle(),
         Component.MobileOnly(Component.Spacer()),
         Component.Search(),
-        Component.DesktopOnly(Component.ReadingModeToggle()),
+        Component.DesktopOnly(Component.SidebarNav()),
         // Component.DesktopOnly(Component.Explorer({
         //     folderClickBehavior: 'collapse',
         // })),
+        Component.DesktopOnly(Component.RecentNotes({
+            showTags: false,
+            linkToMore: "/archive",
+            limit: 5,
+            filter: (f) => !f.filePath?.includes("/Archive")
+        })),
         Component.DesktopOnly(Component.FloatingButtons({
             position: 'left'
         })),
