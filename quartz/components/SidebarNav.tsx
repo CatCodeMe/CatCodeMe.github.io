@@ -8,7 +8,7 @@ export default (() => {
     const modifierKey = '⌘'
 
     return (
-      <div class="sidebar-nav">
+      <div class="sidebar-nav desktop-only">
         <div class="nav-buttons">
           <a href="/" class="nav-button" data-tooltip="首页">
             <i class="nav-icon">🏠</i>
