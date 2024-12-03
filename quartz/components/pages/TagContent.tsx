@@ -39,6 +39,8 @@ export default ((opts?: Partial<TagContentOptions>) => {
         : htmlToJsx(fileData.filePath!, tree)
     const cssClasses: string[] = fileData.frontmatter?.cssclasses ?? []
     const classes = ["popover-hint", ...cssClasses].join(" ")
+    
+    // 判断是否是标签汇总页面 /tags/
     if (tag === "/") {
       const tags = [
         ...new Set(
@@ -55,53 +57,20 @@ export default ((opts?: Partial<TagContentOptions>) => {
             <p>{content}</p>
           </article>
           <p>{i18n(cfg.locale).pages.tagContent.totalTags({ count: tags.length })}</p>
-          <div>
+          <div class="tag-cloud">
             {tags.map((tag) => {
               const pages = tagItemMap.get(tag)!
-              const listProps = {
-                ...props,
-                allFiles: pages,
-              }
-
-              const contentPage = allFiles.filter((file) => file.slug === `tags/${tag}`).at(0)
-
-              const root = contentPage?.htmlAst
-              const content =
-                !root || root?.children.length === 0
-                  ? contentPage?.description
-                  : htmlToJsx(contentPage.filePath!, root)
-
               return (
-                <div>
-                  <h2>
-                    <a class="internal tag-link" href={`../tags/${tag}`}>
-                      {tag}
-                    </a>
-                  </h2>
-                  {content && <p>{content}</p>}
-                  <div class="page-listing">
-                    <p>
-                      {i18n(cfg.locale).pages.tagContent.itemsUnderTag({ count: pages.length })}
-                      {pages.length > options.numPages && (
-                        <>
-                          {" "}
-                          <span>
-                            {i18n(cfg.locale).pages.tagContent.showingFirst({
-                              count: options.numPages,
-                            })}
-                          </span>
-                        </>
-                      )}
-                    </p>
-                    <PageList limit={options.numPages} {...listProps} sort={opts?.sort} />
-                  </div>
-                </div>
+                <a class="internal tag-link" href={`../tags/${tag}`}>
+                  {tag}<span class="tag-count">({pages.length})</span>
+                </a>
               )
             })}
           </div>
         </div>
       )
     } else {
+      // 单个标签页面
       const pages = allPagesWithTag(tag)
       const listProps = {
         ...props,
@@ -122,6 +91,22 @@ export default ((opts?: Partial<TagContentOptions>) => {
     }
   }
 
-  TagContent.css = style + PageList.css
+  TagContent.css = style + PageList.css + `
+    .tag-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: flex-start;
+      margin: 2rem 0;
+      padding: 1rem;
+      position: relative;
+    }
+
+    .tag-count {
+      font-size: 0.9em;
+      margin-left: 0.3rem;
+      opacity: 0.8;
+    }
+  `
   return TagContent
 }) satisfies QuartzComponentConstructor

@@ -20,7 +20,7 @@
     "profile": "0x -D prof ./quartz/bootstrap-cli.mjs build --concurrency=1",
     "sync": "npx quartz sync",
     "update": "npx quartz update",
-    "build_local": "cross-env NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild",
+    "build_local": "cross-env PORT=9000 NODE_NO_WARNINGS=1 NODE_ENV=development npx quartz build --serve --fastRebuild",
     "check-links": "node scripts/check-broken-links.js",
     "build": "npx quartz build"
   },
