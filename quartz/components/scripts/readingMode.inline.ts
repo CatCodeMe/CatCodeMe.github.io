@@ -432,14 +432,8 @@ const saveState = (state: boolean) => {
 
 // 添加快捷键处理
 const setupShortcuts = () => {
-  document.addEventListener('keydown', (e: KeyboardEvent) => {
-    // 更准确地检测Mac系统
-    const isMac = /macintosh|macintel/i.test(navigator.userAgent) || 
-                 /Mac|iPod|iPhone|iPad/.test(navigator.platform)
-    
-    const modifierKey = isMac ? e.metaKey : e.ctrlKey
-    
-    if (modifierKey && e.key.toLowerCase() === 'e') {
+  const shortcutHandler = (e: KeyboardEvent) => {
+    if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e') {
       e.preventDefault()
       const button = document.querySelector('.reading-mode-toggle')
       if (button) {
@@ -448,7 +442,12 @@ const setupShortcuts = () => {
         saveState(readingMode)
       }
     }
-  })
+  }
+
+  // 添加全局事件监听
+  document.addEventListener('keydown', shortcutHandler)
+  // 确保清理
+  window.addCleanup(() => document.removeEventListener('keydown', shortcutHandler))
 }
 
 // 修改setupReadingMode函数
