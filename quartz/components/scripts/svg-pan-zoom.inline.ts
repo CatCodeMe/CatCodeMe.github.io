@@ -131,77 +131,123 @@ function createCopyButton(): HTMLButtonElement {
   return copyBtn
 }
 
+// 定义 processSvg 函数
+function processSvg(svg: Element) {
+  if (!(svg instanceof SVGElement)) return
+  
+  try {
+    const configStr = svg.getAttribute('data-svg-pan-zoom')
+    const config = configStr ? JSON.parse(configStr) : {}
+
+    if (svg.parentElement?.classList.contains('svg-pan-zoom-container')) {
+      return
+    }
+
+    svg.setAttribute('width', '100%')
+    svg.setAttribute('height', '100%')
+
+    const wrapper = document.createElement('div')
+    wrapper.className = 'svg-pan-zoom-container'
+    wrapper.style.position = 'relative'
+    wrapper.setAttribute('data-svg-src', svg.getAttribute('data-svg-src') || '')
+    svg.parentNode?.insertBefore(wrapper, svg)
+    wrapper.appendChild(svg)
+
+    const expandBtn = createExpandButton()
+    expandBtn.onclick = () => {
+      const modal = createModal(svg)
+      document.body.appendChild(modal)
+    }
+    wrapper.appendChild(expandBtn)
+
+    const code = svg.getAttribute('data-mermaid-code')
+    if (code) {
+      const copyBtn = createCopyButton()
+      const tooltip = document.createElement('div')
+      tooltip.className = 'copy-tooltip'
+      tooltip.textContent = 'Copied!'
+      wrapper.appendChild(tooltip)
+
+      copyBtn.onclick = async () => {
+        try {
+          await navigator.clipboard.writeText(code)
+          tooltip.classList.add('show')
+          setTimeout(() => {
+            tooltip.classList.remove('show')
+          }, 2000)
+        } catch (err) {
+          console.error('复制失败:', err)
+        }
+      }
+      wrapper.appendChild(copyBtn)
+    }
+
+    svgPanZoom(svg, {
+      panEnabled: true,
+      controlIconsEnabled: true,
+      zoomEnabled: true,
+      dblClickZoomEnabled: true,
+      mouseWheelZoomEnabled: true,
+      preventMouseEventsDefault: true,
+      zoomScaleSensitivity: 0.5,
+      minZoom: 0.5,
+      maxZoom: 10,
+      fit: true,
+      center: true,
+      ...config
+    })
+  } catch (error) {
+    console.error('svg-pan-zoom 初始化失败:', error)
+  }
+}
+
+// 修改 enableSvgPanZoom 函数，使用 processSvg
 function enableSvgPanZoom() {
   const mermaidSvgs = document.querySelectorAll('svg.mermaid-svg')
+  mermaidSvgs.forEach(processSvg)
+}
 
-  mermaidSvgs.forEach((svg) => {
-    if (svg instanceof SVGElement) {
-      try {
-        const configStr = svg.getAttribute('data-svg-pan-zoom')
-        const config = configStr ? JSON.parse(configStr) : {}
+const initializeSvgPanZoom = () => {
+  document.querySelectorAll('svg[data-svg-pan-zoom]').forEach(processSvg)
+}
 
-        if (svg.parentElement?.classList.contains('svg-pan-zoom-container')) {
-          return
-        }
+// 添加 Popover SVG 处理函数
+const initializePopoverSvg = (popoverContent: Element) => {
+  popoverContent.querySelectorAll('svg[data-svg-pan-zoom]').forEach(processSvg)
+}
 
-        svg.setAttribute('width', '100%')
-        svg.setAttribute('height', '100%')
-
-        const wrapper = document.createElement('div')
-        wrapper.className = 'svg-pan-zoom-container'
-        wrapper.style.position = 'relative'
-        wrapper.setAttribute('data-svg-src', svg.getAttribute('data-svg-src') || '')
-        svg.parentNode?.insertBefore(wrapper, svg)
-        wrapper.appendChild(svg)
-
-        const expandBtn = createExpandButton()
-        expandBtn.onclick = () => {
-          const modal = createModal(svg)
-          document.body.appendChild(modal)
-        }
-        wrapper.appendChild(expandBtn)
-
-        const code = svg.getAttribute('data-mermaid-code')
-        if (code) {
-          const copyBtn = createCopyButton()
-          const tooltip = document.createElement('div')
-          tooltip.className = 'copy-tooltip'
-          tooltip.textContent = 'Copied!'
-          wrapper.appendChild(tooltip)
-
-          copyBtn.onclick = async () => {
-            try {
-              await navigator.clipboard.writeText(code)
-              tooltip.classList.add('show')
-              setTimeout(() => {
-                tooltip.classList.remove('show')
-              }, 2000)
-            } catch (err) {
-              console.error('复制失败:', err)
-            }
+// 监听 popover 内容变化
+const observePopovers = () => {
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node instanceof Element) {
+          if (node.classList.contains('popover')) {
+            // 当 popover 被添加时，处理其中的 SVG
+            initializePopoverSvg(node)
           }
-          wrapper.appendChild(copyBtn)
         }
-
-        svgPanZoom(svg, {
-          panEnabled: true,
-          controlIconsEnabled: true,
-          zoomEnabled: true,
-          dblClickZoomEnabled: true,
-          mouseWheelZoomEnabled: true,
-          preventMouseEventsDefault: true,
-          zoomScaleSensitivity: 0.5,
-          minZoom: 0.5,
-          maxZoom: 10,
-          fit: true,
-          center: true,
-          ...config
-        })
-      } catch (error) {
-        console.error('svg-pan-zoom 初始化失败:', error)
-      }
-    }
+      })
+    })
   })
+
+  // 监听整个文档的变化
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  })
+}
+
+window.addEventListener('load', () => {
+  initializeSvgPanZoom()
+  observePopovers()
+})
+
+// 导出需要的函数
+export {
+  initializeSvgPanZoom,
+  initializePopoverSvg,
+  processSvg
 }
 
 if (document.readyState === 'loading') {
