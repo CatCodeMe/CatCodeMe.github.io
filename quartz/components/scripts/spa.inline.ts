@@ -1,5 +1,5 @@
 import micromorph from "micromorph"
-import { FullSlug, RelativeURL, getFullSlug, normalizeRelativeURLs } from "../../util/path"
+import {FullSlug, getFullSlug, normalizeRelativeURLs, RelativeURL} from "../../util/path"
 
 // adapted from `micromorph`
 // https://github.com/natemoo-re/micromorph
@@ -44,6 +44,9 @@ window.addCleanup = (fn) => cleanupFns.add(fn)
 
 let p: DOMParser
 async function navigate(url: URL, isBack: boolean = false) {
+  // Add loading class at the start of navigation
+  document.body.classList.add('loading')
+  
   p = p || new DOMParser()
   const contents = await fetch(`${url}`)
     .then((res) => {
@@ -54,7 +57,7 @@ async function navigate(url: URL, isBack: boolean = false) {
         window.location.assign(url)
       }
     })
-    .catch(() => {
+    .catch((error) => {
       window.location.assign(url)
     })
 
@@ -83,6 +86,33 @@ async function navigate(url: URL, isBack: boolean = false) {
   // morph body
   micromorph(document.body, html.body)
 
+  // 在 morph 完成后添加动画
+  const headerElements = document.querySelectorAll('.page-header, .banner-wrapper')
+  const articleElements = document.querySelectorAll('article')
+
+  // 先处理 header 元素
+  headerElements.forEach((element) => {
+    if (element instanceof HTMLElement) {
+      element.classList.remove('page-transition')
+      void element.offsetHeight
+      element.classList.add('page-transition')
+    }
+  })
+
+  // 然后处理文章内容
+  articleElements.forEach((element) => {
+    if (element instanceof HTMLElement) {
+      element.classList.remove('page-transition')
+      void element.offsetHeight
+      element.classList.add('page-transition')
+    }
+  })
+
+  // 移除 loading 类
+  setTimeout(() => {
+    document.body.classList.remove('loading')
+  }, 100)
+
   // scroll into place and add history
   if (!isBack) {
     if (url.hash) {
@@ -100,7 +130,6 @@ async function navigate(url: URL, isBack: boolean = false) {
   elementsToAdd.forEach((el) => document.head.appendChild(el))
 
   // delay setting the url until now
-  // at this point everything is loaded so changing the url should resolve to the correct addresses
   if (!isBack) {
     history.pushState({}, "", url)
   }

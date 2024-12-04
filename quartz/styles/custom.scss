@@ -598,3 +598,45 @@ a.internal.broken-link {
   align-items: center;
   gap: 4px;
 }
+
+
+// 统一的页面切换动画基础样式
+.page-transition {
+  animation-fill-mode: both;
+  will-change: opacity, transform;
+  backface-visibility: hidden; // 防止闪烁
+  perspective: 1000px; // 提高性能
+}
+
+// Header 区域动画（包括 banner）
+.page-header.page-transition,
+.banner-wrapper.page-transition {
+  animation: fadeInDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// 内容区域动画
+article.page-transition {
+  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+// 从上方滑入（用于 header）
+@keyframes fadeInDown {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// 淡入（用于内容）
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
