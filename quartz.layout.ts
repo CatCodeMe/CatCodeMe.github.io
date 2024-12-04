@@ -98,14 +98,6 @@ export const defaultListPageLayout: PageLayout = {
         })),
     ],
     right: [
-        Component.DesktopOnly(Component.Graph({
-            localGraph: {
-                showTags: false
-            },
-            globalGraph: {
-                showTags: false
-            }
-        })),
         Component.DesktopOnly(Component.TableOfContents()),
     ],
     afterBody: [

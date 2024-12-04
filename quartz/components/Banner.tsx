@@ -1,13 +1,15 @@
 import {QuartzComponentConstructor, QuartzComponentProps} from "./types"
-import {format as formatDateFn, formatISO} from "date-fns"
 import readingTime from "reading-time"
 import style from "./styles/banner.scss"
 
-const TimeMeta = ({value}: { value: Date }) => (
-  <time dateTime={formatISO(value)} title={formatDateFn(value, "ccc w")}>
-    {formatDateFn(value, "yyyy/LL/dd HH:mm")}
-  </time>
-)
+const TimeMeta = ({value}: { value: Date }) => {
+  const year = value.getFullYear()
+  const month = String(value.getMonth() + 1).padStart(2, '0')
+  const day = String(value.getDate()).padStart(2, '0')
+  const hours = String(value.getHours()).padStart(2, '0')
+  const minutes = String(value.getMinutes()).padStart(2, '0')
+  return <>{`${year}/${month}/${day} ${hours}:${minutes}`}</>
+}
 
 export default (() => {
   function Banner({ fileData, cfg, allFiles, displayClass }: QuartzComponentProps) {
