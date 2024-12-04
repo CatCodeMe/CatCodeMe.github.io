@@ -339,7 +339,6 @@ const toggleReadingMode = (active: boolean) => {
             
             // 复制并移动 TOC
             if (toc) {
-                console.log('Moving TOC to left sidebar')
                 const tocClone = toc.cloneNode(true) as HTMLElement
                 originalTocPosition = {
                     parent: toc.parentElement as HTMLElement,
@@ -372,8 +371,6 @@ const toggleReadingMode = (active: boolean) => {
                 requestAnimationFrame(() => {
                     tocClone.classList.add('visible')
                 })
-                
-                console.log('TOC cloned and moved')
             }
 
             // 延迟显示 ESC 提示，避免与 TOC 重叠

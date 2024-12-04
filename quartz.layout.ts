@@ -48,12 +48,11 @@ export const defaultContentPageLayout: PageLayout = {
         //     folderClickBehavior: 'collapse',
         // })),
         Component.DesktopOnly(Component.FloatingButtons({
-            position: 'left',
+            position: 'right',
         })),
         
     ],
     right: [
-        // Component.DesktopOnly(Component.PinNotes({showTags: false})),
         Component.DesktopOnly(Component.Graph({
             localGraph: {
                 showTags: false
@@ -95,10 +94,18 @@ export const defaultListPageLayout: PageLayout = {
             filter: (f) => !f.filePath?.includes("/Archive")
         })),
         Component.DesktopOnly(Component.FloatingButtons({
-            position: 'left'
+            position: 'right'
         })),
     ],
     right: [
+        Component.DesktopOnly(Component.Graph({
+            localGraph: {
+                showTags: false
+            },
+            globalGraph: {
+                showTags: false
+            }
+        })),
         Component.DesktopOnly(Component.TableOfContents()),
     ],
     afterBody: [

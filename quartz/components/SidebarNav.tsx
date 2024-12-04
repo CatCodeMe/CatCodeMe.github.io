@@ -4,9 +4,6 @@ import readingModeStyle from "./styles/readingModeToggle.scss"
 
 export default (() => {
   function SidebarNav(props: QuartzComponentProps) {
-    // Mac系统统一显示⌘符号
-    const modifierKey = '⌘'
-
     return (
       <div class="sidebar-nav desktop-only">
         <div class="nav-buttons">
@@ -29,14 +26,14 @@ export default (() => {
           <button 
             class="nav-button reading-mode-button reading-mode-toggle" 
             data-tooltip="阅读模式"
-            title={`阅读模式 (${modifierKey}+E)`}
+            title="阅读模式"
             aria-label="阅读模式"
           >
             <i class="nav-icon">📖</i>
             <span class="nav-text">阅读模式</span>
-            <div className="kbd-container">
-              <kbd className="retro-key">{modifierKey}</kbd>
-              <kbd className="retro-key">E</kbd>
+            <div class="kbd-container">
+              <kbd class="retro-key">⌘</kbd>
+              <kbd class="retro-key">E</kbd>
             </div>
           </button>
         </div>
