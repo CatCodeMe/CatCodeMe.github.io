@@ -1,20 +1,134 @@
+.backlinks-container {
+  margin: 2rem 0;
+  display: block !important;
+  
+  hr {
+    margin: 2rem 0 1.5rem 0;
+    border: none;
+    border-top: 1px solid var(--lightgray);
+    opacity: 0.3;
+  }
+}
+
 .backlinks {
   position: relative;
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+  display: block !important;
+
 
   & > h3 {
-    font-size: 1rem;
-    margin: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+    margin: 0 0 1rem 0;
+    color: var(--dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .backlink-count {
+      color: var(--secondary);
+      font-size: 0.8rem;
+      background: var(--lightgray);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
   }
 
-  & > ul {
-    list-style: none;
-    padding: 0;
-    margin: 0.5rem 0;
-
-    & > li {
-      & > a {
-        background-color: transparent;
+  .backlink-items {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-height: 200px;
+    overflow-y: auto;
+    padding-right: 0.5rem;
+    
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    
+    &::-webkit-scrollbar-track {
+      background: var(--light);
+      border-radius: 3px;
+    }
+    
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--secondary);
+      border-radius: 3px;
+      
+      &:hover {
+        background-color: var(--tertiary);
       }
+    }
+
+    .backlink-item {
+      font-size: 0.875rem;
+      padding: 0.5rem;
+      border-radius: 5px;
+      transition: all 0.2s ease;
+      border: 1px solid transparent;
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background-color: var(--lightgray);
+      
+      &:hover {
+        background-color: var(--highlight);
+        color: var(--light);
+      }
+
+      &.no-backlinks {
+        color: var(--gray);
+        font-style: italic;
+        opacity: 0.8;
+      }
+      
+      .backlink-title {
+        color: var(--secondary);
+        font-weight: 500;
+        transition: all 0.2s ease;
+        background-color: var(--highlight);
+        border-radius: 5px;
+        display: inline;
+        padding: 0.2em 0.4em;
+        line-height: 1.6;
+      }
+
+      .backlink-description {
+        margin-top: 0.4rem;
+        color: var(--gray);
+        font-size: 0.8rem;
+        line-height: 1.5;
+      }
+
     }
   }
 }
+
+@media (max-width: 600px) {
+  .backlinks-container {
+    margin: 1.5rem 0;
+  }
+  
+  .backlinks {
+    padding: 1rem;
+    
+    & > h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.8rem;
+    }
+    
+    .backlink-items {
+      gap: 0.8rem;
+    }
+  }
+}
+

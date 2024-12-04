@@ -66,6 +66,7 @@ export const defaultContentPageLayout: PageLayout = {
     ],
     afterBody: [
         Component.PageNavigation(),
+        Component.Backlinks(),
         Component.Comments({
         }),
     ],

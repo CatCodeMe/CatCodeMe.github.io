@@ -12,25 +12,35 @@ const Backlinks: QuartzComponent = ({
 }: QuartzComponentProps) => {
   const slug = simplifySlug(fileData.slug!)
   const backlinkFiles = allFiles.filter((file) => file.links?.includes(slug))
-  if(backlinkFiles.length <= 0){
-      return <></>;
-  }
+  
   return (
-    <div class={classNames(displayClass, "backlinks")}>
-      <h3>{i18n(cfg.locale).components.backlinks.title}</h3>
-      <ul class="overflow">
-        {backlinkFiles.length > 0 ? (
-          backlinkFiles.map((f) => (
-            <li>
-              <a href={resolveRelative(fileData.slug!, f.slug!)} class="internal">
-                {f.frontmatter?.title}
+    <div class={classNames(displayClass, "backlinks-container")}>
+      <hr />
+      <div class="backlinks">
+        <h3>
+          {i18n(cfg.locale).components.backlinks.title}
+          <span class="backlink-count">{backlinkFiles.length}</span>
+        </h3>
+        <div class="backlink-items">
+          {backlinkFiles.length > 0 ? (
+            backlinkFiles.map((f) => (
+              <a 
+                href={resolveRelative(fileData.slug!, f.slug!)} 
+                class="backlink-item internal"
+              >
+                <div class="backlink-title">{f.frontmatter?.title || f.slug}</div>
+                {f.frontmatter?.description && (
+                  <div class="backlink-description">{f.frontmatter.description}</div>
+                )}
               </a>
-            </li>
-          ))
-        ) : (
-          <li>{i18n(cfg.locale).components.backlinks.noBacklinksFound}</li>
-        )}
-      </ul>
+            ))
+          ) : (
+            <div class="backlink-item no-backlinks">
+              {i18n(cfg.locale).components.backlinks.noBacklinksFound}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   )
 }
