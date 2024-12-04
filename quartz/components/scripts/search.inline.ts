@@ -1,7 +1,7 @@
 import FlexSearch from "flexsearch"
-import { ContentDetails } from "../../plugins/emitters/contentIndex"
-import { registerEscapeHandler, removeAllChildren } from "./util"
-import { FullSlug, normalizeRelativeURLs, resolveRelative } from "../../util/path"
+import {ContentDetails} from "../../plugins/emitters/contentIndex"
+import {registerEscapeHandler, removeAllChildren} from "./util"
+import {FullSlug, normalizeRelativeURLs, resolveRelative} from "../../util/path"
 
 interface Item {
   id: number
@@ -115,11 +115,46 @@ function highlightHTML(searchTerm: string, el: HTMLElement) {
   }
 
   const highlightTextNodes = (node: Node, term: string) => {
-    if (node.nodeType === Node.TEXT_NODE) {
+    // 跳过 SVG 相关元素
+    if (node.nodeType === Node.ELEMENT_NODE) {
+      const element = node as HTMLElement
+      
+      // 跳过这些元素的处理
+      if (
+        element.tagName.toLowerCase() === 'svg' ||
+        element.closest('svg') ||
+        element.classList.contains("svg-pan-zoom-container") ||
+        element.closest(".svg-pan-zoom-container") ||
+        element.classList.contains("mermaid") ||
+        element.closest(".mermaid") ||
+        // 保留原有的代码高亮相关跳过逻辑
+        element.classList.contains("expressive-code") ||
+        element.classList.contains("ec-line") ||
+        element.classList.contains("gutter") ||
+        element.closest(".expressive-code") ||
+        element.getAttribute("style")?.startsWith("--") ||
+        element.classList.contains("ln")
+      ) {
+        return
+      }
+
+      if (element.classList.contains("highlight")) return
+
+      Array.from(node.childNodes).forEach((child) => highlightTextNodes(child, term))
+    } else if (node.nodeType === Node.TEXT_NODE) {
       const nodeText = node.nodeValue ?? ""
       const regex = new RegExp(term.toLowerCase(), "gi")
       const matches = nodeText.match(regex)
       if (!matches || matches.length === 0) return
+
+      // 检查父元素是否在代码块内
+      if (
+        (node.parentElement?.closest(".expressive-code") ||
+        node.parentElement?.getAttribute("style")?.startsWith("--"))
+      ) {
+        return
+      }
+
       const spanContainer = document.createElement("span")
       let lastIndex = 0
       for (const match of matches) {
@@ -130,9 +165,6 @@ function highlightHTML(searchTerm: string, el: HTMLElement) {
       }
       spanContainer.appendChild(document.createTextNode(nodeText.slice(lastIndex)))
       node.parentNode?.replaceChild(spanContainer, node)
-    } else if (node.nodeType === Node.ELEMENT_NODE) {
-      if ((node as HTMLElement).classList.contains("highlight")) return
-      Array.from(node.childNodes).forEach((child) => highlightTextNodes(child, term))
     }
   }
 
@@ -180,18 +212,32 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
     if (sidebar) {
       sidebar.style.zIndex = "unset"
     }
+    
+    // 清理预览内容
+    if (preview) {
+      // 移除所有子元素
+      while (preview.firstChild) {
+        preview.removeChild(preview.firstChild)
+      }
+      // 重置预览容器状态
+      preview.style.display = ""
+    }
+    
+    // 清理结果
     if (results) {
       removeAllChildren(results)
     }
-    if (preview) {
-      removeAllChildren(preview)
-    }
+    
     if (searchLayout) {
       searchLayout.classList.remove("display-results")
     }
 
     searchType = "basic" // reset search type after closing
-
+    currentSearchTerm = "" // 重置搜索词
+    
+    // 重置所有状态
+    currentHover = null
+    
     searchButton?.focus()
   }
 
@@ -385,16 +431,38 @@ document.addEventListener("nav", async (e: CustomEventMap["nav"]) => {
   async function displayPreview(el: HTMLElement | null) {
     if (!searchLayout || !enablePreview || !el || !preview) return
     const slug = el.id as FullSlug
-    const innerDiv = await fetchContent(slug).then((contents) =>
-      contents.flatMap((el) => [...highlightHTML(currentSearchTerm, el as HTMLElement).children]),
-    )
+    
+    // 创建预览容器
     previewInner = document.createElement("div")
     previewInner.classList.add("preview-inner")
-    previewInner.append(...innerDiv)
+    
+    // 获取内容并处理
+    const contents = await fetchContent(slug)
+    const processedContents = contents.map(content => {
+      // 克隆节点以避免修改原始内容
+      const clone = content.cloneNode(true) as HTMLElement
+      
+      // 处理 SVG 元素
+      clone.querySelectorAll('svg.mermaid-svg').forEach(svg => {
+        const svgSrc = svg.getAttribute('data-svg-src') || ''
+        // 创建简单的提示 div
+        const placeholder = document.createElement('div')
+        placeholder.className = 'svg-preview-hint'
+        placeholder.textContent = `${svgSrc} - 暂不支持预览`
+        
+        // 替换原始 SVG
+        svg.parentNode?.replaceChild(placeholder, svg)
+      })
+      
+      // 高亮处理
+      return highlightHTML(currentSearchTerm, clone)
+    })
+    
+    previewInner.append(...processedContents.flatMap(el => [...el.children]))
     preview.replaceChildren(previewInner)
 
-    // scroll to longest
-    const highlights = [...preview.querySelectorAll(".highlight")].sort(
+    // 滚动到高亮处
+    const highlights = [...preview.querySelectorAll(".highlight:not(.svg-pan-zoom-container .highlight)")].sort(
       (a, b) => b.innerHTML.length - a.innerHTML.length,
     )
     highlights[0]?.scrollIntoView({ block: "start" })
