@@ -34,6 +34,14 @@
    --code-language-text: #3b4c68;
 
    --border-radius: 4px;
+   --z-bottom: -1;        // 改为负值
+   --z-content: 10;      // 普通内容
+   --z-nav: 100;         // 导航
+   --z-graph: 500;       // 图谱
+   --z-popover: 1000;    // 弹出层
+   --z-overlay: 2000;    // 遮罩层
+   --z-modal: 3000;      // 模态框
+   --z-404: 9999;        // 404页面
 }
 
 
@@ -639,4 +647,42 @@ article.page-transition {
   100% {
     opacity: 1;
   }
+}
+
+
+
+// footer 相关样式
+footer.footer {
+  position: relative;
+  isolation: isolate;  // 创建新的层叠上下文
+  z-index: var(--z-bottom);
+
+  // 所有子元素强制使用相同的层级
+  * {
+    position: relative;
+    z-index: var(--z-bottom);
+  }
+}
+
+// 图谱样式
+.graph {
+  #global-graph-container {
+    position: absolute;
+    width: 70vw;
+    z-index: var(--z-overlay) !important;
+    background: var(--light);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+}
+
+// popover 样式
+.popover {
+  position: absolute;
+  z-index: var(--z-popover) !important;
+}
+
+// 404 页面
+.not-found-wrapper {
+  position: fixed;
+  z-index: var(--z-404) !important;
 }
