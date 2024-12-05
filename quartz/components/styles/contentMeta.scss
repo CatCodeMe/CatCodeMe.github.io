@@ -16,7 +16,7 @@
 }
 
 .content-meta-wrapper {
-  margin: 2rem 0 3rem;
+  margin: 2rem 0 0;
   position: relative;
 
   .meta-toggle {
@@ -108,7 +108,7 @@
     top: 0;
     font-size: 2.5em;
     line-height: 1;
-    color: var(--tertiary);
+    color: var(--dark);
     opacity: 0.3;
   }
 }
@@ -169,6 +169,8 @@
     gap: 0.3rem;
     padding: 0.3rem 0.6rem;
     backdrop-filter: blur(8px);
+    border: 1px dashed;
+    border-radius: var(--border-radius);
   }
 }
 
@@ -182,11 +184,16 @@
   }
 
   .meta-stats {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
   .stat-item {
     min-width: unset;
+    
+    .stat-value {
+      font-size: 0.95rem;
+    }
   }
 }

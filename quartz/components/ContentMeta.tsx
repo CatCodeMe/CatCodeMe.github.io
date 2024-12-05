@@ -77,7 +77,7 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
                                 <div class="stat-label">Reading time</div>
                                 <div class="stat-value reading-time">
                                     <div>{Math.ceil(minutes)} min</div>
-                                    <div>({_words} words)</div>
+                                    <div>{_words} words</div>
                                 </div>
                             </div>
 
