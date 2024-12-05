@@ -36,7 +36,6 @@ export const defaultContentPageLayout: PageLayout = {
         Component.Breadcrumbs(),
         Component.ArticleTitle(),
         Component.ContentMeta(),
-        Component.TagList(),
     ],
     left: [
         Component.PageTitle(),
@@ -55,7 +54,7 @@ export const defaultContentPageLayout: PageLayout = {
         Component.DesktopOnly(Component.FloatingButtons({
             position: 'right',
         })),
-        
+        // Component.TagList(),
     ],
     right: [
         Component.DesktopOnly(Component.Graph({
