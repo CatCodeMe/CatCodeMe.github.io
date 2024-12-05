@@ -35,9 +35,7 @@
     }
 
     & > #graph-container {
-      //position: absolute;
-      //width: 70vw;
-      //z-index: var(--z-overlay) !important;
+      
       background: var(--light);
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
     }
@@ -45,7 +43,8 @@
 
   & > #global-graph-outer {
     position: fixed;
-    z-index: 9999;
+    // z-index: 9999;
+    z-index: var(--z-overlay);
     left: 0;
     top: 0;
     width: 100vw;

@@ -71,8 +71,8 @@ export default {
       lastFewNotes: ({ count }) => `最近的${count}条笔记`,
     },
     error: {
-      title: "无法找到",
-      notFound: "私有笔记或笔记不存在。",
+      title: "404 - ◕‿◕ 但你找到了一只猫！",
+      notFound: "私有笔记或笔记不存在",
       home: "返回首页",
     },
     folderContent: {

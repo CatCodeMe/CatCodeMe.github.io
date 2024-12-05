@@ -34,7 +34,6 @@ div.svg-pan-zoom-container {
             opacity: 0;
             transition: all 0.2s ease-in-out;
             pointer-events: none;
-            // z-index: 10;
 
             &.show {
                   opacity: 1;
@@ -53,7 +52,6 @@ div.svg-pan-zoom-container {
             font-size: 12px;
             border-radius: 4px;
             pointer-events: none;
-            // z-index: 1;
       }
 
       // 鼠标进入容器时隐藏提示
@@ -150,7 +148,7 @@ div.svg-pan-zoom-container {
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: var(--z-modal);
 
       .svg-modal-content {
             width: 90%;
@@ -168,7 +166,7 @@ div.svg-pan-zoom-container {
                   left: 30px !important;
                   top: 30px !important;
                   transform: none !important;
-                  z-index: 1001 !important;
+                  z-index: var(--z-modal) + 1 !important;
             }
 
             // 内部容器样式
@@ -191,7 +189,6 @@ div.svg-pan-zoom-container {
                         font-size: 24px;
                         border-radius: 4px;
                         pointer-events: none;
-                        // z-index: 1;
                   }
             }
       }
@@ -207,7 +204,7 @@ div.svg-pan-zoom-container {
             color: var(--dark);
             font-size: 38px;
             cursor: pointer;
-            z-index: 1001;
+            z-index: var(--z-modal) + 1;
             border-radius: 8px;
             display: flex;
             align-items: center;

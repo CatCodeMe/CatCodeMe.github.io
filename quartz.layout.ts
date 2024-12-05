@@ -27,11 +27,16 @@ const ConditionalWrapper = (component: any): any => {
 // components for pages that display a single page (e.g. a single note)
 export const defaultContentPageLayout: PageLayout = {
     beforeBody: [
-        Component.Banner(),
-        ConditionalWrapper(Component.Breadcrumbs),
-        ConditionalWrapper(Component.ArticleTitle),
-        ConditionalWrapper(Component.ContentMeta),
-        ConditionalWrapper(Component.TagList),
+        // Component.Banner(),
+        // ConditionalWrapper(Component.Breadcrumbs),
+        // ConditionalWrapper(Component.ArticleTitle),
+        // ConditionalWrapper(Component.ContentMeta),
+        // ConditionalWrapper(Component.TagList),
+
+        Component.Breadcrumbs(),
+        Component.ArticleTitle(),
+        Component.ContentMeta(),
+        Component.TagList(),
     ],
     left: [
         Component.PageTitle(),
