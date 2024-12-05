@@ -27,8 +27,8 @@ button#toc {
 
 #toc-content {
   list-style: none;
-  overflow: hidden;
-  max-height: none;
+  overflow: visible !important;
+  max-height: none !important;
   transition:
     max-height 0.5s ease,
     visibility 0s linear 0s;
@@ -42,8 +42,13 @@ button#toc {
     visibility: hidden;
   }
 
-  &.collapsed > .overflow::after {
-    opacity: 0;
+  & .overflow {
+    max-height: none !important;
+    overflow: visible !important;
+    
+    &::after {
+      display: none !important;
+    }
   }
 
   & ul {

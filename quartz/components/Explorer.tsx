@@ -86,6 +86,8 @@ export default ((userOpts?: Partial<Options>) => {
 
     // 添加当前页面的标识
     const currentSlug = fileData?.slug || ''
+    // 计算笔记总数
+    const totalNotes = allFiles.length
 
     return (
         <div class={classNames(displayClass, "explorer")} id="explorer-div" data-current-slug={currentSlug}>
@@ -99,7 +101,21 @@ export default ((userOpts?: Partial<Options>) => {
               aria-controls="explorer-content"
               aria-expanded={opts.folderDefaultState === "open"}
           >
-            <h2>{opts.title ?? i18n(cfg.locale).components.explorer.title}</h2>
+            <h2>
+              {opts.title ?? i18n(cfg.locale).components.explorer.title}
+              <span class="note-count" style={{
+                color: 'var(--secondary)',
+                fontSize: '0.8rem',
+                background: 'var(--lightgray)',
+                padding: '0.2rem 0.5rem',
+                borderRadius: '4px',
+                fontWeight: 600,
+                opacity: 0.8,
+                marginLeft: '0.5rem'
+              }}>
+                {totalNotes}
+              </span>
+            </h2>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="14"
