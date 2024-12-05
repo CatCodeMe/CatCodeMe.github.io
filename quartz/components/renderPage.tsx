@@ -29,12 +29,12 @@ export function pageResources(
   const contentIndexScript = `const fetchData = fetch("${contentIndexPath}").then(data => data.json())`
 
   return {
-    // css: [joinSegments(baseDir, "index.css"), ...staticResources.css],
     css: [
       {
         content: joinSegments(baseDir, "index.css"),
         inline: false,
         spaPreserve: true,
+        attributes: {"data-router-ignore": "true"},
       },
       ...staticResources.css
     ],
@@ -43,6 +43,8 @@ export function pageResources(
         src: joinSegments(baseDir, "prescript.js"),
         loadTime: "beforeDOMReady",
         contentType: "external",
+        spaPreserve: false,
+        attributes: {"data-router-ignore": "true"},
       },
       {
         loadTime: "beforeDOMReady",
@@ -56,6 +58,8 @@ export function pageResources(
         loadTime: "afterDOMReady",
         moduleType: "module",
         contentType: "external",
+        spaPreserve: false,
+        attributes: {"data-router-ignore": "true"},
       },
     ],
   }

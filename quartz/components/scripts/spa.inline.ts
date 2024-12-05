@@ -70,6 +70,25 @@ async function navigate(url: URL, isBack: boolean = false) {
   const html = p.parseFromString(contents, "text/html")
   normalizeRelativeURLs(html, url)
 
+  // 保存需要忽略的元素的选择器和属性
+  const ignoredSelectors = Array.from(document.querySelectorAll('[data-router-ignore]')).map(el => {
+    if (el instanceof HTMLLinkElement) {
+      return {
+        selector: `link[rel="stylesheet"][data-router-ignore]`,
+        tagName: el.tagName.toLowerCase()
+      }
+    }
+    if (el instanceof HTMLScriptElement) {
+      const type = el.type || 'application/javascript'
+      return {
+        selector: `script[type="${type}"][data-router-ignore]`,
+        tagName: el.tagName.toLowerCase(),
+        type: type
+      }
+    }
+    return null
+  }).filter(Boolean)
+
   let title = html.querySelector("title")?.textContent
   if (title) {
     document.title = title
@@ -85,6 +104,56 @@ async function navigate(url: URL, isBack: boolean = false) {
 
   // morph body
   micromorph(document.body, html.body)
+
+  // 重新初始化组件
+  const reinitComponents = () => {
+    // 触发主题变更事件，以确保颜色和主题相关的组件能正确初始化
+    const currentTheme = document.documentElement.getAttribute('saved-theme') || 'light'
+    const event = new CustomEvent('themechange', {
+      detail: {
+        theme: currentTheme,
+      },
+    })
+    document.dispatchEvent(event)
+  }
+
+  // 从新页面获取并更新忽略的元素
+  ignoredSelectors.forEach(({selector, tagName, type}) => {
+    const oldElement = document.querySelector(selector)
+    const newElement = html.querySelector(selector) || html.querySelector(`script[data-router-ignore]`)
+
+    if (oldElement && newElement) {
+      // 复制新元素的属性到旧元素
+      if (tagName === 'link') {
+        const oldLink = oldElement as HTMLLinkElement
+        const newLink = newElement as HTMLLinkElement
+        oldLink.href = newLink.href
+      } else if (tagName === 'script') {
+        const parent = oldElement.parentNode
+        if (parent) {
+          // 移除旧的脚本
+          oldElement.remove()
+          // 创建新的脚本元素
+          const newScript = document.createElement('script')
+          newScript.src = (newElement as HTMLScriptElement).src
+          newScript.type = type
+          newScript.setAttribute('data-router-ignore', 'true')
+          if (newElement.hasAttribute('spa-preserve')) {
+            newScript.setAttribute('spa-preserve', '')
+          }
+          // 插入新的脚本，并在加载完成后重新初始化组件
+          newScript.onload = () => {
+            console.log('Script loaded:', newScript.src)
+            reinitComponents()
+          }
+          console.log('Adding script:', newScript.src, 'type:', newScript.type)
+          parent.appendChild(newScript)
+        }
+      }
+    } else {
+      console.log('Not found:', selector, 'in new page')
+    }
+  })
 
   // 在 morph 完成后添加动画
   const headerElements = document.querySelectorAll('.page-header, .banner-wrapper')
