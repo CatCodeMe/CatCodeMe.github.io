@@ -103,7 +103,14 @@ export const defaultListPageLayout: PageLayout = {
         })),
     ],
     right: [
-        Component.DesktopOnly(Component.TableOfContents()),
+        Component.DesktopOnly(Component.Graph({
+            localGraph: {
+                showTags: false
+            },
+            globalGraph: {
+                showTags: false
+            }
+        }))
     ],
     afterBody: [
         Component.PageNavigation(),
