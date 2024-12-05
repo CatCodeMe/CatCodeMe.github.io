@@ -1,7 +1,8 @@
-import {QuartzComponentConstructor, QuartzComponentProps} from "./types"
+import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
 import readingTime from "reading-time"
 import {classNames} from "../util/lang"
-import type {JSX} from "preact"
+import style from  "./styles/contentMeta.scss"
+
 
 const TimeMeta = ({value}: { value: Date }) => {
     const year = value.getFullYear()
@@ -30,73 +31,77 @@ export default ((opts?: Partial<ContentMetaOptions>) => {
     function ContentMetadata({cfg, fileData, displayClass}: QuartzComponentProps) {
         const text = fileData.text
         const fileRelativePath = fileData.filePath?.replace("content/", "");
+        const description = fileData.frontmatter?.description || fileData.frontmatter?.desc
 
         if (fileRelativePath === "index.md") {
             return null
         }
 
         if (text) {
-            const segments: JSX.Element[] = []
-
-            if (fileData.dates) {
-                if (fileData.dates.created) {
-                    segments.push(
-                        <span>
-              🌱 <TimeMeta value={fileData.dates.created}/>
-            </span>,
-                    )
-                }
-                if (fileData.dates.modified) {
-                    segments.push(
-                        <span>
-              🌴 <TimeMeta value={fileData.dates.modified}/>
-            </span>,
-                    )
-                }
-            }
-
-            // Display reading time if enabled
-            if (options.showReadingTime) {
-                const {minutes, words: _words} = readingTime(text)
-                segments.push(<span>⌛️ {Math.ceil(minutes)}min, {_words}words</span>)
-            }
-
-            segments.push(
-                <a
-                    href={`https://github.com/CatCodeMe/blog_from_obsidian/commits/main/${fileRelativePath}`}
-                    target="_blank"
-                    rel="noreferrer noopener nofollow"
-                    class="external"
-                >
-                    Git-Blame
-                </a>,
-            )
+            const {minutes, words: _words} = readingTime(text)
 
             return (
-                <p class={classNames(displayClass, "content-meta")}>
-                    {segments.map((meta, idx) => (
-                        <>
-                            {meta}
-                            {idx < segments.length - 1 ? <br/> : null}
-                        </>
-                    ))}
-                </p>
+                <div class={classNames(displayClass, "content-meta-wrapper")}>
+                    <div class="meta-container">
+                        <div class="meta-description">
+                            <div class="description-content">
+                                <h4>About this article</h4>
+                                {description ? (
+                                    <p class="description-text">{description}</p>
+                                ) : (
+                                    <p class="description-placeholder">No description available</p>
+                                )}
+                            </div>
+                        </div>
+                        
+                        <div class="meta-stats">
+                            <div class="stat-item">
+                                <div class="stat-label">Created</div>
+                                <div class="stat-value">
+                                    {fileData.dates?.created ? (
+                                        <TimeMeta value={fileData.dates.created}/>
+                                    ) : "—"}
+                                </div>
+                            </div>
+
+                            <div class="stat-item">
+                                <div class="stat-label">Updated</div>
+                                <div class="stat-value">
+                                    {fileData.dates?.modified ? (
+                                        <TimeMeta value={fileData.dates.modified}/>
+                                    ) : "—"}
+                                </div>
+                            </div>
+
+                            <div class="stat-item">
+                                <div class="stat-label">Reading time</div>
+                                <div class="stat-value reading-time">
+                                    <div>{Math.ceil(minutes)} min</div>
+                                    <div>({_words} words)</div>
+                                </div>
+                            </div>
+
+                            <div class="stat-item">
+                                <div class="stat-label">History</div>
+                                <div class="stat-value">
+                                    <a
+                                        href={`https://github.com/CatCodeMe/blog_from_obsidian/commits/main/${fileRelativePath}`}
+                                        target="_blank"
+                                        rel="noreferrer noopener nofollow"
+                                        class="history-link external"
+                                    >
+                                        View changes
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             )
-        } else {
-            return null
         }
+        return null
     }
 
-    ContentMetadata.css = `
-  .content-meta {
-    display:flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-    gap: 10;
-
-    margin-top: 0;
-    color: var(--gray);
-  }
-  `
+    ContentMetadata.css = style
     return ContentMetadata
 }) satisfies QuartzComponentConstructor
