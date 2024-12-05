@@ -1,4 +1,6 @@
 let currentObserver: IntersectionObserver | null = null
+let activeSection: string | null = null
+let debounceTimeout: number | null = null
 
 function createObserver() {
   if (currentObserver) {
@@ -6,24 +8,32 @@ function createObserver() {
   }
 
   currentObserver = new IntersectionObserver((entries) => {
-    for (const entry of entries) {
+    entries.forEach(entry => {
       const slug = entry.target.id
-      const tocEntryElement = document.querySelector(`a[data-for="${slug}"]`)
-      const windowHeight = entry.rootBounds?.height
-      if (windowHeight && tocEntryElement) {
-        if (entry.boundingClientRect.y < windowHeight) {
-          tocEntryElement.classList.add("in-view")
-        } else {
-          tocEntryElement.classList.remove("in-view")
+      const tocLink = document.querySelector(`a[data-for="${slug}"]`)
+      
+      if (tocLink) {
+        if (entry.isIntersecting) {
+          // 移除其他高亮
+          document.querySelectorAll('#toc-content a.in-view').forEach(el => {
+            if (el !== tocLink) {
+              el.classList.remove('in-view')
+              el.classList.add('read')
+            }
+          })
+          tocLink.classList.add('in-view')
+          tocLink.classList.remove('read')
         }
       }
-    }
+    })
+  }, {
+    threshold: 0.3, // 当元素30%可见时触发
+    rootMargin: '-10% 0px -60% 0px' // 调整观察区域，减少快速滚动时的频繁触发
   })
 
   const headers = document.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]")
   if (currentObserver) {
-    const observer = currentObserver
-    headers.forEach((header) => observer.observe(header))
+    headers.forEach((header) => currentObserver.observe(header))
   }
 }
 
@@ -36,22 +46,22 @@ function toggleToc(this: HTMLElement) {
   const content = this.nextElementSibling as HTMLElement | undefined
   if (!content) return
   content.classList.toggle("collapsed")
-  content.style.maxHeight = content.style.maxHeight === "0px" ? content.scrollHeight + "px" : "0px"
 }
 
 function setupToc() {
   const toc = document.getElementById("toc")
   if (toc) {
-    const collapsed = toc.classList.contains("collapsed")
-    const content = toc.nextElementSibling as HTMLElement | undefined
-    if (!content) return
-    content.style.maxHeight = collapsed ? "0px" : content.scrollHeight + "px"
     toc.addEventListener("click", toggleToc)
     window.addCleanup(() => toc.removeEventListener("click", toggleToc))
   }
 }
 
 function setupTocListeners() {
+  // 为所有标题添加滚动边距
+  document.querySelectorAll("h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]").forEach(header => {
+    header.style.scrollMarginTop = '100px'
+  })
+
   const tocLinks = document.querySelectorAll('#toc-content a')
   tocLinks.forEach(link => {
     link.addEventListener('click', (e) => {
@@ -61,24 +71,31 @@ function setupTocListeners() {
       
       const targetElement = document.getElementById(targetId)
       if (targetElement) {
-        // 移除其他元素的动画类
+        // 移除其他高亮
+        document.querySelectorAll('#toc-content a.in-view').forEach(el => {
+          if (el !== link) {
+            el.classList.remove('in-view')
+            el.classList.add('read')
+          }
+        })
+        
+        // 高亮当前点击的链接
+        link.classList.add('in-view')
+        link.classList.remove('read')
+        
+        // 移除所有现有的动画类
         document.querySelectorAll('.target-animation').forEach(el => {
           el.classList.remove('target-animation')
         })
         
-        // 滚动到目标位置，使用 block: 'start' 并设置 margin 来控制距离
-        targetElement.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'center' // 可以是 'start', 'center', 'end' 或 'nearest'
-        })
-        
-        // 添加动画类
+        // 添加高亮动画
         targetElement.classList.add('target-animation')
         
-        // 几秒后移除动画类
-        setTimeout(() => {
-          targetElement.classList.remove('target-animation')
-        }, 2000)
+        // 平滑滚动到目标位置
+        targetElement.scrollIntoView({ 
+          behavior: 'smooth',
+          block: 'start'
+        })
       }
     })
   })

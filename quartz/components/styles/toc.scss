@@ -1,3 +1,16 @@
+#toc {
+  position: relative;
+  padding-left: 20px; // 为手指图标预留空间
+  
+  & > h3 {
+    margin: 0;
+  }
+  
+  & > p {
+    margin: 0;
+  }
+}
+
 button#toc {
   background-color: transparent;
   border: none;
@@ -27,43 +40,87 @@ button#toc {
 
 #toc-content {
   list-style: none;
-  overflow: visible !important;
-  max-height: none !important;
-  transition:
-    max-height 0.5s ease,
-    visibility 0s linear 0s;
+  overflow-y: auto;
+  max-height: calc(50vh - 10rem); // 设置最大高度，留出顶部和底部空间
   position: relative;
   visibility: visible;
+  scrollbar-width: thin; // Firefox
+  scrollbar-color: var(--lightgray) transparent; // Firefox
 
-  &.collapsed {
-    transition:
-      max-height 0.5s ease,
-      visibility 0s linear 0.5s;
-    visibility: hidden;
+  // Webkit滚动条样式
+  &::-webkit-scrollbar {
+    width: 5px;
   }
 
-  & .overflow {
-    max-height: none !important;
-    overflow: visible !important;
-    
-    &::after {
-      display: none !important;
-    }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: var(--lightgray);
+    border-radius: 3px;
+  }
+
+  &.collapsed {
+    visibility: hidden;
+    max-height: 0;
   }
 
   & ul {
     list-style: none;
     margin: 0.5rem 0;
     padding: 0;
+
     & > li > a {
       color: var(--dark);
-      opacity: 0.35;
-      transition:
-        0.5s ease opacity,
-        0.3s ease color;
-      &.in-view {
-        opacity: 0.75;
+      display: block;
+      position: relative;
+      padding: 2px 8px;
+      margin: 2px 0;
+      border-radius: 4px;
+      transition: all 0.2s ease;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      hyphens: auto;
+      line-height: 1.4;
+      width: 100%;
+      box-sizing: border-box;
+
+      // 添加左侧手指图标
+      &::before {
+        content: '👉';
+        position: absolute;
+        left: -18px;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 0.85em;
+        opacity: 0;
+        transition: all 0.3s ease;
       }
+
+      &.in-view {
+        color: var(--secondary);
+        background: var(--highlight);
+        font-weight: 500;
+        transform: translateX(2px);
+        
+        // 显示手指图标
+        &::before {
+          opacity: 1;
+          transform: translate(-2px, -50%);
+        }
+      }
+
+      &.read {
+        color: var(--dark);
+        transition: all 0.3s ease;
+      }
+
+      // &:hover {
+      //   color: var(--secondary);
+      //   background: var(--highlight);
+      //   transform: translateX(2px);
+      // }
     }
   }
 
@@ -72,42 +129,35 @@ button#toc {
       padding-left: calc(1rem * #{$i});
     }
   }
+
+  // 移除遮罩
+  & .overflow {
+    max-height: none !important;
+    overflow: visible !important;
+    
+    &::after {
+      display: none !important;
+    }
+  }
 }
 
 // 修改标题高亮动画样式
 @keyframes target-fade {
   0% {
     background-color: var(--highlight);
-    transform: scale(1.02);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0.5rem 0.5rem 0;
-    border-radius: 4px;
-  }
-  70% {
-    background-color: var(--highlight);
-    transform: scale(1.02);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    padding: 0.5rem 0.5rem 0.5rem 0;
-    border-radius: 4px;
   }
   100% {
     background-color: transparent;
-    transform: scale(1);
-    box-shadow: none;
-    padding: 0.5rem 0.5rem 0.5rem 0;
-    border-radius: 4px;
   }
 }
 
 .target-animation {
   animation: target-fade 2s cubic-bezier(0.4, 0, 0.2, 1);
-  //margin: -0.5rem;  // 补偿 padding，防止布局跳动
 }
 
 // 为所有标题添加滚动边距和过渡效果
 h1[id], h2[id], h3[id], h4[id], h5[id], h6[id] {
   scroll-margin-top: 100px;
-  transition: all 0.3s ease;
   padding: 0.5rem 0.5rem 0.5rem 0;
   // margin: -0.5rem;
   border-radius: 4px;
