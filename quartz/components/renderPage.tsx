@@ -29,12 +29,9 @@ export function pageResources(
   const contentIndexScript = `const fetchData = fetch("${contentIndexPath}").then(data => data.json())`
 
   return {
-    // css: [joinSegments(baseDir, "index.css"), ...staticResources.css],
     css: [
       {
         content: joinSegments(baseDir, "index.css"),
-        inline: false,
-        spaPreserve: true,
       },
       ...staticResources.css
     ],
@@ -237,7 +234,7 @@ export function renderPage(
         <Body {...componentData}>
           {LeftComponent}
           <div class="center inner">
-            <div class="page-header">
+            <div class="page-header page-transition">
               <Header {...componentData}>
                 {header.map((HeaderComponent) => (
                     <HeaderComponent {...componentData} />

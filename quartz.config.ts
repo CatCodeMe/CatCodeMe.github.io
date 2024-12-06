@@ -11,7 +11,7 @@ const isDev = process.env.NODE_ENV === 'development' || process.argv.includes('-
 const config: QuartzConfig = {
   configuration: {
     pageTitle: "🪴 8Cats & Me",
-    enableSPA: true,
+    enableSPA: false,
     enablePopovers: true,
     locale: "zh-CN",
     baseUrl: isDev ? "localhost:8080" : "8cat.life",

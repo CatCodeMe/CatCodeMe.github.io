@@ -1,8 +1,7 @@
-import { QuartzComponentConstructor, QuartzComponentProps } from "./types"
+import {QuartzComponentConstructor, QuartzComponentProps} from "./types"
 import readingTime from "reading-time"
-import { classNames } from "../util/lang"
+import {classNames} from "../util/lang"
 import style from "./styles/contentMeta.scss"
-import { pathToRoot, slugTag } from "../util/path"
 
 const TimeMeta = ({ value }: { value: Date }) => {
     const year = value.getFullYear()
@@ -92,23 +91,23 @@ function ContentMetadataComponent({ cfg, fileData, displayClass }: QuartzCompone
                         </div>
                     </div>
 
-                    {fileData.frontmatter?.tags && fileData.frontmatter.tags.length > 0 && (
-                        <div class="meta-tags">
-                            <div class="stat-label">Tags</div>
-                            <ul class="tags">
-                                {fileData.frontmatter.tags.map((tag) => {
-                                    const linkDest = pathToRoot(fileData.slug!) + `/tags/${slugTag(tag)}`
-                                    return (
-                                        <li>
-                                            <a href={linkDest} class="internal tag-link">
-                                                {tag}
-                                            </a>
-                                        </li>
-                                    )
-                                })}
-                            </ul>
-                        </div>
-                    )}
+                    {/*{fileData.frontmatter?.tags && fileData.frontmatter.tags.length > 0 && (*/}
+                    {/*    <div class="meta-tags">*/}
+                    {/*        <div class="stat-label">Tags</div>*/}
+                    {/*        <ul class="tags">*/}
+                    {/*            {fileData.frontmatter.tags.map((tag) => {*/}
+                    {/*                const linkDest = pathToRoot(fileData.slug!) + `/tags/${slugTag(tag)}`*/}
+                    {/*                return (*/}
+                    {/*                    <li>*/}
+                    {/*                        <a href={linkDest} class="internal tag-link">*/}
+                    {/*                            {tag}*/}
+                    {/*                        </a>*/}
+                    {/*                    </li>*/}
+                    {/*                )*/}
+                    {/*            })}*/}
+                    {/*        </ul>*/}
+                    {/*    </div>*/}
+                    {/*)}*/}
                 </div>
             </div>
         )

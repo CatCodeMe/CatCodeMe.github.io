@@ -41,6 +41,7 @@ button#toc {
 #toc-content {
   list-style: none;
   overflow-y: auto;
+  overflow-x: hidden;
   max-height: calc(50vh - 10rem); // 设置最大高度，留出顶部和底部空间
   position: relative;
   visibility: visible;
