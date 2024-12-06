@@ -5,6 +5,7 @@ export type JSResource = {
   loadTime: "beforeDOMReady" | "afterDOMReady"
   moduleType?: "module"
   spaPreserve?: boolean
+  attributes?: Record<string, string>
 } & (
   | {
       src: string
@@ -20,6 +21,7 @@ export type CSSResource = {
   content: string
   inline?: boolean
   spaPreserve?: boolean
+  attributes?: Record<string, string>
 }
 
 export function JSResourceToScriptElement(resource: JSResource, preserve?: boolean): JSX.Element {
@@ -36,6 +38,7 @@ export function JSResourceToScriptElement(resource: JSResource, preserve?: boole
         key={randomUUID()}
         type={scriptType}
         spa-preserve={spaPreserve}
+        {...resource.attributes}
         dangerouslySetInnerHTML={{ __html: content }}
       ></script>
     )
@@ -54,6 +57,7 @@ export function CSSResourceToStyleElement(resource: CSSResource, preserve?: bool
         rel="stylesheet"
         type="text/css"
         spa-preserve={spaPreserve}
+        {...resource.attributes}
       />
     )
   }
