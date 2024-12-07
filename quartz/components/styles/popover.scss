@@ -82,18 +82,9 @@ a:hover .popover,
   animation-delay: 0.2s;
 }
 
-// 在页眉、侧边中禁用 popover
-.page-header,
+//popover还是会被遮挡, 索性禁用
 .recent-notes{
   .popover {
     display: none !important;
-  }
-}
-
-// 在特定页面（tags页面和非index页面）的文章中启用 popover
-body[data-slug^="tags/"] article,
-body:not([data-slug$="/index"]) article {
-  .popover {
-    display: block !important;
   }
 }

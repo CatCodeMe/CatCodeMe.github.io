@@ -349,7 +349,7 @@ code {
 
 //关系图谱
 .graph>#global-graph-outer>#global-graph-container {
-   width: 70vw;
+   // width: 70vw;
    z-index: var(--z-graph) !important;
 }
 
@@ -484,173 +484,130 @@ a.internal.broken-link {
 
 // 左侧边栏组件布局
 .left.sidebar {
-  gap: 0 !important;
+   gap: 0 !important;
 
-  > * {
-    margin-bottom: 1rem;
-    padding: 0;
-  }
+   >* {
+      margin-bottom: 1rem;
+      padding: 0;
+   }
 }
 
 // 导航按钮特定样式
 .nav-button {
-  .kbd-container {
-    margin-left: auto;
-  }
+   .kbd-container {
+      margin-left: auto;
+   }
 }
 
 // 导航组件样式
 .sidebar-nav {
-  margin: 1rem 0;
+   margin: 1rem 0;
 
-  .nav-buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 0.4rem;
-    width: 100%;
-
-    // 所有导航按钮的基础样式
-    .nav-button {
+   .nav-buttons {
       display: flex;
-      align-items: center;
-      gap: 0.6rem;
-      padding: 0.5rem 0.8rem;
-      border-radius: 6px;
-      color: var(--dark);
-      text-decoration: none;
-      transition: transform 0.2s ease;
-      background: var(--light);
-      border: 1px solid var(--secondary);
-      position: relative;
-      cursor: pointer;
-      font-size: 0.9rem;
-      font-style: normal;
-      font-family: var(--bodyFont);
+      flex-direction: column;
+      gap: 0.4rem;
       width: 100%;
-      box-sizing: border-box;
 
-      // 图标样式
-      .nav-icon {
-        font-size: 1.1rem;
-        flex-shrink: 0;
-        font-style: normal;
-        width: 1.5rem;  // 固定图标宽度
-        text-align: center;  // 图标居中
+      // 所有导航按钮的基础样式
+      .nav-button {
+         display: flex;
+         align-items: center;
+         gap: 0.6rem;
+         padding: 0.5rem 0.8rem;
+         border-radius: 6px;
+         color: var(--dark);
+         text-decoration: none;
+         transition: transform 0.2s ease;
+         background: var(--light);
+         border: 1px solid var(--secondary);
+         position: relative;
+         cursor: pointer;
+         font-size: 0.9rem;
+         font-style: normal;
+         font-family: var(--bodyFont);
+         width: 100%;
+         box-sizing: border-box;
+
+         // 图标样式
+         .nav-icon {
+            font-size: 1.1rem;
+            flex-shrink: 0;
+            font-style: normal;
+            width: 1.5rem; // 固定图标宽度
+            text-align: center; // 图标居中
+         }
+
+         // 文字样式
+         .nav-text {
+            font-weight: 500;
+            transition: color 0.2s ease;
+            font-style: normal;
+            flex: 1;
+            text-align: left;
+            color: var(--secondary);
+         }
+
+         // hover效果
+         &:hover {
+            transform: none;
+            background: var(--lightgray);
+            border-color: var(--gray);
+
+            .nav-text {
+               color: var(--dark);
+            }
+         }
+
+         // 阅读模式按钮特殊样式
+         &.reading-mode-toggle {
+            .nav-text {
+               text-align: left;
+               color: var(--secondary);
+
+               &:hover {
+                  color: var(--dark);
+               }
+            }
+         }
       }
-
-      // 文字样式
-      .nav-text {
-        font-weight: 500;
-        transition: color 0.2s ease;
-        font-style: normal;
-        flex: 1;
-        text-align: left;
-        color: var(--secondary);
-      }
-
-      // hover效果
-      &:hover {
-        transform: none;
-        background: var(--lightgray);
-        border-color: var(--gray);
-
-        .nav-text {
-          color: var(--dark);
-        }
-      }
-
-      // 阅读模式按钮特殊样式
-      &.reading-mode-toggle {
-        .nav-text {
-          text-align: left;
-          color: var(--secondary);
-
-          &:hover {
-            color: var(--dark);
-          }
-        }
-      }
-    }
-  }
+   }
 }
 
 // 复古键盘按键样式
 .retro-key {
-  border: 1px solid var(--gray);
-  border-radius: 4px;
-  padding: 2px 6px;
-  font-family: var(--codeFont);
-  color: var(--dark);
-  box-shadow: 0 2px 0 var(--gray);
-  min-width: 20px;
-  text-align: center;
-  display: inline-block;
-  
-  &:active {
-    transform: translateY(1px);
-    box-shadow: 0 1px 0 var(--gray);
-  }
+   border: 1px solid var(--gray);
+   border-radius: 4px;
+   padding: 2px 6px;
+   font-family: var(--codeFont);
+   color: var(--dark);
+   box-shadow: 0 2px 0 var(--gray);
+   min-width: 20px;
+   text-align: center;
+   display: inline-block;
+
+   &:active {
+      transform: translateY(1px);
+      box-shadow: 0 1px 0 var(--gray);
+   }
 }
 
 // 键盘快捷键容器
 .kbd-container {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
+   display: inline-flex;
+   align-items: center;
+   gap: 4px;
 }
-
-
-// 统一的页面切换动画基础样式
-.page-transition {
-  animation-fill-mode: both;
-  will-change: opacity, transform;
-  backface-visibility: hidden; // 防止闪烁
-  perspective: 1000px; // 提高性能
-}
-
-// Header 区域动画（包括 banner）
-.page-header.page-transition,
-.banner-wrapper.page-transition {
-  animation: fadeInDown 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-// 内容区域动画
-article.page-transition {
-  animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-// 从上方滑入（用于 header）
-@keyframes fadeInDown {
-  0% {
-    opacity: 0;
-    transform: translateY(-10px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-// 淡入（用于内容）
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
-
 
 // 图谱样式
 .graph {
-  #global-graph-container {
-    position: absolute;
-    width: 70vw;
-    z-index: var(--z-overlay) !important;
-    background: var(--light);
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-  }
+   #global-graph-container {
+      position: absolute;
+      width: 70vw;
+      z-index: var(--z-overlay) !important;
+      background: var(--light);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+   }
 }
 
 
@@ -661,6 +618,6 @@ article.page-transition {
 
 // 404 页面
 .not-found-wrapper {
-  position: fixed;
-  z-index: var(--z-404) !important;
+   position: fixed;
+   z-index: var(--z-404) !important;
 }
