@@ -1,4 +1,4 @@
-import {Translation} from "./definition"
+import { Translation } from "./definition"
 
 export default {
   propertyDefaults: {
@@ -22,7 +22,7 @@ export default {
       quote: "引用",
     },
     backlinks: {
-      title: "📎 反向链接",
+      title: "📎 提到当前文章的链接",
       noBacklinksFound: "未发现反向链接",
     },
     themeToggle: {
