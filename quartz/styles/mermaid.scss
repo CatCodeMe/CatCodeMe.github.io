@@ -11,7 +11,7 @@ div.svg-pan-zoom-container {
       margin: 1rem 0;
       padding: 0 !important;
       height: 300px;
-      border: 3px solid var(--code-border);
+      border: 1px solid var(--code-border);
       border-radius: 4px;
 
       cursor: move;
@@ -176,7 +176,7 @@ div.svg-pan-zoom-container {
                   margin: 0;
 
                   border: none;
-                  
+
                   // 使用与正文相同的提示标签样式
                   &::after {
                         content: attr(data-svg-src);

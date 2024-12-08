@@ -2,16 +2,14 @@
 @use "./syntax.scss";
 @use "./callouts.scss";
 
-:root{
-  --z-bottom: -1;        // 改为负值
-  --z-content: 10;      // 正文里的内容
-  --z-sidebar: 50;      // 侧边栏
-  --z-nav: 100;         // 导航
-  --z-graph: 500;       // 图谱
-  --z-popover: 1000;    // 弹出层
-  --z-overlay: 2000;    // 遮罩层
-  --z-modal: 3000;      // 模态框
-  --z-404: 9999;        // 404页面
+:root {
+  --z-bottom: -1; // 脚本创建的元素，手动设置index改为负值
+  --z-content: 10; // 正文里的内容
+  --z-graph: 500; // 图谱
+  --z-popover: 1000; // 弹出层
+  --z-overlay: 2000; // 遮罩层
+  --z-modal: 3000; // 模态框
+  --z-404: 9999; // 404页面
 }
 
 html {

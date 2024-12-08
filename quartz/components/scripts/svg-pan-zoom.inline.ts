@@ -134,7 +134,7 @@ function createCopyButton(): HTMLButtonElement {
 // 定义 processSvg 函数
 function processSvg(svg: Element) {
   if (!(svg instanceof SVGElement)) return
-  
+
   try {
     const configStr = svg.getAttribute('data-svg-pan-zoom')
     const config = configStr ? JSON.parse(configStr) : {}

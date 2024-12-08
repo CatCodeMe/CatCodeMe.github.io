@@ -43,12 +43,6 @@ export const defaultContentPageLayout: PageLayout = {
         Component.MobileOnly(Component.Spacer()),
         Component.Search(),
         Component.DesktopOnly(Component.SidebarNav()),
-        // Component.DesktopOnly(Component.RecentNotes({
-        //     showTags: false,
-        //     linkToMore: "/Archive",
-        //     limit: 5,
-        //     filter: (f) => !f.filePath?.includes("/Archive")
-        // })),
         Component.DesktopOnly(Component.Explorer({
             folderClickBehavior: 'collapse',
         })),

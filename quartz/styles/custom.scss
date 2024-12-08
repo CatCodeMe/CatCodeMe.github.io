@@ -34,7 +34,7 @@
    --code-language-text: #3b4c68;
 
    --border-radius: 4px;
- 
+
 }
 
 
@@ -192,21 +192,21 @@ article:has(p:not(:empty)) {
 
    & tbody {
       td {
-         position: relative;
+         // position: relative;
 
          &:hover {
             background-color: var(--highlight);
 
-            &::before {
-               content: "";
-               position: absolute;
-               left: 0;
-               right: 0;
-               top: -9999px;
-               bottom: -9999px;
-               background-color: var(--lightgray);
-               z-index: -1;
-            }
+            // &::before {
+            //    content: "";
+            //    position: absolute;
+            //    left: 0;
+            //    right: 0;
+            //    top: -9999px;
+            //    bottom: -9999px;
+            //    background-color: var(--lightgray);
+            //    z-index: -1;
+            // }
          }
       }
    }
@@ -214,17 +214,16 @@ article:has(p:not(:empty)) {
 
 // 表格内的链接 popover 样式
 table {
-   position: relative;
+   // position: relative;
 
-   td {
-      position: static; // 让 popover 相对于表格定位
-   }
+   // position: static; // 让 popover 相对于表格定位
 
    .internal {
-      position: relative;
+      // position: relative;
 
       .popover {
          position: fixed; // 改用固定定位
+         isolation: isolate;
          z-index: var(--z-content) + 1; // 确保显示在最上层
       }
    }
@@ -302,20 +301,8 @@ blockquote:not(.callout) {
    //        2px 2px 0 #ffe066,
    //        4px 4px 0 #ffd43b,
    //        6px 6px 0 #fcc419;
-   position: relative;
 }
 
-//代码块底部说明文字样式
-figcaption {
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   //padding: 0.75rem;
-   color: var(--gray);
-   font-size: .8rem;
-   //font-style: italic;
-   gap: 0.5rem;
-}
 
 //最近更新样式
 .recent-notes>ul.recent-ul>li {
@@ -368,39 +355,6 @@ code {
    >:first-child {
       //调整内容和边框的距离, 看着更舒服
       margin: .5rem 0 !important;
-   }
-}
-
-.banner-separator {
-   position: relative;
-   margin: 2rem 0;
-   height: 1px;
-   background: linear-gradient(90deg,
-         transparent 0%,
-         var(--lightgray) 15%,
-         var(--lightgray) 85%,
-         transparent 100%);
-   display: flex;
-   align-items: center;
-   justify-content: center;
-
-   .banner-reading-trigger {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      background: var(--light);
-      padding: 0.25rem 0.5rem;
-      border: none;
-      border-radius: var(--border-radius);
-      font-size: 1.2rem;
-      line-height: 1;
-      cursor: pointer;
-      color: var(--dark);
-      transition: all 0.2s ease;
-
-      &:hover {
-         background: var(--highlight);
-      }
    }
 }
 
@@ -611,10 +565,10 @@ a.internal.broken-link {
 }
 
 
-.popover {
-   position: absolute;
-   z-index: var(--z-popover) !important;
-}
+// .popover {
+//    position: absolute;
+//    z-index: var(--z-popover) !important;
+// }
 
 // 404 页面
 .not-found-wrapper {
