@@ -70,6 +70,16 @@ export default (() => {
             <meta name="generator" content="Quartz"/>
             <link rel="icon" href={iconPath}/>
             <link rel="canonical" href={ogUrl}/>
+            {cfg.baseUrl && (
+              <>
+                <link
+                  rel="alternate"
+                  type="application/rss+xml"
+                  title={`${cfg.pageTitle} Feed`}
+                  href={`https://${cfg.baseUrl}/index.xml`}
+                />
+              </>
+            )}
             <link rel="stylesheet"
                   href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web@latest/style.css" spa-preserve/>
             <link rel="stylesheet"

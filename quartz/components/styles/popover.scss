@@ -5,9 +5,11 @@
     opacity: 0;
     visibility: hidden;
   }
+
   1% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
     visibility: visible;
@@ -20,7 +22,7 @@
   overflow: visible;
   padding: 1rem;
 
-  & > .popover-inner {
+  &>.popover-inner {
     position: relative;
     width: 30rem;
     max-height: 20rem;
@@ -38,7 +40,8 @@
     white-space: normal;
   }
 
-  & > .popover-inner[data-content-type] {
+  &>.popover-inner[data-content-type] {
+
     &[data-content-type*="pdf"],
     &[data-content-type*="image"] {
       padding: 0;
@@ -66,9 +69,8 @@
 
   visibility: hidden;
   opacity: 0;
-  transition:
-    opacity 0.3s ease,
-    visibility 0.3s ease;
+  transition: opacity 0.3s ease,
+  visibility 0.3s ease;
 
   @media all and (max-width: $mobileBreakpoint) {
     display: none !important;
@@ -82,18 +84,9 @@ a:hover .popover,
   animation-delay: 0.2s;
 }
 
-// 在页眉、侧边中禁用 popover
-.page-header,
-.recent-notes{
+//popover还是会被遮挡, 索性禁用
+.recent-notes {
   .popover {
     display: none !important;
-  }
-}
-
-// 在特定页面（tags页面和非index页面）的文章中启用 popover
-body[data-slug^="tags/"] article,
-body:not([data-slug$="/index"]) article {
-  .popover {
-    display: block !important;
   }
 }

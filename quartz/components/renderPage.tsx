@@ -234,7 +234,7 @@ export function renderPage(
         <Body {...componentData}>
           {LeftComponent}
           <div class="center inner">
-            <div class="page-header page-transition">
+            <div class="page-header">
               <Header {...componentData}>
                 {header.map((HeaderComponent) => (
                     <HeaderComponent {...componentData} />

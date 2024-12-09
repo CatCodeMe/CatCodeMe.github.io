@@ -4,7 +4,7 @@ import {QuartzComponent, QuartzComponentConstructor, QuartzComponentProps} from 
 const Content: QuartzComponent = ({ fileData, tree }: QuartzComponentProps) => {
   const content = htmlToJsx(fileData.filePath!, tree)
   const classes: string[] = fileData.frontmatter?.cssclasses ?? []
-  const classString = ["popover-hint page-transition", ...classes].join(" ")
+  const classString = ["popover-hint", ...classes].join(" ")
   return <article class={classString}>{content}</article>
 }
 
