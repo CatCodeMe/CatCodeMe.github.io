@@ -1,18 +1,13 @@
 footer {
+  position: relative;
+  z-index: 0;
   a {
     text-decoration: none;
-    /* 去除链接默认的下划线 */
     border-bottom: 1px dashed;
-    /* 设置底部边框为 1 像素宽的虚线，颜色为黑色 */
   }
 
   p {
     text-align: center;
-    opacity: 0.7;
-
-    //404页面问题
-    position: relative;
-    z-index: var(--z-bottom);
-    isolation: isolate;
+    opacity: 0.75;
   }
 }

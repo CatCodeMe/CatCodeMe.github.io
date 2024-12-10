@@ -114,6 +114,7 @@ button#toc {
 
       &.read {
         color: var(--dark);
+        opacity: .75;
         transition: all 0.3s ease;
       }
 
