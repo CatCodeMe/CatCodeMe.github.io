@@ -9,15 +9,15 @@ export default (() => {
         <div class="nav-buttons">
           <a href="/" class="nav-button" data-tooltip="首页">
             <i class="nav-icon">🏠</i>
-            <span class="nav-text">首页</span>
+            <span class="nav-text">Home</span>
           </a>
           <a href="/Archive" class="nav-button" data-tooltip="归档">
             <i class="nav-icon">📚</i>
-            <span class="nav-text">归档</span>
+            <span class="nav-text">Archive</span>
           </a>
           <a href="/tags" class="nav-button" data-tooltip="标签">
             <i class="nav-icon">🏷️</i>
-            <span class="nav-text">标签</span>
+            <span class="nav-text">Topics</span>
           </a>
           {/*<a href="/about" class="nav-button" data-tooltip="关于">*/}
           {/*  <i class="nav-icon">ℹ️</i>*/}
@@ -30,7 +30,7 @@ export default (() => {
             aria-label="阅读模式"
           >
             <i class="nav-icon">📖</i>
-            <span class="nav-text">阅读模式</span>
+            <span class="nav-text">Reading Mode</span>
             <div class="kbd-container">
               <kbd class="retro-key">⌘</kbd>
               <kbd class="retro-key">E</kbd>
