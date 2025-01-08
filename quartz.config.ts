@@ -18,16 +18,16 @@ const config: QuartzConfig = {
     ignorePatterns: ["private", "templates", ".obsidian"],
     defaultDateType: "created",
     theme: {
-      fontOrigin: "local",
+      fontOrigin: "googleFonts",
       cdnCaching: true,
       typography: {
-        header: "LXGW WenKai",
-        body: "LXGW WenKai Mono",
+        header: "Schibsted Grotesk",
+        body: "Source Sans Pro",
         code: "Fire Code",
       },
       colors: {
         lightMode: {
-          light: "#f9f4ee",        // 温暖的米色背景
+          light: "#FFFCF0",        // 温暖的米色背景
           lightgray: "#ebe6e0",    // 调整为更温暖的浅灰色
           gray: "#c0b8b0",         // 中性偏暖的灰色
           darkgray: "#5a534d",     // 深灰带一点褐

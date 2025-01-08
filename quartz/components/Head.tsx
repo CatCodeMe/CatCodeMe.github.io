@@ -80,8 +80,8 @@ export default (() => {
                 />
               </>
             )}
-            <link rel="stylesheet"
-                  href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web/lxgwwenkaiscreen/result.css" spa-preserve/>
+            {/*<link rel="stylesheet"*/}
+            {/*      href="https://cdn.jsdelivr.net/npm/@callmebill/lxgw-wenkai-web/lxgwwenkaiscreen/result.css" spa-preserve/>*/}
             <link rel="stylesheet"
                   href="https://cdn.jsdelivr.net/npm/firacode@6.2.0/distr/fira_code.css" spa-preserve/>
             {css.map((resource) => CSSResourceToStyleElement(resource, true))}
